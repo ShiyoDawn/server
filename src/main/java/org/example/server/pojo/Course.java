@@ -8,26 +8,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("user")
-public class User implements Serializable {
-    @TableId(type= IdType.AUTO)
+@Data
+@TableName("course")
+public class Course {
+    @TableId(type = IdType.AUTO)
     private Integer id;
     @TableField
-    private String person_num;
+    private String course_name;
     @TableField
-    private String password;
+    private Double credit;
     @TableField
-    private Integer user_type_id;
+    private Integer num;
     @TableField
-    private String last_login_time;
+    private Integer course_type_id;
     @TableField
-    private Integer login_count;
+    private Integer pre_course_id;
     @TableField
-    private String create_time;
-
+    private String book;
+    @TableField
+    private String extracurricular;
 }
