@@ -15,18 +15,16 @@ import lombok.NoArgsConstructor;
 public class Course {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    @TableField
+
     private String course_name;
-    @TableField
+
     private Double credit;
-    @TableField
     private Integer num;
-    @TableField
     private Integer course_type_id;
-    @TableField
+
     private Integer pre_course_id;
-    @TableField
+
     private String book;
-    @TableField
+
     private String extracurricular;
 }

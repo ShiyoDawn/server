@@ -15,16 +15,16 @@ import lombok.NoArgsConstructor;
 public class Student {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    @TableField
+
     private Integer person_id;
-    @TableField
+
     private String student_name;
-    @TableField
+
     private String department;
-    @TableField
+
     private String classes;
-    @TableField
+
     private String grade;
-    @TableField
+
     private String major;
 }

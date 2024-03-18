@@ -15,23 +15,23 @@ import lombok.NoArgsConstructor;
 public class Leave {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    @TableField
+
     private Integer student_id;
-    @TableField
+
     private Integer teacher_id;
-    @TableField
+
     private String date;
-    @TableField
+
     private String reason;
-    @TableField
+
     private String leave_time;
-    @TableField
+
     private String return_time;
-    @TableField
+
     private String lesson_id;
-    @TableField
+
     private String destination;
-    @TableField
+
     private String status;
 
 }

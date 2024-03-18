@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 public class StudentForeschool {
     @TableId(type = IdType.AUTO)
     private Integer student_id;
-    @TableField
+
     private String primary;
-    @TableField
+
     private String junior;
-    @TableField
+
     private String senior;
 }

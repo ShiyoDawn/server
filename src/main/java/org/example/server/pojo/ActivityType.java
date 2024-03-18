@@ -15,6 +15,6 @@ import lombok.NoArgsConstructor;
 public class ActivityType {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    @TableField
+
     private String type_name;
 }
