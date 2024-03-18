@@ -21,6 +21,7 @@ public interface UserMapper extends BaseMapper<User> {
     @Insert("insert into user(id) values (null);")
     public void insert1();
 
+    public List selectById(Integer id);
 
 
 
