@@ -18,7 +18,7 @@ public class Score {
     @TableField
     private Integer student_id;
     @TableField
-    private String studnet_name;
+    private String student_name;
     @TableField
     private Integer course_id;
     @TableField
