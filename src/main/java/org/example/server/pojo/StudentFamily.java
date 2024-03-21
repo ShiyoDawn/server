@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 @TableName("student_family")
 public class StudentFamily {
     @TableId(type = IdType.AUTO)
+    private Integer id;
+
     private Integer student_id;
 
     private String student_name;

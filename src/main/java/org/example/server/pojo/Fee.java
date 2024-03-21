@@ -16,6 +16,7 @@ public class Fee {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
+    //oneToOne
     private Integer person_id;
 
     private String date;
