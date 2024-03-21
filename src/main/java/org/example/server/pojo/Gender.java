@@ -17,4 +17,5 @@ public class Gender {
     private Integer id;
 
     private String gender;
+
 }
