@@ -15,10 +15,11 @@ import lombok.NoArgsConstructor;
 public class Fee {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    @TableField
+
+    //oneToOne
     private Integer person_id;
-    @TableField
+
     private String date;
-    @TableField
+
     private String money;
 }

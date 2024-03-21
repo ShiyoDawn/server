@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class Gender {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    @TableField
+
     private String gender;
+
 }

@@ -14,11 +14,13 @@ import lombok.NoArgsConstructor;
 @TableName("student_foreschool")
 public class StudentForeschool {
     @TableId(type = IdType.AUTO)
+    private Integer id;
+
     private Integer student_id;
-    @TableField
+
     private String primary;
-    @TableField
+
     private String junior;
-    @TableField
+
     private String senior;
 }
