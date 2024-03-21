@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.List;
 
 
-//@Mapper
+@Mapper
 public interface UserMapper extends BaseMapper<User> {
     @Select("select * from user")
     List<User> selectAll();
