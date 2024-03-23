@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class PersonService {
     @Autowired
-    PersonMapper personMapper;
+    PersonMapper personMapper;//注入人员数据；
 
 }
