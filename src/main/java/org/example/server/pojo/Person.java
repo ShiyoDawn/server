@@ -21,9 +21,9 @@ public class Person {
 
     private String phone_number;
 
-    private String identity;
+    private String identity;//身份：如群众团员等等；
 
-    private String person_num;
+    private String person_num;//学号
 
     private String birthday;
 
