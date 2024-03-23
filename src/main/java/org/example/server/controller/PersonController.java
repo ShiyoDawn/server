@@ -1,6 +1,5 @@
 package org.example.server.controller;
 
-import org.example.server.Service.PersonSevice;
 import org.example.server.pojo.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
