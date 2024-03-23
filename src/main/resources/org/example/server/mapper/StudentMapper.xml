@@ -2,11 +2,11 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.example.server.mapper.UserMapper">
-
-    <select id="selectById" resultType="org.example.server.pojo.User">
+<mapper namespace="org.example.server.mapper.StudentMapper">
+    <!--格式化一下，美观一点(?)-->
+    <select id="selectById" parameterType="Integer" resultType="org.example.server.pojo.Student">
         select *
-        from User
+        from Student
         where "id" = #{id}
     </select>
 

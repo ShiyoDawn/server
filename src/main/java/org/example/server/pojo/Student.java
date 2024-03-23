@@ -27,4 +27,7 @@ public class Student {
     private String grade;
 
     private String major;
+
+    //要和别的实体类产生关联吧，一对多多对一之类的
+    //private Person person;
 }
