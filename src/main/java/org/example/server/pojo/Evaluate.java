@@ -15,14 +15,14 @@ import lombok.NoArgsConstructor;
 public class Evaluate {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    @TableField
+
     private Integer person_id;
-    @TableField
+
     private String activity_name;
-    @TableField
+
     private String date;
-    @TableField
+
     private String score;
-    @TableField
+
     private Integer activity_type_id;
 }

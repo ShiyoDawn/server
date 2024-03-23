@@ -10,4 +10,8 @@ class ServerApplicationTests {
     void contextLoads() {
     }
 
+    @Test
+    void select() {
+    }
+
 }

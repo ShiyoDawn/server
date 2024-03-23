@@ -15,6 +15,6 @@ import lombok.NoArgsConstructor;
 public class CourseType {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    @TableField
+
     private String course_type_name;
 }

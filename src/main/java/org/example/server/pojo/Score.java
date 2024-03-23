@@ -15,16 +15,17 @@ import lombok.NoArgsConstructor;
 public class Score {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    @TableField
+
+    //oneToOne
     private Integer student_id;
-    @TableField
-    private String studnet_name;
-    @TableField
+
+    private String student_name;
+
     private Integer course_id;
-    @TableField
+
     private String course_name;
-    @TableField
+
     private Integer mark;
-    @TableField
+
     private Integer ranking;
 }
