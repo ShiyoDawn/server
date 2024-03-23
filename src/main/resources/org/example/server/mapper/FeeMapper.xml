@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.server.mapper.PersonMapper">
+    <select id="findByPersonId" resultType="org.example.server.pojo.Fee">
+        SELECT * FROM Fee WHERE person_id=#{person_id}
+    </select>
+</mapper>
