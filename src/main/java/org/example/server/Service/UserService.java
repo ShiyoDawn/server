@@ -19,4 +19,5 @@ public class UserService {
     public List<User> delete0() {
         return userMapper.selectAll();
     }
+
 }

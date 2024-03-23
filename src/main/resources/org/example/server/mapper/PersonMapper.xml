@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.server.mapper.PersonMapper">
+    <select id="findByPersonName" resultType="org.example.server.pojo.Person">
+        SELECT * FROM Person WHERE person_name=#{person_name}
+    </select>
+    <select id="findById" resultType="org.example.server.pojo.Person">
+        SELECT * FROM Person WHERE id=#{id}
+    </select>
+    <select id="findByPersonNum" resultType="org.example.server.pojo.Person">
+        SELECT * FROM Person WHERE person_num=#{person_num}
+    </select>
+</mapper>
