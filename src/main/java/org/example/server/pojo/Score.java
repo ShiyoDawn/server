@@ -28,7 +28,4 @@ public class Score {
     private Integer mark;
 
     private Integer ranking;
-
-    //和course产生关联
-    private Course course;
 }

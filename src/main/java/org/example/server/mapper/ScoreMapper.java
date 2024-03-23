@@ -9,5 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper
 public interface ScoreMapper extends BaseMapper<Score> {
-    public void update1(Integer id,Integer score);
+    public void update1(Integer student_id,Integer course_id,Integer id,Integer mark);
+
+    public Score select1(Integer student_id,Integer course_id);
+
 }

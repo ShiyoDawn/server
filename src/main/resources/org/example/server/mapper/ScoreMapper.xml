@@ -4,9 +4,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.server.mapper.ScoreMapper">
 
-    <select id="selectById" parameterType="Integer" resultType="org.example.server.pojo.Score">
-        select *
-        from Score
-        where "id" = #{id}
+    <select id="selectById" resultType="org.example.server.pojo.Score">
+        select * from Score where "id" = #{id}
+    </select>
+
+    <update id="update1">
+        update Score
+        <set>
+            <if test="student_id!=null">student_id=#{student_id},</if>
+            <if test="course_id!=null">course_id=#{course_id},</if>
+            <if test="mark!=null">mark=#{mark},</if>
+        </set>
+        where id = #{id};
+    </update>
+
+    <select id="select1" resultMap="org.example.server.pojo.Score">
+        select mask from Score where "student_id" = #{student_id} and "course_id" = #{course_id}
     </select>
 </mapper>
