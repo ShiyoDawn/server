@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/test/student")
+@RequestMapping("/student")
 public class StudentController {
     @Autowired
     private StudentMapper studentMapper;

@@ -8,5 +8,6 @@ class ScoreMapperTest {
 
     @Test
     void getScoreByName() {
+
     }
 }

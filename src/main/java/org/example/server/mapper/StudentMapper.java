@@ -18,7 +18,6 @@ public interface StudentMapper extends BaseMapper<Student> {
 
     List<Student> findByPersonName(String personName);
 
-    //这个似乎不用写注释了(xml文件似乎会覆盖掉注释内容)
-    @Select("select * from student where id=#{id}")
+
     public Student selectById(Integer id);
 }
