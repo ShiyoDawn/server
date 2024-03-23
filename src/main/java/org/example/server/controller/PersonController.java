@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/person")
@@ -14,7 +15,7 @@ public class PersonController {
     @Autowired
     PersonSevice personSevice;
     @PostMapping("/test")
-    public List<Person> getPerson(@RequestParam Integer id) {
+    public Optional<Person> getPerson(@RequestParam Integer id) {
         return personSevice.getPerson(id);
     }
 }

@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonSevice {
     @Autowired
     PersonMapper personMapper;
-    public List<Person> getPerson(Integer id) {
-        return personMapper.selectPerson(id);
+    public Optional<Person> getPerson(Integer id) {
+        return personMapper.findById(id);
     }
 }
