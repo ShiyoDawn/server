@@ -2,6 +2,8 @@ package org.example.server.controller;
 
 import org.example.server.Service.UserService;
 import org.example.server.mapper.UserMapper;
+import org.example.server.payload.request.DataRequest;
+import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/test/")
+@RequestMapping("/test")
 public class MainController {
     @Autowired
     private UserService userService;
@@ -30,8 +32,9 @@ public class MainController {
     }
 
     @PostMapping("/test3")
-    public List<User> selectById(@RequestParam Integer id){
-        return userMapper.selectById(id);
+    public DataResponse selectById(@RequestParam Integer id){
+        return new DataResponse(200,userService.delete0(),"okk");
+
     }
 
 
