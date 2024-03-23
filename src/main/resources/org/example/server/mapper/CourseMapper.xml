@@ -9,13 +9,13 @@
     <update id="updateInfo">
         update Course
         <set>
-            <if test="course_name !=null">course_name=#{course_name},</if>
-            <if test="{credit} !=null">credit=#{credit},</if>
+            <if test="course_name !=null and course_name!=''">course_name=#{course_name},</if>
+            <if test="credit !=null">credit=#{credit},</if>
             <if test="num !=null">num=#{num},</if>
             <if test="course_type_id!=null">course_type_id=#{course_type_id},</if>
             <if test="pre_course_id!=null">pre_course_id=#{pre_course_id},</if>
-            <if test="book !=null">book=#{book},</if>
-            <if test="extracurricular!=null">extracurricular=#{extracurricular}</if>
+            <if test="book !=null and book != ''">book=#{book},</if>
+            <if test="extracurricular!=null and extracurricular!=''">extracurricular=#{extracurricular}</if>
         </set>
         where id = #{id};
     </update>
