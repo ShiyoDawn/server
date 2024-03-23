@@ -11,3 +11,5 @@ public interface PersonMapper extends BaseMapper<Person> {
     Optional<Person> findById(Integer id);
     Optional<Person> findByPersonNum(String person_num);
 }
+
+
