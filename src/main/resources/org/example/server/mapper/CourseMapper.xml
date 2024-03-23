@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.server.mapper.CourseMapper">
+    <select id="selectAll" resultType="org.example.server.pojo.Course">
+        SELECT * FROM Course
+    </select>
+    <update id="updateInfo">
+        update Course
+        <set>
+            <if test="course_name!=null">course_name=#{couurse_name},</if>
+            <if test="credit!=null">credit=#{credit},</if>
+            <if test="num!=null">num=#{num},</if>
+            <if test="course_type_id!=null">course_type_id=#{course_type_id},</if>
+            <if test="pre_course_id!=null">pre_course_id=#{pre_course_id},</if>
+            <if test="book!=null">book=#{book},</if>
+            <if test="extracurricular!=null">extracurricular=#{extracurricular}</if>
+        </set>
+        where id = #{id};
+    </update>
+
+</mapper>
