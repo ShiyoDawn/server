@@ -13,5 +13,4 @@ import org.springframework.web.bind.annotation.RestController;
 public class CourseController {
     @Autowired
     CourseService courseService;
-    @PostMapping
 }
