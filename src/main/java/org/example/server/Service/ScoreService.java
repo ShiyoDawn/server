@@ -43,6 +43,7 @@ public class ScoreService {
     }
 
     //查询分数
+
     public List<Score> selectByStudentAndCourse(Integer student_id, Integer course_id) {
         return scoreMapper.selectByStudentAndCourse(student_id, course_id);
     }
@@ -77,7 +78,7 @@ public class ScoreService {
             map.put("ranking", s.getRanking() + "");
             dataList.add(map);
         }
-        return
+        return null;
     }
 
 }

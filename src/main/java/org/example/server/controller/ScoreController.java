@@ -50,7 +50,6 @@ public class ScoreController {
         scoreService.selectByStudentAndCourse(student_id, course_id);
         return "查询成功！";
     }
-
     @PostMapping("/selectByStudentId")
     public String selectByStudentId(@RequestParam Integer student_id) {
         scoreService.selectByStudentId(student_id);

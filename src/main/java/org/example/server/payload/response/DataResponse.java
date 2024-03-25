@@ -43,5 +43,23 @@ public class DataResponse {
     public void setMsg(String msg) {
         this.msg = msg;
     }
+    public static DataResponse success(Object data){
+        return new DataResponse(200,data,null);
+    }
 
+    public static DataResponse success(Object data, String msg){
+        return new DataResponse(200,data,msg);
+    }
+
+    public static DataResponse ok(){
+        return new DataResponse(200,null,null);
+    }
+
+    public static DataResponse ok(String msg) {
+        return new DataResponse(200,null,msg);
+    }
+
+    public static DataResponse error(Integer code, String msg){
+        return new DataResponse(code,null,msg);
+    }
 }
