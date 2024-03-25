@@ -9,40 +9,6 @@ import org.example.server.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-
-//@RestController
-//@RequestMapping("/score")
-//public class ScoreController {
-//    @Autowired
-//    private ScoreService scoreService;
-//    @Autowired
-//    private ScoreMapper scoreMapper;
-//    @Autowired
-//    private CourseMapper courseMapper;
-//    @Autowired
-//    private StudentMapper studentMapper;
-//
-//
-//    @PostMapping("/insertScore")
-//    public String insert(@RequestParam Integer id){
-//        scoreService.insert(id);
-//        return "增加成功！";
-//    }
-//
-//    @PostMapping("/deleteScore")
-//    public String delete(@RequestParam Integer id) {
-//        scoreService.deleteById(id);
-//        return "删除成功！";
-//    }
-//    @PostMapping("updateScore")
-//    public String update(@RequestParam Integer id,@RequestParam Integer new_score){
-//        scoreService.update(id,new_score);
-//        return "更新成功！";
-//    }
-//}
-
 @RestController
 @RequestMapping("/score")
 public class ScoreController {
