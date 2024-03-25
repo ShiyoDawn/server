@@ -8,6 +8,10 @@
         select * from Score where "id" = #{id}
     </select>
 
+    <select id="findByStudentId" resultType="org.example.server.pojo.Score">
+        select
+    </select>
+    <!--这里的语法可能有问题-->
     <update id="update1">
         update Score
         <set>
@@ -21,4 +25,8 @@
     <select id="select1" resultType="org.example.server.pojo.Score">
         select mask from Score where "student_id" = #{student_id} and "course_id" = #{course_id}
     </select>
+
+    <delete id="delete1">
+        delete mask from Score where "student_id" = #{student_id} and "course_id" = #{course_id}
+    </delete>
 </mapper>
