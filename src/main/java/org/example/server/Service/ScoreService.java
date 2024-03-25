@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.validation.Valid;
+//import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -42,16 +42,16 @@ public class ScoreService {
     }
 
     //查询分数
-    public Score select(Integer student_id, Integer course_id) {
-        return scoreMapper.select1(student_id, course_id);
-    }
+//    public Score select(Integer student_id, Integer course_id) {
+//        return scoreMapper.select1(student_id, course_id);
+//    }
 
-    public DataResponse getScoreList(@Valid @RequestBody DataRequest dataRequest) {
-        Integer studentId = dataRequest.getInteger("id");
-        if (studentId == null)
-            studentId = 0;
-        Integer courseId = dataRequest.getInteger("id");
-        if(courseId == null)
-            courseId = 0;
-    }
+//    public DataResponse getScoreList(@Valid @RequestBody DataRequest dataRequest) {
+//        Integer studentId = dataRequest.getInteger("id");
+//        if (studentId == null)
+//            studentId = 0;
+//        Integer courseId = dataRequest.getInteger("id");
+//        if(courseId == null)
+//            courseId = 0;
+//    }
 }

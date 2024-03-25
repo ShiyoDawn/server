@@ -39,11 +39,11 @@ public class ScoreController {
         scoreService.update(student_id,course_id,id,mark);
         return "更新成功！";
     }
-    @PostMapping("/selectScore")
-    public String select(@RequestParam Integer student_id,@RequestParam Integer course_id,@RequestParam Integer id,@RequestParam Integer mark){
-        scoreService.select(student_id,course_id);
-        return "查询成功！";
-    }
+//    @PostMapping("/selectScore")
+//    public String select(@RequestParam Integer student_id,@RequestParam Integer course_id,@RequestParam Integer id,@RequestParam Integer mark){
+//        scoreService.select(student_id,course_id);
+//        return "查询成功！";
+//    }
 
 }
 
