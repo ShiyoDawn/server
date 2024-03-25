@@ -18,7 +18,7 @@
         where id = #{id};
     </update>
 
-    <select id="select1" resultMap="org.example.server.pojo.Score">
+    <select id="select1" resultType="org.example.server.pojo.Score">
         select mask from Score where "student_id" = #{student_id} and "course_id" = #{course_id}
     </select>
 </mapper>
