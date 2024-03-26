@@ -45,7 +45,7 @@ public class ScoreService {
 //    public Score select(Integer student_id, Integer course_id) {
 //        return scoreMapper.select1(student_id, course_id);
 //    }
-
+//
 //    public DataResponse getScoreList(@Valid @RequestBody DataRequest dataRequest) {
 //        Integer studentId = dataRequest.getInteger("id");
 //        if (studentId == null)
