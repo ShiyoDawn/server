@@ -9,5 +9,11 @@
         from Student
         where "id" = #{id}
     </select>
+    <select id="findByStudentName" resultType="org.example.server.pojo.Student">
+        SELECT * FROM Student WHERE "studentName" = #{studentName}
+    </select>
+    <select id="findByDepartment" resultType="org.example.server.pojo.Student">
+        SELECT * FROM Student WHERE "department" = #{department}
+    </select>
 
 </mapper>
