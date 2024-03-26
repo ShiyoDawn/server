@@ -42,5 +42,4 @@ public class CourseService {
     public DataResponse selectInfo(Integer id){
         return DataResponse.success(courseMapper.selectInfo(id));
     }
-
 }
