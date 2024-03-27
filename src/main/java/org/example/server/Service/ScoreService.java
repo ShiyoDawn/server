@@ -28,13 +28,13 @@ public class ScoreService {
     private CourseMapper courseMapper;
 
     //增添分数
-    public void insert(Integer student_id, Integer course_id, Integer mark) {
-        scoreMapper.insert(new Score(null, student_id, studentMapper.selectById(student_id).getStudent_name(), course_id, courseMapper.selectById(course_id).getCourse_name(), mark, null));
+    public void insert(Integer id,Integer student_id, Integer course_id, Integer mark) {
+        scoreMapper.insert(new Score(id, student_id, studentMapper.selectById(student_id).getStudent_name(), course_id, courseMapper.selectById(course_id).getCourse_name(), mark, null));
     }
 
     //删除分数
     public void deleteById(Integer student_id, Integer course_id, Integer id) {
-        scoreMapper.delete1(id, student_id, course_id);
+        scoreMapper.delete1(student_id, course_id,id);
     }
 
     //修改分数
@@ -78,7 +78,7 @@ public class ScoreService {
             map.put("ranking", s.getRanking() + "");
             dataList.add(map);
         }
-        return null;
+        return DataResponse.success(dataList);
     }
 
 }

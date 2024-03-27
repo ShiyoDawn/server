@@ -27,8 +27,9 @@
         where id = #{id};
     </update>
 
+    <!--delete不太方便删除单个成绩，故在delete1里用update代替-->
     <delete id="delete1">
-        delete mask from Score where "student_id" = #{student_id} and "course_id" = #{course_id}
+        update Score set mark = null where "student_id" = #{student_id} and "course_id" = #{course_id}
     </delete>
 
 </mapper>
