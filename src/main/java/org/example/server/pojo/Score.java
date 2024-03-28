@@ -16,7 +16,6 @@ public class Score {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    //oneToOne
     private Integer student_id;
 
     private String student_name;

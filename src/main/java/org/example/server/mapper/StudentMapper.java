@@ -18,6 +18,8 @@ public interface StudentMapper extends BaseMapper<Student> {
 
     List<Student> findByPersonName(String personName);
 
+    List<Student> findByStudentName(String studentName);
+    List<Student> findByDepartment(String department);
 
     public Student selectById(Integer id);
 }

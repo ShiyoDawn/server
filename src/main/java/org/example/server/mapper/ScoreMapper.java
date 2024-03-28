@@ -12,12 +12,14 @@ import java.util.List;
 
 @Mapper
 public interface ScoreMapper extends BaseMapper<Score> {
-    public void update1(Integer student_id,Integer course_id,Integer id,Integer mark);
+    public void update1(Integer student_id, Integer course_id, Integer id, Integer mark);
 
-    public Score select1(Integer student_id,Integer course_id);
+    public void delete1(Integer student_id, Integer course_id,Integer id);
 
-    public void delete1(Integer id, Integer studentId,Integer courseId);
+    List<Score> selectByStudentAndCourse(Integer student_id, Integer course_id);
 
-    List<Score> findByStudentId(Integer studentId);
+    List<Score> selectByStudentId(Integer studentId);
+
+    List<Score> selectByCourseId(Integer courseId);
 
 }
