@@ -10,13 +10,18 @@
         where "id" = #{id}
     </select>
     <select id="findByStudentName" resultType="org.example.server.pojo.Student">
-        SELECT * FROM Student WHERE "studentName" = #{studentName}
+        SELECT *
+        FROM Student
+        WHERE "student_name" = #{student_name}
     </select>
     <select id="findByDepartment" resultType="org.example.server.pojo.Student">
-        SELECT * FROM Student WHERE "department" = #{department}
+        SELECT *
+        FROM Student
+        WHERE "department" = #{department}
     </select>
     <select id="findAllStudent" resultType="org.example.server.pojo.Student">
-        SELECT * FROM Student
+        SELECT *
+        FROM Student
     </select>
 
 </mapper>
