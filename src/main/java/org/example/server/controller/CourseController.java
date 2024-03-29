@@ -1,3 +1,4 @@
+/*
 package org.example.server.controller;
 
 import org.example.server.Service.CourseService;
@@ -25,3 +26,4 @@ public class CourseController {
     }
 }
 
+*/

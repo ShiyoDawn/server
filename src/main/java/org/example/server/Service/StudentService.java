@@ -24,7 +24,8 @@ public class StudentService {
         List<Student> students = studentMapper.findByStudentName(student_Name);
         return students;
     }
-    public List getStudentMapList(List<Student> students){
+    public List getStudentMapList(){
+        List<Student> students=studentMapper.findAllStudent();
         List list = new ArrayList();
         if (students == null || students.size() == 0)
             return list;
