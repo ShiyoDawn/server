@@ -14,7 +14,7 @@ import java.util.List;
 public interface ScoreMapper extends BaseMapper<Score> {
     void update1(Integer student_id, Integer course_id, Integer id, Integer mark);
 
-    void delete1(Integer student_id, Integer course_id,Integer id);
+    void delete1(Integer student_id, Integer course_id, Integer id);
 
     List<Score> selectByStudentAndCourse(Integer student_id, Integer course_id);
 

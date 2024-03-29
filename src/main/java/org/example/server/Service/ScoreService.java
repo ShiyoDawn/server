@@ -27,13 +27,13 @@ public class ScoreService {
     private CourseMapper courseMapper;
 
     //增添分数
-    public void insert(Integer id,Integer student_id, Integer course_id, Integer mark) {
+    public void insert(Integer id, Integer student_id, Integer course_id, Integer mark) {
         scoreMapper.insert(new Score(id, student_id, studentMapper.selectById(student_id).getStudent_name(), course_id, courseMapper.selectById(course_id).getCourse_name(), mark, null));
     }
 
     //删除分数
     public void deleteById(Integer student_id, Integer course_id, Integer id) {
-        scoreMapper.delete1(student_id, course_id,id);
+        scoreMapper.delete1(student_id, course_id, id);
     }
 
     //修改分数
@@ -78,27 +78,27 @@ public class ScoreService {
         return DataResponse.success(dataList);
     }
 
-    public DataResponse scoreSave(@Valid @RequestBody DataRequest dataRequest){
+    public DataResponse scoreSave(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("student_id");
         Integer courseId = dataRequest.getInteger("course_id");
         Integer mark = dataRequest.getInteger("mark");
         Integer scoreId = dataRequest.getInteger("id");
 
         Score score = null;
-        if(scoreId != null) {
-            score= scoreMapper.selectById(scoreId);
+        if (scoreId != null) {
+            score = scoreMapper.selectById(scoreId);
         }
-        if(score == null) {
+        if (score == null) {
             score = new Score();
-            Student student=studentMapper.selectById(studentId);
-            Course course=courseMapper.selectById(courseId);
-            if(student == null&&course!=null){
-                return DataResponse.error(404,"Student does not exist.");
-            }else if(student!=null&&course == null){
-                return DataResponse.error(404,"Course does not exist.");
-            }else if(student ==null&&course==null){
-                return DataResponse.error(404,"Course and Student do not exist.");
-            }else{
+            Student student = studentMapper.selectById(studentId);
+            Course course = courseMapper.selectById(courseId);
+            if (student == null && course != null) {
+                return DataResponse.error(404, "Student does not exist.");
+            } else if (student != null && course == null) {
+                return DataResponse.error(404, "Course does not exist.");
+            } else if (student == null && course == null) {
+                return DataResponse.error(404, "Course and Student do not exist.");
+            } else {
                 score.setStudent_name(student.getStudent_name());
                 score.setCourse_name((course.getCourse_name()));
             }
@@ -110,12 +110,12 @@ public class ScoreService {
 
     //给按某课程分数排序(暂时不知道需不需要)
     //升序排序
-    public List<Score> getScoreSorted_Ascending(Integer course_id){
+    public List<Score> getScoreSorted_Ascending(Integer course_id) {
         return scoreMapper.getScoreSorted_Ascending(course_id);
     }
 
     //降序排序
-    public List<Score> getScoreSorted_Descending(Integer course_id){
+    public List<Score> getScoreSorted_Descending(Integer course_id) {
         return scoreMapper.getScoreSorted_Descending(course_id);
     }
 
