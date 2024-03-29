@@ -1,3 +1,4 @@
+/*
 package org.example.server.Service;
 
 import org.example.server.mapper.CourseMapper;
@@ -43,3 +44,4 @@ public class CourseService {
         return DataResponse.success(courseMapper.selectInfo(id));
     }
 }
+*/

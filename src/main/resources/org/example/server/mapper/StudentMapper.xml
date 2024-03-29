@@ -15,5 +15,8 @@
     <select id="findByDepartment" resultType="org.example.server.pojo.Student">
         SELECT * FROM Student WHERE "department" = #{department}
     </select>
+    <select id="findAllStudent" resultType="org.example.server.pojo.Student">
+        SELECT * FROM Student
+    </select>
 
 </mapper>

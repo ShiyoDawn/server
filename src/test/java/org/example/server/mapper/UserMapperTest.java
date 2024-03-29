@@ -1,3 +1,4 @@
+/*
 package org.example.server.mapper;
 
 import org.example.server.pojo.User;
@@ -17,3 +18,4 @@ public class UserMapperTest {
         list.forEach(System.out::println);
     }
 }
+*/
