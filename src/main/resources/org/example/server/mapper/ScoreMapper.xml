@@ -13,7 +13,7 @@
     </select>
 
     <select id="selectByStudentAndCourse" resultType="org.example.server.pojo.Score">
-        select mark from Score where "student_id" = #{student_id} and "course_id" = #{course_id}
+        select * from Score where "student_id" = #{student_id} and "course_id" = #{course_id}
     </select>
 
     <!--这里的语法可能有问题-->
@@ -31,5 +31,16 @@
     <delete id="delete1">
         update Score set mark = null where "student_id" = #{student_id} and "course_id" = #{course_id}
     </delete>
+
+
+    <select id="getScoreSorted_Ascending" resultType="org.example.server.pojo.Score">
+        SELECT * FROM Score where "course_id"=#{course_id} ORDER BY mark ASC
+    </select>
+
+    <select id="getScoreSorted_descending" resultType="org.example.server.pojo.Score">
+        SELECT * FROM Score where "course_id"=#{course_id} ORDER BY mark DESC
+    </select>
+
+    <!--有个scoreSave未写，之后补-->
 
 </mapper>

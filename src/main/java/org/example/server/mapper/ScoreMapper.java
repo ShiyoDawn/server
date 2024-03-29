@@ -12,9 +12,9 @@ import java.util.List;
 
 @Mapper
 public interface ScoreMapper extends BaseMapper<Score> {
-    public void update1(Integer student_id, Integer course_id, Integer id, Integer mark);
+    void update1(Integer student_id, Integer course_id, Integer id, Integer mark);
 
-    public void delete1(Integer student_id, Integer course_id,Integer id);
+    void delete1(Integer student_id, Integer course_id,Integer id);
 
     List<Score> selectByStudentAndCourse(Integer student_id, Integer course_id);
 
@@ -22,4 +22,9 @@ public interface ScoreMapper extends BaseMapper<Score> {
 
     List<Score> selectByCourseId(Integer courseId);
 
+    void saveScore(Score score);
+
+    List<Score> getScoreSorted_Ascending(Integer course_id);
+
+    List<Score> getScoreSorted_Descending(Integer course_id);
 }

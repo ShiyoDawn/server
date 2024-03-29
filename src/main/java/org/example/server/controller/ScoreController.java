@@ -7,11 +7,10 @@ import org.example.server.mapper.StudentMapper;
 import org.example.server.payload.request.DataRequest;
 import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.Score;
-import org.example.server.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/score")
@@ -46,26 +45,39 @@ public class ScoreController {
     }
 
     @PostMapping("/selectByStudentAndCourse")
-    public String selectByStudentAndCourse(@RequestParam Integer student_id, @RequestParam Integer course_id) {
-        scoreService.selectByStudentAndCourse(student_id, course_id);
-        return "查询成功！";
+    public DataResponse selectByStudentAndCourse(@RequestParam Integer student_id, @RequestParam Integer course_id) {
+        return DataResponse.success(scoreService.selectByStudentAndCourse(student_id, course_id),"查询成功!");
     }
 
     @PostMapping("/selectByStudentId")
-    public String selectByStudentId(@RequestParam Integer student_id) {
-        scoreService.selectByStudentId(student_id);
-        return "查询成功！";
+    public DataResponse selectByStudentId(@RequestParam Integer student_id) {
+        return DataResponse.success(scoreService.selectByStudentId(student_id),"查询成功！");
     }
 
     @PostMapping("/selectByCourseId")
-    public String selectByCourseId(@RequestParam Integer course_id) {
-        scoreService.selectByCourseId(course_id);
-        return "查询成功！";
+    public DataResponse selectByCourseId(@RequestParam Integer course_id) {
+        return DataResponse.success(scoreService.selectByCourseId(course_id),"查询成功！");
     }
 
     @PostMapping("/getScoreList")
     public DataResponse getScoreList(@Valid @RequestBody DataRequest dataRequest) {
         return scoreService.getScoreList(dataRequest);
     }
-}
 
+    @PostMapping("/scoreSave")
+    public DataResponse scoreSave(@Valid @RequestBody DataRequest dataRequest){
+        return scoreService.scoreSave(dataRequest);
+    }
+
+    @PostMapping("/getScoreSorted_Ascending")
+    public DataResponse getScoreSorted_Ascending(@RequestParam Integer course_id){
+        List<Score> list=scoreService.getScoreSorted_Ascending(course_id);
+        return DataResponse.success(list);
+    }
+
+    @PostMapping("/getScoreSorted_Descending")
+    public DataResponse getScoreSorted_Descending(@RequestParam Integer course_id){
+        List<Score> list=scoreService.getScoreSorted_Descending(course_id);
+        return DataResponse.success(list);
+    }
+}

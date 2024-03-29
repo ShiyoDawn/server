@@ -5,6 +5,7 @@ import org.example.server.payload.response.DataResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/course")
 @CrossOrigin
@@ -23,3 +24,4 @@ public class CourseController {
         return courseService.selectInfo(id);
     }
 }
+
