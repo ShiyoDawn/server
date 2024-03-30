@@ -16,14 +16,26 @@ public class StudentController {
     private StudentMapper studentMapper;//为什么要在controller里面注入mapper？应该是StudentService吧
     @Autowired
     private StudentService studentService;
-
+//查
+    //查询所有学生；
     @GetMapping("/getStudentList")
     public DataResponse getStudentList() {
         return DataResponse.success(studentService.getStudentMapList());
     }
-
-    @PostMapping("/selectStudentByName")
+    //通过姓名查询特定学生；
+    @GetMapping("/selectStudentByName")
     public DataResponse selectStudentByName(@RequestParam String student_name) {
-        return DataResponse.success(studentService.findStudentsByName(student_name));
+        return DataResponse.success(studentService.findStudentByName(student_name));
+    }
+    //通过id查询学生，仅一人；
+    @GetMapping("/selectStudentByPid")
+    public DataResponse selectStudentByPid(@RequestParam Integer person_id){
+        return DataResponse.success(studentService.findStudentByPid(person_id));
+    }
+//增
+    //增加一个学生，指定姓名；
+    @PostMapping("/updateStudentName")
+    public Boolean refactorStudentInfo(@RequestParam Integer person_id,@RequestParam String student_name){
+        return studentService.changeSNameByPid(person_id,student_name);
     }
 }
