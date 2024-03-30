@@ -27,22 +27,43 @@ public class ScoreService {
     private CourseMapper courseMapper;
 
     //增添分数
-    public void insert(Integer id, Integer student_id, Integer course_id, Integer mark) {
-        scoreMapper.insert(new Score(id, student_id, studentMapper.selectById(student_id).getStudent_name(), course_id, courseMapper.selectById(course_id).getCourse_name(), mark, null));
+    public DataResponse insert(Integer student_id, Integer course_id, Integer mark) {
+        Student student = studentMapper.selectById(student_id);
+        Course course = courseMapper.selectInfo(course_id);
+        if (student == null || course == null) {
+            // 处理学生或课程不存在的情况
+            return DataResponse.error(404, "Student or Course does not exist.");
+        }
+        scoreMapper.insert1(student_id, student.getStudent_name(), course_id, course.getCourse_name(), mark);
+        return DataResponse.success(null, "添加成功！");
     }
 
     //删除分数
-    public void deleteById(Integer student_id, Integer course_id, Integer id) {
-        scoreMapper.delete1(student_id, course_id, id);
+    public DataResponse deleteById(Integer student_id, Integer course_id) {
+        Student student = studentMapper.selectById(student_id);
+        if (student == null)
+            return DataResponse.error(404, "删除失败，该学生不存在");
+        Course course = courseMapper.selectInfo(course_id);
+        if (course == null)
+            return DataResponse.error(404, "删除失败，该课程不存在");
+        scoreMapper.delete1(student_id, course_id);
+        return DataResponse.success(null, "删除成功！");
     }
 
     //修改分数
-    public void update(Integer student_id, Integer course_id, Integer id, Integer mark) {
-        scoreMapper.update1(student_id, course_id, id, mark);
+    public DataResponse update(Integer student_id, Integer course_id, Integer mark) {
+        Student student = studentMapper.selectById(student_id);
+        if (student == null)
+            return DataResponse.error(404, "修改失败，该学生不存在");
+        Course course = courseMapper.selectInfo(course_id);
+        if (course == null)
+            return DataResponse.error(404, "修改失败，该学生不存在");
+        scoreMapper.update1(student_id, course_id, mark);
+        return DataResponse.success("更新成功！");
     }
 
     //查询分数
-    public List<Score> selectByStudentAndCourse(Integer student_id, Integer course_id) {
+    public Score selectByStudentAndCourse(Integer student_id, Integer course_id) {
         return scoreMapper.selectByStudentAndCourse(student_id, course_id);
     }
 
@@ -54,14 +75,9 @@ public class ScoreService {
         return scoreMapper.selectByCourseId(course_id);
     }
 
-    public DataResponse getScoreList(@Valid @RequestBody DataRequest dataRequest) {
-        Integer studentId = dataRequest.getInteger("id");
-        if (studentId == null)
-            studentId = 0;
-        Integer courseId = dataRequest.getInteger("id");
-        if (courseId == null)
-            courseId = 0;
-        List<Score> scoreList = scoreMapper.selectByStudentAndCourse(studentId, courseId);
+    public DataResponse getScoreList() {
+        List<Score> scoreList = scoreMapper.selectAll();
+        //List<Score> scoreList = scoreMapper.selectByStudentAndCourse(studentId, courseId);
         List<Map<String, String>> dataList = new ArrayList();
         Map<String, String> map;
         for (Score s : scoreList) {

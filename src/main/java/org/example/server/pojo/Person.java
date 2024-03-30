@@ -17,6 +17,7 @@ public class Person {
     private Integer id;
 
     private String person_name;
+
     private Integer gender_id;
 
     private String phone_number;

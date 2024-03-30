@@ -28,21 +28,18 @@ public class ScoreController {
 
     //增添/删减/修改学生的某个课程的分数(通过score本身id / student_id和course_id查询到对应的分数再进行修改？)
     @PostMapping("/insertScore")
-    public String insert(@RequestParam Integer id, @RequestParam Integer student_id, @RequestParam Integer course_id, @RequestParam Integer mark) {
-        scoreService.insert(id, student_id, course_id, mark);
-        return "增加成功！";
+    public DataResponse insert( @RequestParam Integer student_id, @RequestParam Integer course_id, @RequestParam Integer mark) {
+        return DataResponse.success(scoreService.insert(student_id, course_id, mark), "增添成功！");
     }
 
     @PostMapping("/deleteScore")
-    public String delete(@RequestParam Integer student_id, @RequestParam Integer course_id, @RequestParam Integer id) {
-        scoreService.deleteById(student_id, course_id, id);
-        return "删除成功！";
+    public DataResponse delete(@RequestParam Integer student_id, @RequestParam Integer course_id) {
+        return DataResponse.success(scoreService.deleteById(student_id, course_id));
     }
 
     @PostMapping("/updateScore")
-    public String update(@RequestParam Integer student_id, @RequestParam Integer course_id, @RequestParam Integer id, @RequestParam Integer mark) {
-        scoreService.update(student_id, course_id, id, mark);
-        return "更新成功！";
+    public DataResponse update(@RequestParam Integer student_id, @RequestParam Integer course_id, @RequestParam Integer mark) {
+        return DataResponse.success(scoreService.update(student_id, course_id, mark));
     }
 
     @PostMapping("/selectByStudentAndCourse")
@@ -60,9 +57,9 @@ public class ScoreController {
         return DataResponse.success(scoreService.selectByCourseId(course_id), "查询成功！");
     }
 
-    @PostMapping("/getScoreList")
-    public DataResponse getScoreList(@Valid @RequestBody DataRequest dataRequest) {
-        return scoreService.getScoreList(dataRequest);
+    @GetMapping("/getScoreList")
+    public DataResponse getScoreList() {
+        return scoreService.getScoreList();
     }
 
     @PostMapping("/scoreSave")

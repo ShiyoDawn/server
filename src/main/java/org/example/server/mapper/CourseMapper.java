@@ -1,6 +1,7 @@
 package org.example.server.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.example.server.payload.request.DataRequest;
 import org.example.server.pojo.Course;
@@ -15,4 +16,8 @@ public interface CourseMapper extends BaseMapper<Course> {
     List<HashMap<String,String>> selectAll();
     Course selectInfo(Integer id);
 
+    void addCourse(String course_name, Double credit, Integer num, Integer course_type_id, Integer pre_course_id, String book, String extracurricular);
+    Course selectByNum(Integer num);
+    void deleteCourseById(Integer id);
+    List<Course> selectMixed(String course_name, Integer course_type_id,Integer pageNum);
 }

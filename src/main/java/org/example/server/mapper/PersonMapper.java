@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PersonMapper extends BaseMapper<Person> {
-    List<Person> findByPersonName(String person_name);
-    Optional<Person> findById(Integer id);
-    Optional<Person> findByPersonNum(String person_num);
+    List<Person> selectAll();
+
+    Person selectById(Integer id);
+
+    Person selectByPersonNum(String person_num);
+
 }
 
 
