@@ -7,7 +7,6 @@ import org.example.server.pojo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.Max;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,8 +18,8 @@ public class StudentService {
     private StudentMapper studentMapper;
 
     public Map findStudentsByName(String student_name) {
-        //QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
-        //queryWrapper.like("student_name", student_Name);
+//        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.like("student_name", student_Name);
         //上面两行是mp提供的模糊搜索，试了一下但不太会用，感觉没必要，以后再说；
         Student student = studentMapper.findByStudentName(student_name);
         Map m = new HashMap();

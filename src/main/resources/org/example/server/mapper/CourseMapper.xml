@@ -9,6 +9,9 @@
     <select id="selectInfo" resultType="org.example.server.pojo.Course">
         SELECT * FROM Course where id = #{id};
     </select>
+    <select id="selectByNum" resultType="org.example.server.pojo.Course">
+        SELECT * FROM Course where num = #{num};
+    </select>
     <update id="updateInfo">
         update Course
         <set>
@@ -22,5 +25,25 @@
         </set>
         where id = #{id};
     </update>
+    <insert id="addCourse" parameterType="org.example.server.pojo.Course">
+        insert into Course (course_name,credit,num,course_type_id,pre_course_id,book,extracurricular) values (#{course_name},#{credit},#{num},#{course_type_id},#{pre_course_id},#{book},#{extracurricular});
+    </insert>
+    <delete id="deleteCourseById" parameterType="org.example.server.pojo.Course">
+        delete from Course where id = #{id};
+    </delete>
+    <select id="selectMixed" resultType="org.example.server.pojo.Course">
+        select * from Course
+        <where>
+            <if test="course_name != null">
+                and course_name like #{course_name}
+            </if>
+            <if test="course_type_id != null">
+                and course_type_id = #{course_type_id}
+            </if>
+        </where>
+        order by id desc
+        limit #{pageNum},20;
+    </select>
+
 
 </mapper>

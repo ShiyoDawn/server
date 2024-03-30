@@ -62,4 +62,7 @@ public class DataResponse {
     public static DataResponse error(Integer code, String msg){
         return new DataResponse(code,null,msg);
     }
+    public static DataResponse error( String msg){
+        return new DataResponse(null,null,msg);
+    }
 }

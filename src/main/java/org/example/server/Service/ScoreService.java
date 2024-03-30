@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+
+
 import javax.validation.Valid;
 import java.util.*;
 
@@ -41,7 +43,7 @@ public class ScoreService {
         scoreMapper.update1(student_id, course_id, id, mark);
     }
 
-    //查询分数
+//    查询分数
     public List<Score> selectByStudentAndCourse(Integer student_id, Integer course_id) {
         return scoreMapper.selectByStudentAndCourse(student_id, course_id);
     }
@@ -108,8 +110,8 @@ public class ScoreService {
         return DataResponse.ok();
     }
 
-    //给按某课程分数排序(暂时不知道需不需要)
-    //升序排序
+//    给按某课程分数排序(暂时不知道需不需要)
+//    升序排序
     public List<Score> getScoreSorted_Ascending(Integer course_id) {
         return scoreMapper.getScoreSorted_Ascending(course_id);
     }
