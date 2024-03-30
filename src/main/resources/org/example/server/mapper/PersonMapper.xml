@@ -3,13 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.server.mapper.PersonMapper">
-    <select id="findByPersonName" resultType="org.example.server.pojo.Person">
-        SELECT * FROM Person WHERE person_name=#{person_name}
+
+    <select id="selectAll" resultType="org.example.server.pojo.Person">
+        select * from Person
     </select>
-    <select id="findById" resultType="org.example.server.pojo.Person">
-        SELECT * FROM Person WHERE id=#{id}
+
+    <select id="selectByPersonNum" resultType="org.example.server.pojo.Person">
+        select * from Person where person_num = #{person_num}
     </select>
-    <select id="findByPersonNum" resultType="org.example.server.pojo.Person">
-        SELECT * FROM Person WHERE person_num=#{person_num}
+
+    <select id="selectById" resultType="org.example.server.pojo.Person">
+        select * from Person where id = #{id}
     </select>
 </mapper>
