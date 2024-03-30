@@ -9,6 +9,12 @@
         from Student
         where "id" = #{id}
     </select>
+
+    <insert id="insertStudent">
+        insert into Student (person_id,student_name,department,classes,grade,major)
+        values (#{person_id},#{student_name},#{department},#{classes},#{grade},#{major});
+    </insert>
+
     <select id="findByStudentName" resultType="org.example.server.pojo.Student">
         SELECT *
         FROM Student

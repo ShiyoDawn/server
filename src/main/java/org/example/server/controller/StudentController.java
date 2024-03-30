@@ -7,7 +7,7 @@ import org.example.server.payload.response.DataResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/student")
@@ -23,19 +23,24 @@ public class StudentController {
         return DataResponse.success(studentService.getStudentMapList());
     }
     //通过姓名查询特定学生；
-//    @GetMapping("/selectStudentByName")
-//    public DataResponse selectStudentByName(@RequestParam String student_name) {
-//        return DataResponse.success(studentService.findStudentByName(student_name));
-//    }
-//    //通过id查询学生，仅一人；
-//    @GetMapping("/selectStudentByPid")
-//    public DataResponse selectStudentByPid(@RequestParam Integer person_id){
-//        return DataResponse.success(studentService.findStudentByPid(person_id));
-//    }
-////增
-//    //增加一个学生，指定姓名；
-//    @PostMapping("/updateStudentName")
-//    public Boolean refactorStudentInfo(@RequestParam Integer person_id,@RequestParam String student_name){
-//        return studentService.changeSNameByPid(person_id,student_name);
-//    }
+    @GetMapping("/selectStudentByName")
+    public DataResponse selectStudentByName(@RequestParam String student_name) {
+        return DataResponse.success(studentService.findStudentByName(student_name));
+    }
+    //通过id查询学生，仅一人；
+    @GetMapping("/selectStudentByPid")
+    public DataResponse selectStudentByPid(@RequestParam Integer person_id){
+        return DataResponse.success(studentService.findStudentByPid(person_id));
+    }
+//增
+    //增加一个学生，指定姓名；
+    @PostMapping("/updateStudentName")
+    public Boolean refactorStudentInfo(@RequestParam Integer person_id,@RequestParam String student_name){
+        return studentService.changeSNameByPid(person_id,student_name);
+    }
+
+    @PostMapping("/insertStudent")
+    public DataResponse insert(@RequestParam Integer person_id,@RequestParam String student_name,@RequestParam String department,@RequestParam String classes,@RequestParam String grade,@RequestParam String major){
+        return DataResponse.success(studentService.insert(person_id,student_name,department,classes,grade,major),"增添成功！");
+    }
 }
