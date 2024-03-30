@@ -23,5 +23,15 @@
         SELECT *
         FROM Student
     </select>
+    <select id="selectByPid" resultType="org.example.server.pojo.Student">
+        select *
+        from Student
+        where "person_id" = #{person_id}
+    </select>
+    <update id="updateStudentName" parameterType="org.example.server.pojo.Student">
+        UPDATE Student
+        SET student_name = #{student_name}
+        WHERE person_id = #{person_id}
+    </update>
 
 </mapper>
