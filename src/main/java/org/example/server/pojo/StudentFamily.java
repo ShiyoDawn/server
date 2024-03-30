@@ -20,15 +20,15 @@ public class StudentFamily {
 
     private String student_name;
 
-    private String name;
+    private String name;//可以改动
 
-    private String phone;
+    private String phone;//可以改动
 
-    private String age;
+    private String age;//可以改动
 
-    private String job;
+    private String job;//可以改动
 
-    private String address;
+    private String address;//可以改动
 
     private String relation;
 }
