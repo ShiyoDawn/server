@@ -2,10 +2,20 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.example.server.mapper.StudentMapper">
-    <select id="findByStudentName" resultType="org.example.server.pojo.StudentFamily">
+<mapper namespace="org.example.server.mapper.StudentFamilyMapper">
+    <select id="findFamilyByStudentName" resultType="org.example.server.pojo.StudentFamily">
         SELECT *
         FROM StudentFamily
         WHERE "student_name" = #{student_name}
     </select>
+    <select id="findFamilyByStudentId" resultType="org.example.server.pojo.StudentFamily">
+        SELECT *
+        FROM StudentFamily
+        WHERE "student_id" = #{student_id}
+    </select>
+    <delete id="deleteByStudentId">
+        DELETE
+        FROM StudentFamily
+        WHERE "student_id" = #{student_id}
+    </delete>
 </mapper>

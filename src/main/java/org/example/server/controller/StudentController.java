@@ -38,4 +38,9 @@ public class StudentController {
     public Boolean refactorStudentInfo(@RequestParam Integer person_id,@RequestParam String student_name){
         return studentService.changeSNameByPid(person_id,student_name);
     }
+
+    @PostMapping("/insertStudent")
+    public DataResponse insert(@RequestParam Integer person_id,@RequestParam String student_name,@RequestParam String department,@RequestParam String classes,@RequestParam String grade,@RequestParam String major){
+        return DataResponse.success(studentService.insert(person_id,student_name,department,classes,grade,major),"增添成功！");
+    }
 }

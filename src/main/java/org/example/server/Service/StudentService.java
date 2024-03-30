@@ -2,10 +2,12 @@ package org.example.server.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.example.server.mapper.StudentMapper;
+import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.Person;
 import org.example.server.pojo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.Max;
 import java.util.ArrayList;
@@ -17,6 +19,15 @@ import java.util.Map;
 public class StudentService {
     @Autowired
     private StudentMapper studentMapper;
+
+    public DataResponse insert(Integer person_id,String student_name,String department,String classes,String grade,String major){
+        Student student=studentMapper.selectByPid(person_id);
+        if(student != null){
+            return DataResponse.error(404,"学生已存在");
+        }
+        studentMapper.insertStudent(person_id,student_name,department,classes,grade,major);
+        return DataResponse.success(null,"增添成功！");
+    }
 
     public Map findStudentByName(String student_name) {
         //QueryWrapper<Student> queryWrapper = new QueryWrapper<>();

@@ -5,7 +5,15 @@ import org.apache.ibatis.annotations.Mapper;
 import org.example.server.pojo.Student;
 import org.example.server.pojo.StudentFamily;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 @Mapper
 public interface StudentFamilyMapper extends BaseMapper<StudentFamily> {
-    StudentFamily findByStudentName(String student_name);
+    List<StudentFamily> findFamilyByStudentName(String student_name);
+    Optional<StudentFamily> findFamilyByStudentId(Integer student_id);
+
+    void deleteByStudentId(Integer studentId);
 }
