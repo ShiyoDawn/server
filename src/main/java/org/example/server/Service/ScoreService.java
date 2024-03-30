@@ -52,9 +52,9 @@ public class ScoreService {
         return scoreMapper.selectByStudentId(student_id);
     }
 
-    public List<Score> selectByCourseId(Integer course_id) {
-        return scoreMapper.selectByCourseId(course_id);
-    }
+//    public List<Score> selectByCourseId(Integer course_id) {
+//        return scoreMapper.selectByCourseId(course_id);
+//    }
 
     public DataResponse getScoreList(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("id");
