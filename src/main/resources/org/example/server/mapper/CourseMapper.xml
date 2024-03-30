@@ -41,8 +41,7 @@
                 and course_type_id = #{course_type_id}
             </if>
         </where>
-        order by id desc
-        limit #{pageNum},20;
+        limit #{pageNum} * 2,2;
     </select>
 
 
