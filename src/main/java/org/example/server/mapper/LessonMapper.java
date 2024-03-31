@@ -10,5 +10,6 @@ import java.util.List;
 public interface LessonMapper extends BaseMapper<Lesson> {
     void updateHomework(String homework,Integer id);
     List<Lesson> selectLesson();
+    List<String> selectAllHomeworkFromStudent(Integer student_id);
 
 }

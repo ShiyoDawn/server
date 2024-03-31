@@ -16,4 +16,8 @@ public class LessonController {
     public DataResponse updateHomework(@RequestParam String homework,@RequestParam Integer id){
         return lessonService.updateHomework(homework,id);
     }
+    @PostMapping("/selectAllHomeWorkFromStudent")
+    public DataResponse selectAllHomeWorkFromStudent(@RequestParam Integer id){
+        return lessonService.selectAllHomeworkFromStudent(id);
+    }
 }
