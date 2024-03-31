@@ -25,4 +25,6 @@ public class Lesson {
     private String time_sort;
 
     private String homework;
+    private Integer status;
+    private String terms;
 }

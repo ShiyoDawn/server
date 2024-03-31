@@ -27,4 +27,5 @@ public class Score {
     private Integer mark;
 
     private Integer ranking;
+    private Integer teacher_id;
 }
