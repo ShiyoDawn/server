@@ -14,11 +14,17 @@ import java.util.List;
 @Mapper
 public interface ScoreMapper extends BaseMapper<Score> {
 
-    void insert1(Integer student_id, String student_name, Integer course_id, String course_name, Integer mark);
+    void insertMark(Integer student_id, String student_name, Integer course_id, String course_name, Integer mark,Integer ranking);
 
-    void update1(Integer student_id, Integer course_id, Integer mark);
+    void updateMark(Integer student_id, Integer course_id, Integer mark);
 
-    void delete1(Integer student_id, Integer course_id);
+    void deleteOnlyScore(Integer student_id, Integer course_id);
+
+    void deleteForAll(Integer student_id,Integer course_id);
+
+    Integer calculateRanking(Integer student_id,Integer course_id,Integer mark);
+
+    void updateRanking(Integer student_id,Integer course_id,Integer ranking);
 
     List<Score> selectAll();
 

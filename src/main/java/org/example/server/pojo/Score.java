@@ -32,5 +32,6 @@ public class Score {
     private Course course;
 
     private Student student;
+
     private Integer teacher_id;
 }

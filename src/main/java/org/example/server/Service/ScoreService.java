@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.validation.Valid;
 import java.util.*;
 
+
+//！！！这里面根据更新的分数从而更新排名的逻辑有点小问题，之后再删改！！！
 @Service
 public class ScoreService {
     @Autowired
@@ -27,39 +29,92 @@ public class ScoreService {
     private CourseMapper courseMapper;
 
     //增添分数
-    public DataResponse insert(Integer student_id, Integer course_id, Integer mark) {
+    public DataResponse insertScore(Integer student_id, Integer course_id, Integer mark) {
         Student student = studentMapper.selectById(student_id);
         Course course = courseMapper.selectInfo(course_id);
         if (student == null || course == null) {
             // 处理学生或课程不存在的情况
             return DataResponse.error(404, "Student or Course does not exist.");
         }
-        scoreMapper.insert1(student_id, student.getStudent_name(), course_id, course.getCourse_name(), mark);
-        return DataResponse.success(null, "添加成功！");
+        scoreMapper.updateMark(student_id,course_id,mark);
+
+        Integer ranking = scoreMapper.calculateRanking(student_id,course_id, mark);
+        scoreMapper.insertMark(student_id, student.getStudent_name(), course_id, course.getCourse_name(), mark, ranking);
+        Integer studentRanking = scoreMapper.calculateRanking(student_id,course_id, mark);
+        scoreMapper.updateRanking(student_id, course_id, studentRanking);
+        List<Score> scoreList = scoreMapper.selectByCourseId(course_id);
+        for (Score score : scoreList) {
+            Integer newStudent_Id = score.getStudent_id();
+            Integer newCourse_Id = score.getCourse_id();
+            Integer newMark = score.getMark();
+            Integer newRanking = scoreMapper.calculateRanking(newStudent_Id, newCourse_Id, newMark);
+            scoreMapper.updateRanking(newStudent_Id, newCourse_Id, newRanking);
+        }
+        return DataResponse.ok( "添加成功！");
     }
 
     //删除分数
-    public DataResponse deleteById(Integer student_id, Integer course_id) {
+    public DataResponse deleteOnlyScore(Integer student_id, Integer course_id) {
         Student student = studentMapper.selectById(student_id);
         if (student == null)
             return DataResponse.error(404, "删除失败，该学生不存在");
         Course course = courseMapper.selectInfo(course_id);
         if (course == null)
             return DataResponse.error(404, "删除失败，该课程不存在");
-        scoreMapper.delete1(student_id, course_id);
-        return DataResponse.success(null, "删除成功！");
+
+        scoreMapper.deleteOnlyScore(student_id, course_id);
+        List<Score> scoreList = scoreMapper.selectByCourseId(course_id);
+        for (Score score : scoreList) {
+            Integer newStudent_Id = score.getStudent_id();
+            Integer newCourse_Id = score.getCourse_id();
+            Integer newMark = score.getMark();
+            Integer newRanking = scoreMapper.calculateRanking(newStudent_Id, newCourse_Id, newMark);
+            scoreMapper.updateRanking(newStudent_Id, newCourse_Id, newRanking);
+        }
+        return DataResponse.ok( "删除成功！");
+    }
+
+    public DataResponse deleteAllById(Integer student_id, Integer course_id) {
+        Student student = studentMapper.selectById(student_id);
+        if (student == null)
+            return DataResponse.error(404, "删除失败，该学生不存在");
+        Course course = courseMapper.selectInfo(course_id);
+        if (course == null)
+            return DataResponse.error(404, "删除失败，该课程不存在");
+
+        scoreMapper.deleteForAll(student_id, course_id);
+        List<Score> scoreList = scoreMapper.selectByCourseId(course_id);
+        for (Score score : scoreList) {
+            Integer newStudent_Id = score.getStudent_id();
+            Integer newCourse_Id = score.getCourse_id();
+            Integer newMark = score.getMark();
+            Integer newRanking = scoreMapper.calculateRanking(newStudent_Id, newCourse_Id, newMark);
+            scoreMapper.updateRanking(newStudent_Id, newCourse_Id, newRanking);
+        }
+        return DataResponse.ok( "删除成功！");
     }
 
     //修改分数
-    public DataResponse update(Integer student_id, Integer course_id, Integer mark) {
+    public DataResponse updateScoreAndRanking(Integer student_id, Integer course_id, Integer mark) {
         Student student = studentMapper.selectById(student_id);
         if (student == null)
             return DataResponse.error(404, "修改失败，该学生不存在");
         Course course = courseMapper.selectInfo(course_id);
         if (course == null)
-            return DataResponse.error(404, "修改失败，该学生不存在");
-        scoreMapper.update1(student_id, course_id, mark);
-        return DataResponse.success("更新成功！");
+            return DataResponse.error(404, "修改失败，该课程不存在");
+
+        scoreMapper.updateMark(student_id,course_id,mark);
+        Integer studentRanking = scoreMapper.calculateRanking(student_id,course_id, mark);
+        scoreMapper.updateRanking(student_id, course_id, studentRanking);
+        List<Score> scoreList = scoreMapper.selectByCourseId(course_id);
+        for (Score score : scoreList) {
+            Integer newStudent_Id = score.getStudent_id();
+            Integer newCourse_Id = score.getCourse_id();
+            Integer newMark = score.getMark();
+            Integer newRanking = scoreMapper.calculateRanking(newStudent_Id, newCourse_Id, newMark);
+            scoreMapper.updateRanking(newStudent_Id, newCourse_Id, newRanking);
+        }
+        return DataResponse.ok("修改成功！");
     }
 
     //查询分数
