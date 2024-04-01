@@ -1,6 +1,7 @@
 package org.example.server.Service;
 
 import org.example.server.mapper.StudentFamilyMapper;
+import org.example.server.payload.request.DataRequest;
 import org.example.server.pojo.StudentFamily;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,36 @@ public class StudentFamilyService {
             }
         }
         return dataList;
+    }
+    public void saveFamilyMember(DataRequest dataRequest){
+        Integer student_id = dataRequest.getInteger("studentId");
+        Optional<StudentFamily> op;
+        StudentFamily f = null;
+        if(student_id != null) {
+            op = studentFamilyMapper.findFamilyByStudentId(student_id);
+            if(op.isPresent()) {
+                f = op.get();
+            }
+        }
+        if(f== null) {
+            f = new StudentFamily();
+        }
+        f.setStudent_id(student_id);
+        f.setStudent_name(dataRequest.getString("student_name"));
+        f.setName("name");
+        f.setPhone("phone");
+        f.setAge("age");
+        f.setJob("job");
+        f.setAddress("address");
+        f.setRelation("relation");
+    }
+    public void deleteFamilyMember(DataRequest dataRequest){
+        Integer student_id = dataRequest.getInteger("studentId");
+        Optional<StudentFamily> op;
+        op = studentFamilyMapper.findFamilyByStudentId(student_id);
+        if(op.isPresent()) {
+            studentFamilyMapper.deleteByStudentId(student_id);
+        }
     }
 
 }
