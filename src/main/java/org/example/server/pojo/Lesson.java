@@ -17,6 +17,7 @@ public class Lesson {
     private Integer id;
 
     private Integer course_id;
+    private String course_name;
 
     private String time;
 
