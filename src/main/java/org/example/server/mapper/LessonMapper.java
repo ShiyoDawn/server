@@ -11,5 +11,6 @@ public interface LessonMapper extends BaseMapper<Lesson> {
     void updateHomework(String homework,Integer id);
     List<Lesson> selectLesson();
     List<String> selectAllHomeworkFromStudent(Integer student_id);
-
+    List<String> selectAllHomeworkFromTeacher(Integer lesson_id);
+    List<Lesson> selectOneLesson(Integer course_id);
 }
