@@ -10,6 +10,6 @@
         update Lesson set homework=#{homework} where id = #{id};
     </update>
     <select id="selectAllHomeworkFromStudent" resultType="org.example.server.pojo.Lesson">
-        select homework from lesson 1 where course_id = (select course_id from student_course where student_id = #{student_id});
+        select course_id,homework from lesson where course_id = (select course_id from student_course where student_id = #{student_id});
     </select>
 </mapper>
