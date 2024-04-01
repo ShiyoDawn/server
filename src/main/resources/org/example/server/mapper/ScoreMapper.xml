@@ -20,19 +20,40 @@
         select * from Score
     </select>
 
-    <update id="update1">
+    <update id="updateMark">
         update Score set mark = #{mark} where "student_id" = #{student_id} and "course_id" = #{course_id}
     </update>
 
-    <!--delete不太方便删除单个成绩，故在delete1里用update代替-->
-    <delete id="delete1">
+    <!--delete不太方便删除单个成绩，故在deleteOnlyScore里用update代替-->
+    <delete id="deleteOnlyScore">
         update Score set mark = null where "student_id" = #{student_id} and "course_id" = #{course_id}
     </delete>
 
-    <insert id="insert1">
-        insert into Score (student_id, student_name, course_id, course_name, mark)
-        values (#{student_id}, #{student_name}, #{course_id}, #{course_name}, #{mark})
+    <delete id="deleteForAll">
+        delete from Score where  "student_id" = #{student_id} and "course_id" = #{course_id}
+    </delete>
+
+    <insert id="insertMark">
+        insert into Score (student_id, student_name, course_id, course_name, mark,ranking)
+        values (#{student_id}, #{student_name}, #{course_id}, #{course_name}, #{mark},#{ranking})   
     </insert>
+
+    <!--用于更新每次更改/删除/增加分数时每个人该科目的排名，这里的逻辑可能有点小问题qwq-->
+    <update id="calculateRanking" >
+        update Score
+        set mark = #{mark},
+            ranking =
+                (
+                    select COUNT(*) + 1
+                    from Score
+                    where course_id = #{course_id} and mark > #{mark}
+                )
+        where student_id = #{student_id} and course_id = #{course_id}
+    </update>
+    
+    <update id="updateRanking" parameterType="org.example.server.pojo.Score">
+        update Score set ranking = #{ranking} where  "student_id" = #{student_id} and "course_id" = #{course_id}
+    </update>
 
 
     <select id="getScoreSorted_Ascending" resultType="org.example.server.pojo.Score">
@@ -42,7 +63,6 @@
     <select id="getScoreSorted_descending" resultType="org.example.server.pojo.Score">
         select * from Score where "course_id"=#{course_id} ORDER BY mark DESC
     </select>
-
     <!--有个scoreSave未写，之后补-->
 
 </mapper>
