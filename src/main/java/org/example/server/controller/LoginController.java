@@ -1,16 +1,23 @@
 package org.example.server.controller;
 
+import org.example.server.Service.UserService;
 import org.example.server.payload.Result;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.example.server.payload.request.LoginRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class LoginController {
-    @GetMapping("/login")
-    public Result login(){
-        return Result.ok("登录成功");
+    @Autowired
+    UserService userService;
+    @PostMapping("/login")
+    public Result login(@RequestBody LoginRequest loginRequest){
+        return userService.loginReq(loginRequest.getUserName(), loginRequest.getPassword());
+    }
+
+    @PostMapping("/loginAgain")
+    public Integer loginAgain(@RequestBody Integer id){
+        System.out.println(id);
+        return id;
     }
 }

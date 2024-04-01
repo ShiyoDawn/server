@@ -16,14 +16,11 @@ public interface UserMapper extends BaseMapper<User> {
     List<User> selectAll();
 
     @Delete("delete from user where id = 1 ")
-    public void delete();
+    void delete();
 
     @Insert("insert into user(id) values (null);")
-    public void insert1();
+    void insert1();
 
-    public List selectById(Integer id);
-
-
-
-
+    @Select("select * from user where person_num = #{userNum}")
+    User selectByNum(String userNum);
 }
