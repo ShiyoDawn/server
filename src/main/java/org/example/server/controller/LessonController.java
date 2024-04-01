@@ -20,4 +20,12 @@ public class LessonController {
     public DataResponse selectAllHomeWorkFromStudent(@RequestParam Integer id){
         return lessonService.selectAllHomeworkFromStudent(id);
     }
+    @PostMapping("/selectAllHomeWorkFromTeacher")
+    public DataResponse selectAllHomeWorkFromTeacher(@RequestParam Integer id){
+        return lessonService.selectAllHomeworkFromTeacher(id);
+    }
+    @PostMapping("/selectOneLesson")
+    public DataResponse selectOneLesson(Integer id){
+        return lessonService.selectOneLesson(id);
+    }
 }
