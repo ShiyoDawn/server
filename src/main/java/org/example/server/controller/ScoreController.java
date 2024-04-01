@@ -29,17 +29,17 @@ public class ScoreController {
     //增添/删减/修改学生的某个课程的分数(通过score本身id / student_id和course_id查询到对应的分数再进行修改？)
     @PostMapping("/insertScore")
     public DataResponse insert( @RequestParam Integer student_id, @RequestParam Integer course_id, @RequestParam Integer mark) {
-        return DataResponse.success(scoreService.insert(student_id, course_id, mark), "增添成功！");
+        return scoreService.insert(student_id, course_id, mark);
     }
 
     @PostMapping("/deleteScore")
     public DataResponse delete(@RequestParam Integer student_id, @RequestParam Integer course_id) {
-        return DataResponse.success(scoreService.deleteById(student_id, course_id));
+        return scoreService.deleteById(student_id, course_id);
     }
 
     @PostMapping("/updateScore")
     public DataResponse update(@RequestParam Integer student_id, @RequestParam Integer course_id, @RequestParam Integer mark) {
-        return DataResponse.success(scoreService.update(student_id, course_id, mark));
+        return scoreService.update(student_id, course_id, mark);
     }
 
     @PostMapping("/selectByStudentAndCourse")

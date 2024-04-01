@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.server.mapper.StudentMapper;
 
 @NoArgsConstructor
 @Data
@@ -27,5 +28,12 @@ public class Score {
     private Integer mark;
 
     private Integer ranking;
+<<<<<<< HEAD
+
+    private Course course;
+
+    private Student student;
+=======
     private Integer teacher_id;
+>>>>>>> 37a9eefd850ac8c7498c13a63aeecb9618878d48
 }
