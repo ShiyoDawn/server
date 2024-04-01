@@ -32,10 +32,38 @@ public class LessonService {
             return DataResponse.success(slist);
         }
     }
-    public DataResponse selectOneLesson(Integer course_id){
-        List<Lesson> slist = lessonMapper.selectOneLesson(course_id);
+    public DataResponse selectOneLessonFromStudent(Integer course_id,Integer student_id){
+        List<Lesson> slist = lessonMapper.selectOneLessonFromStudent(course_id,student_id);
         if(slist == null){
             return DataResponse.error("没有此课程");
+        } else {
+            return DataResponse.success(slist);
+        }
+    }
+    public DataResponse selectOneLessonFromTeacher(Integer course_id,Integer teacher_id){
+        List<Lesson> slist = lessonMapper.selectOneLessonFromTeacher(course_id,teacher_id);
+        if(slist == null){
+            return DataResponse.error("没有此课程");
+        } else {
+            return DataResponse.success(slist);
+        }
+    }
+    public DataResponse updateHomeworkRating(Integer homework_rating_id,Integer lesson_id,Integer student_id) {
+        lessonMapper.updateHomeworkRating(homework_rating_id,lesson_id,student_id);
+        return DataResponse.ok("更改成功");
+    }
+    public DataResponse selectHomeworkRatingStudent(Integer lesson_id,Integer student_id) {
+        List<String> slist = lessonMapper.selectHomeworkRatingStudent(lesson_id,student_id);
+        if(slist == null){
+            return DataResponse.ok("老师暂未评定");
+        } else {
+            return DataResponse.success(slist);
+        }
+    }
+    public DataResponse selectHomeworkRatingTeacher(Integer lesson_id,Integer teacher_id) {
+        List<String> slist = lessonMapper.selectHomeworkRatingTeacher(lesson_id,teacher_id);
+        if(slist == null){
+            return DataResponse.ok("您暂未评定");
         } else {
             return DataResponse.success(slist);
         }

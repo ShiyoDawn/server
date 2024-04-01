@@ -5,6 +5,8 @@ import org.example.server.payload.response.DataResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/lesson")
 @CrossOrigin
@@ -20,12 +22,30 @@ public class LessonController {
     public DataResponse selectAllHomeWorkFromStudent(@RequestParam Integer id){
         return lessonService.selectAllHomeworkFromStudent(id);
     }
+    //未测试
     @PostMapping("/selectAllHomeWorkFromTeacher")
     public DataResponse selectAllHomeWorkFromTeacher(@RequestParam Integer id){
         return lessonService.selectAllHomeworkFromTeacher(id);
     }
-    @PostMapping("/selectOneLesson")
-    public DataResponse selectOneLesson(Integer id){
-        return lessonService.selectOneLesson(id);
+    @PostMapping("/selectOneLessonFromStudent")
+    public DataResponse selectOneLessonFromStudent(Integer id,Integer student_id){
+        return lessonService.selectOneLessonFromStudent(id,student_id);
     }
+    @PostMapping("/selectOneLessonFromTeacher")
+    public DataResponse selectOneLessonFromTeacher(Integer id,Integer teacher_id){
+        return lessonService.selectOneLessonFromTeacher(id,teacher_id);
+    }
+    @PostMapping("/updateHomeworkRating")
+    public DataResponse updateHomeworkRating(@RequestBody Map<String,Integer> map){
+        return lessonService.updateHomeworkRating(map.get("homework_rating_id"),map.get("lesson_id"),map.get("studnet_id"));
+    }
+    @PostMapping("/selectHomeworkRatingStudent")
+    public DataResponse selectHomeworkRatingStudent(@RequestBody Map<String,Integer> map){
+        return lessonService.selectHomeworkRatingStudent(map.get("lesson_id"),map.get("student_id"));
+    }
+    @PostMapping("/electHomeworkRatingTeacher")
+    public DataResponse electHomeworkRatingTeacher(@RequestBody Map<String,Integer> map){
+        return lessonService.selectHomeworkRatingTeacher(map.get("lesson_id"),map.get("teacher_id"));
+    }
+
 }

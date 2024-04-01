@@ -6,16 +6,41 @@
     <select id="selectlesson" resultType="org.example.server.pojo.Lesson">
         SELECT * FROM Lesson;
     </select>
+    <?老师添加作业并判断课程是否结束?>
     <update id="updateHomework">
         update Lesson set homework=#{homework} where id = #{id};
     </update>
+    <?学生提交作业目前不允许图片?>
+    <update id="updateHomeworkFromStudent">
+        update student_course set student_homework=#{student_homework} where student_id = #{student_id} and lesson_id = #{lesson_id};
+    </update>
+    <?学生查看作业信息?>
     <select id="selectAllHomeworkFromStudent" resultType="org.example.server.pojo.Lesson">
         select course_id,course_name,homework from lesson where id in (select lesson_id from student_course where student_id = #{student_id});
     </select>
+    <?老师查看lesson作业?>
     <select id="selectAllHomeworkFromTeacher" resultType="org.example.server.pojo.Lesson">
         select student_homework ,student_name from student_course a inner join lesson b on a.lesson_id = b.id where lesson_id in #{lesson_id} ;
     </select>
-    <select id="selectOneLesson" resultType="org.example.server.pojo.Lesson">
-        SELECT * FROM Lesson where course_id = #{course_id};
+    <?老师通过course_id查询所有星期的课程信息?>
+    <select id="selectOneLessonFromTeacher" resultType="org.example.server.pojo.Lesson">
+        SELECT * FROM Lesson where course_id = #{course_id} and teacher_id = #{teacher_id};
+    </select>
+    <?学生通过course_id查询所有星期的课程信息?>
+    <select id="selectOneLessonFromStudent" resultType="org.example.server.pojo.Lesson">
+
+        SELECT * FROM Lesson where course_id = #{course_id} and id = (select lesson_id from student_course where student_id = #{student_id});;
+    </select>
+    <?更改作业评级?>
+    <update id="updateHomeworkRating">
+        update student_course set homework_rating_id=#{homework_rating_id} where lesson_id = #{lesson_id} and student_id = #{student_id};
+    </update>
+    <?学生查询作业评级?>
+    <select id="selectHomeworkRatingStudent" resultType="org.example.server.pojo.Lesson">
+        SELECT homework_rating FROM student_course a INNER JOIN homework_rating b on a.homework_rating_id = b.id where lesson_id = #{lesson_id} and student_id = #{student_id};
+    </select>
+    <?老师查询作业评级?>
+    <select id="selectHomeworkRatingTeacher" resultType="org.example.server.pojo.Lesson">
+        SELECT homework_rating FROM student_course a INNER JOIN homework_rating b on a.homework_rating_id = b.id where lesson_id = #{lesson_id} and teacher_id = #{teacher_id};
     </select>
 </mapper>
