@@ -41,7 +41,7 @@
     <!--用于更新每次更改/删除/增加分数时每个人该科目的排名，这里的逻辑可能有点小问题qwq-->
     <update id="calculateRanking" >
         update Score
-        set mark = #{mark},
+        set
             ranking =
                 (
                     select COUNT(*) + 1

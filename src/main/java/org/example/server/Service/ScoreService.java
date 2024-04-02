@@ -36,10 +36,12 @@ public class ScoreService {
             // 处理学生或课程不存在的情况
             return DataResponse.error(404, "Student or Course does not exist.");
         }
-        scoreMapper.updateMark(student_id,course_id,mark);
 
+        scoreMapper.updateMark(student_id,course_id,mark);
         Integer ranking = scoreMapper.calculateRanking(student_id,course_id, mark);
         scoreMapper.insertMark(student_id, student.getStudent_name(), course_id, course.getCourse_name(), mark, ranking);
+
+        //根据加入成绩更新排名
         Integer studentRanking = scoreMapper.calculateRanking(student_id,course_id, mark);
         scoreMapper.updateRanking(student_id, course_id, studentRanking);
         List<Score> scoreList = scoreMapper.selectByCourseId(course_id);
@@ -49,6 +51,7 @@ public class ScoreService {
             Integer newMark = score.getMark();
             Integer newRanking = scoreMapper.calculateRanking(newStudent_Id, newCourse_Id, newMark);
             scoreMapper.updateRanking(newStudent_Id, newCourse_Id, newRanking);
+            System.out.println(newRanking+" ");
         }
         return DataResponse.ok( "添加成功！");
     }
@@ -63,6 +66,7 @@ public class ScoreService {
             return DataResponse.error(404, "删除失败，该课程不存在");
 
         scoreMapper.deleteOnlyScore(student_id, course_id);
+
         List<Score> scoreList = scoreMapper.selectByCourseId(course_id);
         for (Score score : scoreList) {
             Integer newStudent_Id = score.getStudent_id();
@@ -83,6 +87,7 @@ public class ScoreService {
             return DataResponse.error(404, "删除失败，该课程不存在");
 
         scoreMapper.deleteForAll(student_id, course_id);
+
         List<Score> scoreList = scoreMapper.selectByCourseId(course_id);
         for (Score score : scoreList) {
             Integer newStudent_Id = score.getStudent_id();
@@ -104,6 +109,7 @@ public class ScoreService {
             return DataResponse.error(404, "修改失败，该课程不存在");
 
         scoreMapper.updateMark(student_id,course_id,mark);
+
         Integer studentRanking = scoreMapper.calculateRanking(student_id,course_id, mark);
         scoreMapper.updateRanking(student_id, course_id, studentRanking);
         List<Score> scoreList = scoreMapper.selectByCourseId(course_id);
@@ -113,6 +119,7 @@ public class ScoreService {
             Integer newMark = score.getMark();
             Integer newRanking = scoreMapper.calculateRanking(newStudent_Id, newCourse_Id, newMark);
             scoreMapper.updateRanking(newStudent_Id, newCourse_Id, newRanking);
+            System.out.println(newRanking);
         }
         return DataResponse.ok("修改成功！");
     }
