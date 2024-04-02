@@ -8,15 +8,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @TableName("lesson")
-public class Lesson {
+public class Lesson implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
     private Integer course_id;
+
     private String course_name;
 
     private String time;
@@ -26,6 +30,12 @@ public class Lesson {
     private String time_sort;
 
     private String homework;
+
     private Integer status;
+
     private String terms;
+
+    private String classes;
+
+    private Integer teacher_id;
 }
