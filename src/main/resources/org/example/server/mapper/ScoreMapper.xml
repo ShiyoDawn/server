@@ -5,11 +5,17 @@
 <mapper namespace="org.example.server.mapper.ScoreMapper">
 
     <select id="selectByStudentId" resultType="org.example.server.pojo.Score">
-        select * from Score where "student_id" = #{student_id}
+        select * from Score sc
+            inner join Student st on sc.student_id = st.id
+            inner join Course co on sc.course_id=co.id
+        where "student_id" = #{student_id}
     </select>
 
     <select id="selectByCourseId" resultType="org.example.server.pojo.Score">
-        select * from Score where "course_id" = #{course_id}
+        select * from Score
+            inner join Student st on sc.student_id = st.id
+            inner join Course co on sc.course_id=co.id
+        where "course_id" = #{course_id}
     </select>
 
     <select id="selectByStudentAndCourse" resultType="org.example.server.pojo.Score">
@@ -18,6 +24,9 @@
 
     <select id="selectAll" resultType="org.example.server.pojo.Score">
         select * from Score
+            inner join Student st on sc.student_id = st.id
+            inner join Course co on sc.course_id=co.id
+        limit #{offset}, #{pageSize}
     </select>
 
     <update id="updateMark">

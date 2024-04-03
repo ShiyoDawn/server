@@ -44,15 +44,8 @@ public class ScoreService {
         //根据加入成绩更新排名
         Integer studentRanking = scoreMapper.calculateRanking(student_id,course_id, mark);
         scoreMapper.updateRanking(student_id, course_id, studentRanking);
-        List<Score> scoreList = scoreMapper.selectByCourseId(course_id);
-        for (Score score : scoreList) {
-            Integer newStudent_Id = score.getStudent_id();
-            Integer newCourse_Id = score.getCourse_id();
-            Integer newMark = score.getMark();
-            Integer newRanking = scoreMapper.calculateRanking(newStudent_Id, newCourse_Id, newMark);
-            scoreMapper.updateRanking(newStudent_Id, newCourse_Id, newRanking);
-            System.out.println(newRanking+" ");
-        }
+
+        modifyStudentRanking(course_id);
         return DataResponse.ok( "添加成功！");
     }
 
@@ -67,14 +60,7 @@ public class ScoreService {
 
         scoreMapper.deleteOnlyScore(student_id, course_id);
 
-        List<Score> scoreList = scoreMapper.selectByCourseId(course_id);
-        for (Score score : scoreList) {
-            Integer newStudent_Id = score.getStudent_id();
-            Integer newCourse_Id = score.getCourse_id();
-            Integer newMark = score.getMark();
-            Integer newRanking = scoreMapper.calculateRanking(newStudent_Id, newCourse_Id, newMark);
-            scoreMapper.updateRanking(newStudent_Id, newCourse_Id, newRanking);
-        }
+        modifyStudentRanking(course_id);
         return DataResponse.ok( "删除成功！");
     }
 
@@ -88,14 +74,7 @@ public class ScoreService {
 
         scoreMapper.deleteForAll(student_id, course_id);
 
-        List<Score> scoreList = scoreMapper.selectByCourseId(course_id);
-        for (Score score : scoreList) {
-            Integer newStudent_Id = score.getStudent_id();
-            Integer newCourse_Id = score.getCourse_id();
-            Integer newMark = score.getMark();
-            Integer newRanking = scoreMapper.calculateRanking(newStudent_Id, newCourse_Id, newMark);
-            scoreMapper.updateRanking(newStudent_Id, newCourse_Id, newRanking);
-        }
+        modifyStudentRanking(course_id);
         return DataResponse.ok( "删除成功！");
     }
 
@@ -112,34 +91,55 @@ public class ScoreService {
 
         Integer studentRanking = scoreMapper.calculateRanking(student_id,course_id, mark);
         scoreMapper.updateRanking(student_id, course_id, studentRanking);
-        List<Score> scoreList = scoreMapper.selectByCourseId(course_id);
-        for (Score score : scoreList) {
-            Integer newStudent_Id = score.getStudent_id();
-            Integer newCourse_Id = score.getCourse_id();
-            Integer newMark = score.getMark();
-            Integer newRanking = scoreMapper.calculateRanking(newStudent_Id, newCourse_Id, newMark);
-            scoreMapper.updateRanking(newStudent_Id, newCourse_Id, newRanking);
-            System.out.println(newRanking);
-        }
+        modifyStudentRanking(course_id);
         return DataResponse.ok("修改成功！");
     }
 
     //查询分数
-    public Score selectByStudentAndCourse(Integer student_id, Integer course_id) {
-        return scoreMapper.selectByStudentAndCourse(student_id, course_id);
+    public DataResponse selectByStudentAndCourse(Integer student_id, Integer course_id) {
+        Student student = studentMapper.selectById(student_id);
+        if (student == null)
+            return DataResponse.error(404, "查询失败，该学生不存在");
+        Course course = courseMapper.selectInfo(course_id);
+        if (course == null)
+            return DataResponse.error(404, "查询失败，该课程不存在");
+        return DataResponse.success(scoreMapper.selectByStudentAndCourse(student_id, course_id),"查询成功！");
     }
 
-    public List<Score> selectByStudentId(Integer student_id) {
-        return scoreMapper.selectByStudentId(student_id);
+    public DataResponse selectByStudentId(Integer student_id) {
+        Student student = studentMapper.selectById(student_id);
+        if (student == null)
+            return DataResponse.error(404, "查询失败，该学生不存在");
+        return DataResponse.success(scoreMapper.selectByStudentId(student_id),"查询成功！");
     }
 
-    public List<Score> selectByCourseId(Integer course_id) {
-        return scoreMapper.selectByCourseId(course_id);
+    public DataResponse selectByStudentName(String student_name){
+        Student student=studentMapper.findByStudentName(student_name);
+        Integer studentId=student.getId();
+        if (student == null)
+            return DataResponse.error(404, "查询失败，该学生不存在");
+        return DataResponse.success(scoreMapper.selectByStudentId(studentId),"查询成功！");
     }
 
-    public DataResponse getScoreList() {
-        List<Score> scoreList = scoreMapper.selectAll();
-        //List<Score> scoreList = scoreMapper.selectByStudentAndCourse(studentId, courseId);
+    public DataResponse selectByCourseId(Integer course_id) {
+        Course course = courseMapper.selectInfo(course_id);
+        if (course == null)
+            return DataResponse.error(404, "查询失败，该课程不存在");
+        return DataResponse.success(scoreMapper.selectByCourseId(course_id),"查询成功！");
+    }
+
+    //未写由coursename得到courseid，故先放这，之后补
+    /*
+    public List<Score> selectByCourseName(String course_name){
+        Course course=courseMapper.selectByCourseName(course_name);
+        Integer courseId=course.getId();
+        return scoreMapper.selectByCourseId(courseId);
+    }
+    */
+
+    public DataResponse getScoreList(Integer pageNum,Integer pageSize) {
+        int offset = (pageNum - 1) * pageSize;
+        List<Score> scoreList = scoreMapper.selectAll(offset,pageSize);
         List<Map<String, String>> dataList = new ArrayList();
         Map<String, String> map;
         for (Score s : scoreList) {
@@ -186,6 +186,17 @@ public class ScoreService {
         return DataResponse.ok();
     }
 
+
+    public void modifyStudentRanking(Integer course_id){
+        List<Score> scoreList = scoreMapper.selectByCourseId(course_id);
+        for (Score score : scoreList) {
+            Integer newStudent_Id = score.getStudent_id();
+            Integer newCourse_Id = score.getCourse_id();
+            Integer newMark = score.getMark();
+            Integer newRanking = scoreMapper.calculateRanking(newStudent_Id, newCourse_Id, newMark);
+            scoreMapper.updateRanking(newStudent_Id, newCourse_Id, newRanking);
+        }
+    }
     //给按某课程分数排序(暂时不知道需不需要)
     //升序排序
     public List<Score> getScoreSorted_Ascending(Integer course_id) {
