@@ -11,8 +11,8 @@
     </select>
 
     <insert id="insertStudent">
-        insert into Student (person_id,student_name,department,classes,grade,major)
-        values (#{person_id},#{student_name},#{department},#{classes},#{grade},#{major});
+        insert into Student (person_id, student_name, department, classes, grade, major)
+        values (#{person_id}, #{student_name}, #{department}, #{classes}, #{grade}, #{major});
     </insert>
 
     <select id="findByStudentName" resultType="org.example.server.pojo.Student">
@@ -38,6 +38,21 @@
         UPDATE Student
         SET student_name = #{student_name}
         WHERE person_id = #{person_id}
+    </update>
+    <update id="updateStudentDepartment" parameterType="org.example.server.pojo.Student">
+        UPDATE Student
+        SET department=#{department}
+        WHERE student_name = #{student_name}
+    </update>
+    <update id="updateStudentGrade" parameterType="org.example.server.pojo.Student">
+        UPDATE Student
+        SET grade=#{grade}
+        WHERE student_name = #{student_name}
+    </update>
+    <update id="updateStudentMajor" parameterType="org.example.server.pojo.Student">
+        UPDATE Student
+        SET major=#{major}
+        WHERE student_name = #{student_name}
     </update>
 
 </mapper>
