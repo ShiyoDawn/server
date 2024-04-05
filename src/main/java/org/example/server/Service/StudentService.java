@@ -198,4 +198,12 @@ public class StudentService {
         studentMapper.updateStudentMajor(student_name,major);
         return true;
     }
+    public Student selectByStudentIdWithStudentFamily(Integer id){
+        Student student=studentMapper.selectById(id);
+        if(student==null){
+            return null;
+        }
+        Student s=studentMapper.selectStudentAndStudentFamilyById(id);
+        return s;
+    }
 }

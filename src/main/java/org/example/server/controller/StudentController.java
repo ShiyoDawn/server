@@ -66,4 +66,8 @@ public class StudentController {
     public DataResponse insert(@RequestParam Integer person_id, @RequestParam String student_name, @RequestParam String department, @RequestParam String classes, @RequestParam String grade, @RequestParam String major) {
         return DataResponse.success(studentService.insert(person_id, student_name, department, classes, grade, major), "增添成功！");
     }
+    @GetMapping("/selectByStudentIdWithStudentFamily")
+    public DataResponse selectByStudentIdWithStudentFamily(@RequestParam Integer id){
+        return DataResponse.success(studentService.selectByStudentIdWithStudentFamily(id));
+    }
 }

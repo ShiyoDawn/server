@@ -21,13 +21,15 @@ public interface StudentMapper extends BaseMapper<Student> {
 
     List<Student> findByDepartment(String department);
 
-    public Student selectById(Integer id);
-    public Student selectByPid(Integer person_id);
-    public Integer updateStudentName(String student_name,Integer person_id);
+    Student selectById(Integer id);
+    Student selectByPid(Integer person_id);
+    Integer updateStudentName(String student_name,Integer person_id);
 
-    public void updateStudentDepartment(String student_name,String department);
+    void updateStudentDepartment(String student_name,String department);
 
-    public  void updateStudentGrade(String student_name, String grade);
+    void updateStudentGrade(String student_name, String grade);
 
-    public  void updateStudentMajor(String student_name, String major);
+    void updateStudentMajor(String student_name, String major);
+
+    Student selectStudentAndStudentFamilyById(Integer id);
 }

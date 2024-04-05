@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,6 +29,8 @@ public class Student {
     private String grade;
 
     private String major;
+
+    private List<StudentFamily> studentFamilies;
 
     //要和别的实体类产生关联吧，一对多多对一之类的
     //private Person person;
