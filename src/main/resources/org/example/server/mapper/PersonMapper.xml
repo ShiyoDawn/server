@@ -5,14 +5,47 @@
 <mapper namespace="org.example.server.mapper.PersonMapper">
 
     <select id="selectAll" resultType="org.example.server.pojo.Person">
-        select * from Person
+        select *
+        from Person
     </select>
 
     <select id="selectByPersonNum" resultType="org.example.server.pojo.Person">
-        select * from Person where person_num = #{person_num}
+        select *
+        from Person
+        where person_num = #{person_num}
     </select>
 
     <select id="selectById" resultType="org.example.server.pojo.Person">
-        select * from Person where id = #{id}
+        select *
+        from Person
+        where id = #{id}
+    </select>
+    <resultMap id="perStuMap" type="org.example.server.pojo.Person">
+        <id property="id" column="id"/>
+        <result property="person_name" column="person_name"/>
+        <result property="gender_id" column="gender_id"/>
+        <result property="phone_number" column="phone_number"/>
+        <result property="identity" column="identity"/>
+        <result property="person_num" column="person_num"/>
+        <result property="birthday" column="birthday"/>
+        <result property="user_type" column="user_type"/>
+        <result property="department" column="department"/>
+        <result property="email" column="email"/>
+        <result property="identity_number" column="identity_number"/>
+        <association property="student" javaType="org.example.server.pojo.Student">
+            <id property="person_id" column="person_id"/>
+            <result property="id" column="id"/>
+            <result property="student_name" column="student_name"/>
+            <result property="department" column="department"/>
+            <result property="classes" column="classes"/>
+            <result property="grade" column="grade"/>
+            <result property="major" column="major"/>
+        </association>
+    </resultMap>
+    <select id="selectSPersonById" resultMap="perStuMap">
+        SELECT p.*, s.*
+        FROM person p
+                 INNER JOIN student s ON p.id = s.person_id
+        WHERE p.id = #{id}
     </select>
 </mapper>

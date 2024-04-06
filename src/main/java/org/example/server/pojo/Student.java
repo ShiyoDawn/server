@@ -24,14 +24,13 @@ public class Student {
 
     private String department;
 
-    private String classes;
+    private String classes;//联查
 
-    private String grade;
+    private String grade;//联查
 
-    private String major;
+    private String major;//联查
 
     private List<StudentFamily> studentFamilies;
 
-    //要和别的实体类产生关联吧，一对多多对一之类的
-    //private Person person;
+    private Person person;
 }

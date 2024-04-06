@@ -50,15 +50,17 @@
         </collection>
     </resultMap>
     <select id="selectStudentAndStudentFamilyById" resultMap="stuFamMap">
-        SELECT *,
+        SELECT s.id,
+               s.person_id,
+               s.student_name,
+               s.major,
                sf.id,
                sf.name,
                sf.phone,
                sf.age,
                sf.job,
                sf.address,
-               sf.relation,
-               sf.
+               sf.relation
         FROM student s
                  INNER JOIN student_family sf ON s.id = sf.student_id
         WHERE s.id = #{id}
