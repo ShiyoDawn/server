@@ -171,4 +171,39 @@ public class StudentService {
         studentMapper.updateStudentName(student_name,personId);
         return true;
     }
+
+    public Boolean updateStudentDepartment(String student_name,String department) {
+        Student student=studentMapper.findByStudentName(student_name);
+        if(student==null){
+            return false;
+        }
+        studentMapper.updateStudentDepartment(student_name,department);
+        return true;
+    }
+
+    public Boolean updateStudentGrade(String student_name, String grade) {
+        Student student=studentMapper.findByStudentName(student_name);
+        if(student==null){
+            return false;
+        }
+        studentMapper.updateStudentGrade(student_name,grade);
+        return true;
+    }
+
+    public Boolean updateStudentMajor(String student_name, String major) {
+        Student student=studentMapper.findByStudentName(student_name);
+        if(student==null){
+            return false;
+        }
+        studentMapper.updateStudentMajor(student_name,major);
+        return true;
+    }
+    public Student selectByStudentIdWithStudentFamily(Integer id){
+        Student student=studentMapper.selectById(id);
+        if(student==null){
+            return null;
+        }
+        Student s=studentMapper.selectStudentAndStudentFamilyById(id);
+        return s;
+    }
 }

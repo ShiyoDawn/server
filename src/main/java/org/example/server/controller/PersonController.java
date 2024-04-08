@@ -34,4 +34,9 @@ public class PersonController {
     public DataResponse selectByPersonNum(@Valid @RequestParam String person_num) {
         return DataResponse.success(personSevice.selectByPersonNum(person_num));
     }
+
+    @GetMapping("/selectSPersonById")
+    public DataResponse selectSPersonById(@RequestParam Integer id){
+        return DataResponse.success(personSevice.selectSPersonByIdMap(id));
+    }
 }

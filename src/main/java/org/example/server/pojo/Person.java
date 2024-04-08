@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @TableName("person")
 public class Person {
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private Integer id;//Student类中的person_id
 
     private String person_name;
 
@@ -35,4 +35,6 @@ public class Person {
     private String email;
 
     private String identity_number;
+
+    private Student student;
 }

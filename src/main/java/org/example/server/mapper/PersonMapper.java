@@ -13,6 +13,8 @@ public interface PersonMapper extends BaseMapper<Person> {
 
     Person selectByPersonNum(String person_num);
 
+    Person selectSPersonById(Integer id);
+
 }
 
 
