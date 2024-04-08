@@ -43,7 +43,7 @@ public class LessonController {
     public DataResponse selectHomeworkRatingStudent(@RequestBody Map<String,Integer> map){
         return lessonService.selectHomeworkRatingStudent(map.get("lesson_id"),map.get("student_id"));
     }
-    @PostMapping("/electHomeworkRatingTeacher")
+    @PostMapping("/selectHomeworkRatingTeacher")
     public DataResponse electHomeworkRatingTeacher(@RequestBody Map<String,Integer> map){
         return lessonService.selectHomeworkRatingTeacher(map.get("lesson_id"),map.get("teacher_id"));
     }

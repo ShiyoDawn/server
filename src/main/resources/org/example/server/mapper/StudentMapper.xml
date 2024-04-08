@@ -11,8 +11,8 @@
     </select>
 
     <insert id="insertStudent">
-        insert into Student (person_id,student_name,department,classes,grade,major)
-        values (#{person_id},#{student_name},#{department},#{classes},#{grade},#{major});
+        insert into Student (person_id, student_name, department, classes, grade, major)
+        values (#{person_id}, #{student_name}, #{department}, #{classes}, #{grade}, #{major});
     </insert>
 
     <select id="findByStudentName" resultType="org.example.server.pojo.Student">
@@ -34,10 +34,56 @@
         from Student
         where "person_id" = #{person_id}
     </select>
+    <resultMap id="stuFamMap" type="org.example.server.pojo.Student">
+        <id property="id" column="id" />
+        <result property="person_id" column="person_id"/>
+        <result property="student_name" column="student_name"/>
+        <result property="major" column="major"/>
+        <collection property="studentFamilies" ofType="org.example.server.pojo.StudentFamily">
+            <id property="student_id" column="student_id"/>
+            <result property="name" column="name"/>
+            <result property="phone" column="phone"/>
+            <result property="age" column="age"/>
+            <result property="job" column="job"/>
+            <result property="address" column="address"/>
+            <result property="relation" column="relation"/>
+        </collection>
+    </resultMap>
+    <select id="selectStudentAndStudentFamilyById" resultMap="stuFamMap">
+        SELECT s.id,
+               s.person_id,
+               s.student_name,
+               s.major,
+               sf.id,
+               sf.name,
+               sf.phone,
+               sf.age,
+               sf.job,
+               sf.address,
+               sf.relation
+        FROM student s
+                 INNER JOIN student_family sf ON s.id = sf.student_id
+        WHERE s.id = #{id}
+    </select>
     <update id="updateStudentName" parameterType="org.example.server.pojo.Student">
         UPDATE Student
         SET student_name = #{student_name}
         WHERE person_id = #{person_id}
+    </update>
+    <update id="updateStudentDepartment" parameterType="org.example.server.pojo.Student">
+        UPDATE Student
+        SET department=#{department}
+        WHERE student_name = #{student_name}
+    </update>
+    <update id="updateStudentGrade" parameterType="org.example.server.pojo.Student">
+        UPDATE Student
+        SET grade=#{grade}
+        WHERE student_name = #{student_name}
+    </update>
+    <update id="updateStudentMajor" parameterType="org.example.server.pojo.Student">
+        UPDATE Student
+        SET major=#{major}
+        WHERE student_name = #{student_name}
     </update>
 
 </mapper>

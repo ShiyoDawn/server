@@ -3,6 +3,7 @@ package org.example.server.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.Course;
@@ -26,7 +27,7 @@ public interface ScoreMapper extends BaseMapper<Score> {
 
     void updateRanking(Integer student_id,Integer course_id,Integer ranking);
 
-    List<Score> selectAll();
+    List<Score> selectAll(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
     Score selectByStudentAndCourse(Integer student_id, Integer course_id);
 

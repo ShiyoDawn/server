@@ -29,8 +29,10 @@ public class Score {
 
     private Integer ranking;
 
+    @TableField(exist = false)
     private Course course;
 
+    @TableField(exist = false)
     private Student student;
 
     private Integer teacher_id;

@@ -31,4 +31,6 @@ public class StudentFamily {
     private String address;//可以改动
 
     private String relation;
+
+    private Student student;
 }

@@ -18,17 +18,10 @@ import java.util.List;
 public class ScoreController {
     @Autowired
     private ScoreService scoreService;
-    @Autowired
-    private ScoreMapper scoreMapper;
-    @Autowired
-    private CourseMapper courseMapper;
-    @Autowired
-    private StudentMapper studentMapper;
-
 
     //增添/删减/修改学生的某个课程的分数
     @PostMapping("/insertScore")
-    public DataResponse insertScore( @RequestParam Integer student_id, @RequestParam Integer course_id, @RequestParam Integer mark) {
+    public DataResponse insertScore(@RequestParam Integer student_id, @RequestParam Integer course_id, @RequestParam Integer mark) {
         return scoreService.insertScore(student_id, course_id, mark);
     }
 
@@ -49,22 +42,34 @@ public class ScoreController {
 
     @PostMapping("/selectByStudentAndCourse")
     public DataResponse selectByStudentAndCourse(@RequestParam Integer student_id, @RequestParam Integer course_id) {
-        return DataResponse.success(scoreService.selectByStudentAndCourse(student_id, course_id), "查询成功!");
+        return scoreService.selectByStudentAndCourse(student_id, course_id);
     }
 
     @PostMapping("/selectByStudentId")
     public DataResponse selectByStudentId(@RequestParam Integer student_id) {
-        return DataResponse.success(scoreService.selectByStudentId(student_id), "查询成功！");
+        return scoreService.selectByStudentId(student_id);
+    }
+
+    @PostMapping("/selectByStudentName")
+    public DataResponse selectByStudentName(@RequestParam String student_name) {
+        return scoreService.selectByStudentName(student_name);
     }
 
     @PostMapping("/selectByCourseId")
     public DataResponse selectByCourseId(@RequestParam Integer course_id) {
-        return DataResponse.success(scoreService.selectByCourseId(course_id), "查询成功！");
+        return scoreService.selectByCourseId(course_id);
     }
 
+    /*
+    @PostMapping("/selectByCourseName")
+    public DataResponse selectByCourseName(@RequestParam String course_name){
+        return scoreService.selectByCourseName(course_name);
+    }
+    */
+
     @GetMapping("/getScoreList")
-    public DataResponse getScoreList() {
-        return scoreService.getScoreList();
+    public DataResponse getScoreList(@RequestParam("pageNum") Integer pageNum,@RequestParam("pageSize") Integer pageSize) {
+        return scoreService.getScoreList(pageNum,pageSize);
     }
 
     @PostMapping("/scoreSave")
