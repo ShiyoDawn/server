@@ -61,10 +61,10 @@ public class ScoreController {
     }
 
 
-    /*@PostMapping("/selectByCourseName")
+    @PostMapping("/selectByCourseName")
     public DataResponse selectByCourseName(@RequestParam String course_name){
         return scoreService.selectByCourseName(course_name);
-    }*/
+    }
 
 
     @GetMapping("/getScoreList")

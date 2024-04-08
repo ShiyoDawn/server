@@ -42,6 +42,7 @@ public class PersonService {
         else
             return DataResponse.success(person, "查询成功！");
     }
+
     public Map selectSPersonByIdMap(Integer id){
         Person person=personMapper.selectById(id);
         if (person == null )
