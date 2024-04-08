@@ -60,12 +60,12 @@ public class ScoreController {
         return scoreService.selectByCourseId(course_id);
     }
 
-    /*
-    @PostMapping("/selectByCourseName")
+
+    /*@PostMapping("/selectByCourseName")
     public DataResponse selectByCourseName(@RequestParam String course_name){
         return scoreService.selectByCourseName(course_name);
-    }
-    */
+    }*/
+
 
     @GetMapping("/getScoreList")
     public DataResponse getScoreList(@RequestParam("pageNum") Integer pageNum,@RequestParam("pageSize") Integer pageSize) {

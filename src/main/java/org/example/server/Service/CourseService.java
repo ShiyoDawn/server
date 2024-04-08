@@ -61,6 +61,9 @@ public class CourseService {
         }
 
     }
+    public Integer selectIdByName(String course_name) {
+        return courseMapper.selectIdByName(course_name);
+    }
 
 }
 
