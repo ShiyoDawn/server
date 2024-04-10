@@ -70,4 +70,10 @@ public class StudentController {
     public DataResponse selectByStudentIdWithStudentFamily(@RequestParam Integer id){
         return DataResponse.success(studentService.selectByStudentIdWithStudentFamily(id));
     }
+    //删除一个学生，包括其家庭信息，其余信息等待联接表关系后进行编写；
+    @PostMapping("/deleteStudent")
+    public DataResponse deleteStudent(@RequestParam Integer person_id,@RequestParam String student_name){
+        studentService.deleteStudent(person_id,student_name);
+        return DataResponse.ok();
+    }
 }
