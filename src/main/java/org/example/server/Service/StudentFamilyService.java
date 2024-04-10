@@ -1,7 +1,9 @@
 package org.example.server.Service;
 
 import org.example.server.mapper.StudentFamilyMapper;
+import org.example.server.mapper.StudentMapper;
 import org.example.server.payload.request.DataRequest;
+import org.example.server.pojo.Student;
 import org.example.server.pojo.StudentFamily;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ public class StudentFamilyService {
 
     @Autowired
     private StudentFamilyMapper studentFamilyMapper;
+    @Autowired
+    private StudentMapper studentMapper;
     public List findFamilyMemberByStudentName(String student_name){
         List<StudentFamily> studentFamilies=studentFamilyMapper.findFamilyByStudentName(student_name);
         List dataList = new ArrayList();
@@ -66,6 +70,15 @@ public class StudentFamilyService {
         if(op.isPresent()) {
             studentFamilyMapper.deleteByStudentId(student_id);
         }
+    }
+    public void deleteFamilyMember(Integer person_id){
+        Student student=studentMapper.selectByPid(person_id);
+        List studentFamily=studentFamilyMapper.findFamilyByStudentName(student.getStudent_name());
+        if(studentFamily.isEmpty()){
+            return;
+        }
+        deleteFamilyMember(person_id);
+        return;
     }
 
 }

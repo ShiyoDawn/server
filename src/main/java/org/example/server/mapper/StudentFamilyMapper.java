@@ -16,4 +16,5 @@ public interface StudentFamilyMapper extends BaseMapper<StudentFamily> {
     Optional<StudentFamily> findFamilyByStudentId(Integer student_id);
 
     void deleteByStudentId(Integer studentId);
+    void deleteByPid(Integer person_id);
 }

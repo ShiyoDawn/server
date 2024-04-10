@@ -198,6 +198,19 @@ public class StudentService {
         studentMapper.updateStudentMajor(student_name,major);
         return true;
     }
+
+    public void deleteStudent(Integer person_id,String student_name){
+        Student student=studentMapper.selectByPid(person_id);
+        if(student.getPerson_id()==null){
+            return;
+        }
+        //如果没有名字就填上，因为Mapper里的删除要求有student_name和person_id
+        if(student.getStudent_name()==null){
+            studentMapper.updateStudentName(student_name,person_id);
+        }
+        studentMapper.deleteStudentByPidAndName(person_id,student_name);
+        return;
+    }
     public Student selectByStudentIdWithStudentFamily(Integer id){
         Student student=studentMapper.selectById(id);
         if(student==null){
