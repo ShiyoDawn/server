@@ -7,25 +7,25 @@
     <select id="selectByStudentId" resultType="org.example.server.pojo.Score">
         select * from Score sc
             inner join Student st on sc.student_id = st.id
-            inner join Course co on sc.course_id=co.id
-        where "student_id" = #{student_id}
+            inner join Course co on sc.course_id = co.id
+        where "student_id" like #{student_id}
     </select>
 
     <select id="selectByCourseId" resultType="org.example.server.pojo.Score">
         select * from Score
             inner join Student st on sc.student_id = st.id
-            inner join Course co on sc.course_id=co.id
-        where "course_id" = #{course_id}
+            inner join Course co on sc.course_id = co.id
+        where "course_id" like #{course_id}
     </select>
 
     <select id="selectByStudentAndCourse" resultType="org.example.server.pojo.Score">
-        select * from Score where "student_id" = #{student_id} and "course_id" = #{course_id}
+        select * from Score where "student_id" like #{student_id} and "course_id" like #{course_id}
     </select>
 
     <select id="selectAll" resultType="org.example.server.pojo.Score">
-        select * from Score
+        select * from Score sc
             inner join Student st on sc.student_id = st.id
-            inner join Course co on sc.course_id=co.id
+            inner join Course co on sc.course_id = co.id
         limit #{offset}, #{pageSize}
     </select>
 

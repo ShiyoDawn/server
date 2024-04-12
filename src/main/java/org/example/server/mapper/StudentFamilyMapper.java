@@ -13,7 +13,8 @@ import java.util.Optional;
 @Mapper
 public interface StudentFamilyMapper extends BaseMapper<StudentFamily> {
     List<StudentFamily> findFamilyByStudentName(String student_name);
-    Optional<StudentFamily> findFamilyByStudentId(Integer student_id);
+    List<StudentFamily> findFamilyByStudentId(Integer student_id);
 
     void deleteByStudentId(Integer studentId);
+    void deleteByPid(Integer person_id);
 }
