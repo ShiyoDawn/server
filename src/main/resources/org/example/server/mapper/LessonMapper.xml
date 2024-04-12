@@ -39,8 +39,8 @@
     <select id="selectHomeworkRatingStudent" resultType="org.example.server.pojo.Lesson">
         SELECT homework_rating FROM student_course a INNER JOIN homework_rating b on a.homework_rating_id = b.id where lesson_id = #{lesson_id} and student_id = #{student_id};
     </select>
-    <?老师查询作业评级?>
-    <select id="selectHomeworkRatingTeacher" resultType="org.example.server.pojo.Lesson">
-        SELECT homework_rating FROM student_course a INNER JOIN homework_rating b on a.homework_rating_id = b.id where lesson_id = #{lesson_id} and teacher_id = #{teacher_id};
+    <?老师查询某课程全部作业评级?>
+    <select id="selectHomeworkRatingTeacher">
+        SELECT student_name,course_name,homework_rating FROM student_course a INNER JOIN homework_rating b on a.homework_rating_id = b.id INNER JOIN lesson c where c.id = #{lesson_id} and c.teacher_id = #{teacher_id} group by student_name;
     </select>
 </mapper>
