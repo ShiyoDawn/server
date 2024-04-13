@@ -1,24 +1,27 @@
 package org.example.server.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.example.server.mapper.StudentFamilyMapper;
 import org.example.server.mapper.StudentMapper;
 import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.Person;
 import org.example.server.pojo.Student;
+import org.example.server.pojo.StudentFamily;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.Max;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class StudentService {
     @Autowired
     private StudentMapper studentMapper;
+    @Autowired
+    private StudentFamilyMapper studentFamilyMapper;
+    @Autowired
+    private StudentFamilyService studentFamilyService;
 
     public DataResponse insert(Integer person_id,String student_name,String department,String classes,String grade,String major){
         Student student=studentMapper.selectByPid(person_id);
@@ -197,6 +200,21 @@ public class StudentService {
         }
         studentMapper.updateStudentMajor(student_name,major);
         return true;
+    }
+
+    public void deleteStudent(Integer person_id,String student_name){
+        Student student=studentMapper.selectByPid(person_id);
+        if(student.getPerson_id()==null){
+            return;
+        }
+        //如果没有名字就填上，因为Mapper里的删除要求有student_name和person_id
+        if(student.getStudent_name()==null){
+            studentMapper.updateStudentName(student_name,person_id);
+        }
+        studentFamilyService.deleteFamilyMember(person_id);
+        //先删除studentFamily再删除student，否则会使studentFamily的数据无法被删除；
+        studentMapper.deleteStudentByPidAndName(person_id,student_name);
+        return;
     }
     public Student selectByStudentIdWithStudentFamily(Integer id){
         Student student=studentMapper.selectById(id);

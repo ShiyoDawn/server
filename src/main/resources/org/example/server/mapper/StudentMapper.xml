@@ -85,5 +85,9 @@
         SET major=#{major}
         WHERE student_name = #{student_name}
     </update>
+    <delete id="deleteStudentByPidAndName" parameterType="org.example.server.pojo.Student">
+        DELETE FROM Student
+        WHERE person_id=#{person_id} AND student_name=#{student_name}
+    </delete>
 
 </mapper>

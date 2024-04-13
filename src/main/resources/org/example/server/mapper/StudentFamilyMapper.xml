@@ -5,17 +5,22 @@
 <mapper namespace="org.example.server.mapper.StudentFamilyMapper">
     <select id="findFamilyByStudentName" resultType="org.example.server.pojo.StudentFamily">
         SELECT *
-        FROM StudentFamily
+        FROM student_family
         WHERE "student_name" = #{student_name}
     </select>
     <select id="findFamilyByStudentId" resultType="org.example.server.pojo.StudentFamily">
         SELECT *
-        FROM StudentFamily
+        FROM student_family
         WHERE "student_id" = #{student_id}
     </select>
     <delete id="deleteByStudentId">
         DELETE
-        FROM StudentFamily
+        FROM student_family
         WHERE "student_id" = #{student_id}
+    </delete>
+    <delete id="deleteByPid">
+        DELETE FROM student_family WHERE student_id IN (
+            SELECT id FROM student WHERE person_id = #{personId}
+        )
     </delete>
 </mapper>

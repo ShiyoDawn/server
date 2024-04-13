@@ -129,13 +129,12 @@ public class ScoreService {
     }
 
     //未写由coursename得到courseid，故先放这，之后补
-    /*
-    public List<Score> selectByCourseName(String course_name){
-        Course course=courseMapper.selectByCourseName(course_name);
-        Integer courseId=course.getId();
-        return scoreMapper.selectByCourseId(courseId);
+
+    public DataResponse selectByCourseName(String course_name){
+        Integer courseId=courseMapper.selectIdByName(course_name);
+        return DataResponse.success(scoreMapper.selectByCourseId(courseId),"查询成功！");
     }
-    */
+
 
     public DataResponse getScoreList(Integer pageNum,Integer pageSize) {
         int offset = (pageNum - 1) * pageSize;
