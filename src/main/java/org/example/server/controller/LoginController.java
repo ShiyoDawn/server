@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class LoginController {
-    @GetMapping("/login")
+    @PostMapping("/login")
     public Result login(){
         return Result.ok("登录成功");
     }
