@@ -2,6 +2,7 @@
 package org.example.server.controller;
 
 import org.example.server.Service.CourseService;
+import org.example.server.payload.Result;
 import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.Course;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,10 @@ public class CourseController {
     @PostMapping("/selectMixed")
     public DataResponse selectMixed(@RequestParam Course course ,@RequestParam(defaultValue = "1") Integer pageNum){
         return DataResponse.success(courseService.selectMixed(course,pageNum));
+    }
+    @PostMapping("/selectAll")
+    public Result selectAll(){
+        return courseService.selectAll();
     }
 
 }

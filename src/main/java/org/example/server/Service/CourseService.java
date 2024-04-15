@@ -2,6 +2,7 @@
 package org.example.server.Service;
 
 import org.example.server.mapper.CourseMapper;
+import org.example.server.payload.Result;
 import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.Course;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,9 @@ public class CourseService {
             return DataResponse.success(courseList);
         }
 
+    }
+    public Result selectAll(){
+        return Result.success(courseMapper.selectAll());
     }
     public Integer selectIdByName(String course_name) {
         return courseMapper.selectIdByName(course_name);
