@@ -43,4 +43,8 @@
     <select id="selectHomeworkRatingTeacher">
         SELECT student_name,course_name,homework_rating FROM student_course a INNER JOIN homework_rating b on a.homework_rating_id = b.id INNER JOIN lesson c where c.id = #{lesson_id} and c.teacher_id = #{teacher_id} group by student_name;
     </select>
+    <?课表?>
+    <select id="selectCourse">
+        SELECT * from lesson
+    </select>
 </mapper>

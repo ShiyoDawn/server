@@ -40,4 +40,8 @@ public class Lesson implements Serializable {
     private Integer teacher_id;
 
     private String room;
+
+    private String teacher_name;
+
+    private Integer week_time;
 }
