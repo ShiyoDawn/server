@@ -38,4 +38,6 @@ public class Lesson implements Serializable {
     private String classes;
 
     private Integer teacher_id;
+
+    private String room;
 }
