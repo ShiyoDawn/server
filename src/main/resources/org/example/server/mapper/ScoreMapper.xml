@@ -26,7 +26,6 @@
         select * from Score sc
             inner join Student st on sc.student_id = st.id
             inner join Course co on sc.course_id = co.id
-        limit #{offset}, #{pageSize}
     </select>
 
     <update id="updateMark">

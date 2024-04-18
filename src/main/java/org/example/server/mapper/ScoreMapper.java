@@ -27,7 +27,7 @@ public interface ScoreMapper extends BaseMapper<Score> {
 
     void updateRanking(Integer student_id,Integer course_id,Integer ranking);
 
-    List<Score> selectAll(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+    List<Score> selectAll();
 
     Score selectByStudentAndCourse(Integer student_id, Integer course_id);
 

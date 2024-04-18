@@ -3,6 +3,7 @@ package org.example.server.Service;
 import org.example.server.mapper.CourseMapper;
 import org.example.server.mapper.ScoreMapper;
 import org.example.server.mapper.StudentMapper;
+import org.example.server.payload.Result;
 import org.example.server.payload.request.DataRequest;
 import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.Course;
@@ -29,12 +30,12 @@ public class ScoreService {
     private CourseMapper courseMapper;
 
     //增添分数
-    public DataResponse insertScore(Integer student_id, Integer course_id, Integer mark) {
+    public Result insertScore(Integer student_id, Integer course_id, Integer mark) {
         Student student = studentMapper.selectById(student_id);
         Course course = courseMapper.selectInfo(course_id);
         if (student == null || course == null) {
             // 处理学生或课程不存在的情况
-            return DataResponse.error(404, "Student or Course does not exist.");
+            return Result.error(404, "Student or Course does not exist.");
         }
 
         scoreMapper.updateMark(student_id,course_id,mark);
@@ -46,99 +47,99 @@ public class ScoreService {
         scoreMapper.updateRanking(student_id, course_id, studentRanking);
 
         modifyStudentRanking(course_id);
-        return DataResponse.ok( "添加成功！");
+        return Result.ok( "添加成功！");
     }
 
     //删除分数
-    public DataResponse deleteOnlyScore(Integer student_id, Integer course_id) {
+    public Result deleteOnlyScore(Integer student_id, Integer course_id) {
         Student student = studentMapper.selectById(student_id);
         if (student == null)
-            return DataResponse.error(404, "删除失败，该学生不存在");
+            return Result.error(404, "删除失败，该学生不存在");
         Course course = courseMapper.selectInfo(course_id);
         if (course == null)
-            return DataResponse.error(404, "删除失败，该课程不存在");
+            return Result.error(404, "删除失败，该课程不存在");
 
         scoreMapper.deleteOnlyScore(student_id, course_id);
 
         modifyStudentRanking(course_id);
-        return DataResponse.ok( "删除成功！");
+        return Result.ok( "删除成功！");
     }
 
-    public DataResponse deleteAllById(Integer student_id, Integer course_id) {
+    public Result deleteAllById(Integer student_id, Integer course_id) {
         Student student = studentMapper.selectById(student_id);
         if (student == null)
-            return DataResponse.error(404, "删除失败，该学生不存在");
+            return Result.error(404, "删除失败，该学生不存在");
         Course course = courseMapper.selectInfo(course_id);
         if (course == null)
-            return DataResponse.error(404, "删除失败，该课程不存在");
+            return Result.error(404, "删除失败，该课程不存在");
 
         scoreMapper.deleteForAll(student_id, course_id);
 
         modifyStudentRanking(course_id);
-        return DataResponse.ok( "删除成功！");
+        return Result.ok( "删除成功！");
     }
 
     //修改分数
-    public DataResponse updateScoreAndRanking(Integer student_id, Integer course_id, Integer mark) {
+    public Result updateScoreAndRanking(Integer student_id, Integer course_id, Integer mark) {
         Student student = studentMapper.selectById(student_id);
         if (student == null)
-            return DataResponse.error(404, "修改失败，该学生不存在");
+            return Result.error(404, "修改失败，该学生不存在");
         Course course = courseMapper.selectInfo(course_id);
         if (course == null)
-            return DataResponse.error(404, "修改失败，该课程不存在");
+            return Result.error(404, "修改失败，该课程不存在");
 
         scoreMapper.updateMark(student_id,course_id,mark);
 
         Integer studentRanking = scoreMapper.calculateRanking(student_id,course_id, mark);
         scoreMapper.updateRanking(student_id, course_id, studentRanking);
         modifyStudentRanking(course_id);
-        return DataResponse.ok("修改成功！");
+        return Result.ok("修改成功！");
     }
 
     //查询分数
-    public DataResponse selectByStudentAndCourse(Integer student_id, Integer course_id) {
+    public Result selectByStudentAndCourse(Integer student_id, Integer course_id) {
         Student student = studentMapper.selectById(student_id);
         if (student == null)
-            return DataResponse.error(404, "查询失败，该学生不存在");
+            return Result.error(404, "查询失败，该学生不存在");
         Course course = courseMapper.selectInfo(course_id);
         if (course == null)
-            return DataResponse.error(404, "查询失败，该课程不存在");
-        return DataResponse.success(scoreMapper.selectByStudentAndCourse(student_id, course_id),"查询成功！");
+            return Result.error(404, "查询失败，该课程不存在");
+        return Result.success(scoreMapper.selectByStudentAndCourse(student_id, course_id),"查询成功！");
     }
 
-    public DataResponse selectByStudentId(Integer student_id) {
+    public Result selectByStudentId(Integer student_id) {
         Student student = studentMapper.selectById(student_id);
         if (student == null)
-            return DataResponse.error(404, "查询失败，该学生不存在");
-        return DataResponse.success(scoreMapper.selectByStudentId(student_id),"查询成功！");
+            return Result.error(404, "查询失败，该学生不存在");
+        return Result.success(scoreMapper.selectByStudentId(student_id),"查询成功！");
     }
 
-    public DataResponse selectByStudentName(String student_name){
+    public Result selectByStudentName(String student_name){
         Student student=studentMapper.findByStudentName(student_name);
         Integer studentId=student.getId();
         if (student == null)
-            return DataResponse.error(404, "查询失败，该学生不存在");
-        return DataResponse.success(scoreMapper.selectByStudentId(studentId),"查询成功！");
+            return Result.error(404, "查询失败，该学生不存在");
+        return Result.success(scoreMapper.selectByStudentId(studentId),"查询成功！");
     }
 
-    public DataResponse selectByCourseId(Integer course_id) {
+    public Result selectByCourseId(Integer course_id) {
         Course course = courseMapper.selectInfo(course_id);
         if (course == null)
-            return DataResponse.error(404, "查询失败，该课程不存在");
-        return DataResponse.success(scoreMapper.selectByCourseId(course_id),"查询成功！");
+            return Result.error(404, "查询失败，该课程不存在");
+        return Result.success(scoreMapper.selectByCourseId(course_id),"查询成功！");
     }
 
     //未写由coursename得到courseid，故先放这，之后补
 
-    public DataResponse selectByCourseName(String course_name){
+    public Result selectByCourseName(String course_name){
         Integer courseId=courseMapper.selectIdByName(course_name);
-        return DataResponse.success(scoreMapper.selectByCourseId(courseId),"查询成功！");
+        return Result.success(scoreMapper.selectByCourseId(courseId),"查询成功！");
     }
 
 
-    public DataResponse getScoreList(Integer pageNum,Integer pageSize) {
-        int offset = (pageNum - 1) * pageSize;
-        List<Score> scoreList = scoreMapper.selectAll(offset,pageSize);
+    public Result getScoreList() {
+        //int offset = (pageNum - 1) * pageSize;
+        List<Score> scoreList = scoreMapper.selectAll();
         List<Map<String, String>> dataList = new ArrayList();
         Map<String, String> map;
         for (Score s : scoreList) {
@@ -152,10 +153,10 @@ public class ScoreService {
             map.put("ranking", s.getRanking() + "");
             dataList.add(map);
         }
-        return DataResponse.success(dataList);
+        return Result.success(dataList);
     }
 
-    public DataResponse scoreSave(@Valid @RequestBody DataRequest dataRequest) {
+    public Result scoreSave(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("student_id");
         Integer courseId = dataRequest.getInteger("course_id");
         Integer mark = dataRequest.getInteger("mark");
@@ -170,11 +171,11 @@ public class ScoreService {
             Student student = studentMapper.selectById(studentId);
             Course course = courseMapper.selectById(courseId);
             if (student == null && course != null) {
-                return DataResponse.error(404, "Student does not exist.");
+                return Result.error(404, "Student does not exist.");
             } else if (student != null && course == null) {
-                return DataResponse.error(404, "Course does not exist.");
+                return Result.error(404, "Course does not exist.");
             } else if (student == null && course == null) {
-                return DataResponse.error(404, "Course and Student do not exist.");
+                return Result.error(404, "Course and Student do not exist.");
             } else {
                 score.setStudent_name(student.getStudent_name());
                 score.setCourse_name((course.getCourse_name()));
@@ -182,7 +183,7 @@ public class ScoreService {
         }
         score.setMark(mark);
         scoreMapper.saveScore(score);
-        return DataResponse.ok();
+        return Result.ok();
     }
 
 
