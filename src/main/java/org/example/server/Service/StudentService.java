@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.example.server.mapper.StudentFamilyMapper;
 import org.example.server.mapper.StudentMapper;
 import org.example.server.payload.response.DataResponse;
+import org.example.server.payload.response.OptionItem;
 import org.example.server.pojo.Person;
 import org.example.server.pojo.Student;
 import org.example.server.pojo.StudentFamily;
@@ -50,9 +51,9 @@ public class StudentService {
 
     public List getStudentMapList() {
         List<Student> students = studentMapper.findAllStudent();
-        /*List list = new ArrayList();
         if (students == null || students.size() == 0)
-            return list;
+            return null;
+        List list = new ArrayList();
         Map m;
         for (Student s : students) {
             m = new HashMap();
@@ -64,9 +65,9 @@ public class StudentService {
             m.put("grade", s.getGrade());
             m.put("major", s.getMajor());
             list.add(m);
-        }*/
-
-        return studentMapList(students);
+        }
+        //return studentMapList(students);
+        return list;
     }
 
     public List<Student> searchStudentByDepartment(String department) {

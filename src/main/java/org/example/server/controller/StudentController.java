@@ -2,6 +2,7 @@ package org.example.server.controller;
 
 import org.example.server.Service.StudentService;
 import org.example.server.mapper.StudentMapper;
+import org.example.server.payload.Result;
 import org.example.server.payload.request.DataRequest;
 import org.example.server.payload.response.DataResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,9 @@ public class StudentController {
 
     //查
     //查询所有学生；
-    @GetMapping("/getStudentList")
-    public DataResponse getStudentList() {
-        return DataResponse.success(studentService.getStudentMapList());
+    @PostMapping("/getStudentList")
+    public Result getStudentList() {
+        return Result.success(studentService.getStudentMapList());
     }
 
     //通过姓名查询特定学生；
