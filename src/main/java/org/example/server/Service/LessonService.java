@@ -1,7 +1,7 @@
 package org.example.server.Service;
 
 import org.example.server.mapper.LessonMapper;
-import org.example.server.payload.response.DataResponse;
+import org.example.server.payload.Result;
 import org.example.server.pojo.Lesson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,61 +12,64 @@ import java.util.List;
 public class LessonService {
     @Autowired
     LessonMapper lessonMapper;
-    public DataResponse updateHomework(String homework,Integer id){
+    public Result updateHomework(String homework,Integer id){
         lessonMapper.updateHomework(homework, id);
-        return DataResponse.ok("添加作业成功");
+        return Result.ok("添加作业成功");
     }
-    public DataResponse selectAllHomeworkFromStudent(Integer id){
+    public Result selectAllHomeworkFromStudent(Integer id){
         List<String> slist = lessonMapper.selectAllHomeworkFromStudent(id);
         if(slist == null || slist.size() == 0){
-            return DataResponse.ok("所有作业均已完成");
+            return Result.ok("所有作业均已完成");
         }else {
-            return DataResponse.success(slist);
+            return Result.success(slist);
         }
     }
-    public DataResponse selectAllHomeworkFromTeacher(Integer id){
+    public Result selectAllHomeworkFromTeacher(Integer id){
         List<String> slist = lessonMapper.selectAllHomeworkFromTeacher(id);
         if(slist == null || slist.size() == 0){
-            return DataResponse.ok("还没有人提交作业");
+            return Result.ok("还没有人提交作业");
         } else {
-            return DataResponse.success(slist);
+            return Result.success(slist);
         }
     }
-    public DataResponse selectOneLessonFromStudent(Integer course_id,Integer student_id){
+    public Result selectOneLessonFromStudent(Integer course_id,Integer student_id){
         List<Lesson> slist = lessonMapper.selectOneLessonFromStudent(course_id,student_id);
         if(slist == null){
-            return DataResponse.error("没有此课程");
+            return Result.error(400,"没有此课程");
         } else {
-            return DataResponse.success(slist);
+            return Result.success(slist);
         }
     }
-    public DataResponse selectOneLessonFromTeacher(Integer course_id,Integer teacher_id){
+    public Result selectOneLessonFromTeacher(Integer course_id,Integer teacher_id){
         List<Lesson> slist = lessonMapper.selectOneLessonFromTeacher(course_id,teacher_id);
         if(slist == null){
-            return DataResponse.error("没有此课程");
+            return Result.error(400,"没有此课程");
         } else {
-            return DataResponse.success(slist);
+            return Result.success(slist);
         }
     }
-    public DataResponse updateHomeworkRating(Integer homework_rating_id,Integer lesson_id,Integer student_id) {
+    public Result updateHomeworkRating(Integer homework_rating_id,Integer lesson_id,Integer student_id) {
         lessonMapper.updateHomeworkRating(homework_rating_id,lesson_id,student_id);
-        return DataResponse.ok("更改成功");
+        return Result.ok("更改成功");
     }
-    public DataResponse selectHomeworkRatingStudent(Integer lesson_id,Integer student_id) {
+    public Result selectHomeworkRatingStudent(Integer lesson_id,Integer student_id) {
         List<String> slist = lessonMapper.selectHomeworkRatingStudent(lesson_id,student_id);
         if(slist == null){
-            return DataResponse.ok("老师暂未评定");
+            return Result.ok("老师暂未评定");
         } else {
-            return DataResponse.success(slist);
+            return Result.success(slist);
         }
     }
-    public DataResponse selectHomeworkRatingTeacher(Integer lesson_id,Integer teacher_id) {
+    public Result selectHomeworkRatingTeacher(Integer lesson_id,Integer teacher_id) {
         List<String> slist = lessonMapper.selectHomeworkRatingTeacher(lesson_id,teacher_id);
         if(slist == null){
-            return DataResponse.ok("您暂未评定");
+            return Result.ok("您暂未评定");
         } else {
-            return DataResponse.success(slist);
+            return Result.success(slist);
         }
+    }
+    public Result selectLesson(){
+        return Result.success(lessonMapper.selectLesson());
     }
 
 }
