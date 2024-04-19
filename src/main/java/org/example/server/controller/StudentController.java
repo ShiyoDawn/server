@@ -25,8 +25,9 @@ public class StudentController {
     }
 
     //通过姓名查询特定学生；
-    @GetMapping("/selectStudentByName")
-    public DataResponse selectStudentByName(@RequestParam String student_name) {
+    @PostMapping("/selectStudentByName")
+    public DataResponse selectStudentByName(@Valid @RequestBody DataRequest dataRequest) {
+        String student_name=dataRequest.getString("student_name");
         return DataResponse.success(studentService.findStudentByName(student_name));
     }
 

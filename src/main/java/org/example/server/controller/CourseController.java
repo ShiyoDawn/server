@@ -3,10 +3,13 @@ package org.example.server.controller;
 
 import org.example.server.Service.CourseService;
 import org.example.server.payload.Result;
+import org.example.server.payload.request.DataRequest;
 import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -40,6 +43,11 @@ public class CourseController {
         return courseService.selectAll();
     }
 
+    @PostMapping("/selectCourseByName")
+    public Result selectCourseByName(@Valid @RequestBody DataRequest dataRequest){
+        String course_name=dataRequest.getString("course_name");
+        return courseService.selectIdByName(course_name);
+    }
 }
 
 
