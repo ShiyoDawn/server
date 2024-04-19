@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.server.mapper.LessonMapper">
-    <select id="selectlesson" resultType="org.example.server.pojo.Lesson">
+    <select id="selectLesson" resultType="org.example.server.pojo.Lesson">
         SELECT * FROM Lesson;
     </select>
     <?老师添加作业并判断课程是否结束?>
