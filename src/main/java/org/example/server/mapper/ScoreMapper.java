@@ -31,9 +31,9 @@ public interface ScoreMapper extends BaseMapper<Score> {
 
     Score selectByStudentAndCourse(Integer student_id, Integer course_id);
 
-    List<Score> selectByStudentId(Integer studentId);
+    List<Score> selectByStudentId(Integer student_id);
 
-    List<Score> selectByCourseId(Integer courseId);
+    List<Score> selectByCourseId(Integer course_id);
 
     void saveScore(Score score);
 

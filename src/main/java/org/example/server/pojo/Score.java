@@ -27,8 +27,6 @@ public class Score {
 
     private Integer mark;
 
-    private Integer ranking;
-
     @TableField(exist = false)
     private Course course;
 

@@ -44,7 +44,7 @@
         limit #{pageNum} * 2,2;
     </select>
     <select id="selectIdByName" resultType="org.example.server.pojo.Course">
-        SELECT course_id FROM Course where course_name like #{course_name};
+        SELECT * FROM Course where course_name = #{course_name};
     </select>
 
 

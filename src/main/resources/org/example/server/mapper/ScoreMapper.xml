@@ -12,7 +12,7 @@
     </select>
 
     <select id="selectByCourseId" resultType="org.example.server.pojo.Score">
-        select * from Score
+        select * from Score sc
             inner join Student st on sc.student_id = st.id
             inner join Course co on sc.course_id = co.id
         where "course_id" like #{course_id}
