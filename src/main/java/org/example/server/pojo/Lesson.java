@@ -21,9 +21,7 @@ public class Lesson implements Serializable {
 
     private Integer course_id;
 
-    private String course_name;
-
-    private String time;
+    private String week;
 
     private String date;
 
@@ -37,11 +35,9 @@ public class Lesson implements Serializable {
 
     private String classes;
 
-    private Integer teacher_id;
-
     private String room;
 
-    private String teacher_name;
+    private String notes;
 
     private Integer week_time;
 }

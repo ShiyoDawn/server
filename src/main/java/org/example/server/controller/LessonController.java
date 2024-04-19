@@ -2,10 +2,12 @@ package org.example.server.controller;
 
 import org.example.server.Service.LessonService;
 import org.example.server.payload.Result;
+import org.example.server.payload.request.DataRequest;
 import org.example.server.payload.response.DataResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
