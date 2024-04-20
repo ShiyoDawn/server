@@ -135,7 +135,7 @@ public class ScoreService {
     //未写由coursename得到courseid，故先放这，之后补
 
     public Result selectByCourseName(String course_name){
-        Integer course_id=courseMapper.selectByName(course_name).getId();
+        Integer course_id=courseMapper.selectCourseByName(course_name).getId();
         System.out.println(course_name+" "+course_id);
         return Result.success(scoreMapper.selectByCourseId(course_id),"查询成功！");
     }

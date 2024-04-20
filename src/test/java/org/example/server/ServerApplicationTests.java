@@ -24,16 +24,7 @@ class ServerApplicationTests {
     @Autowired
     CourseService courseService;
     @Test
-    void selectMixed() {
-        Integer id = 1;
-        String course_name = "2";
-        Double credit = null;
-        Integer num = null;
-        Integer course_type_id = 1;
-        Integer pre_course_id = null;
-        String book = null;
-        String extracurricular = null;
-        Course course = new Course(id,course_name,credit, num, course_type_id, pre_course_id, book, extracurricular);
-        System.out.println(courseService.selectMixed(course,1));
+    void selectLessonByStudent(){
+        courseService.selectLessonByStudent(1);
     }
 }
