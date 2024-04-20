@@ -52,7 +52,6 @@ public class CourseController {
     }
     @PostMapping("/selectIdByStudent")
     public Result selectIdByStudent(@RequestBody Map<String,Integer> map){
-
         return courseService.selectIdByStudent(map.get("student_id"));
     }
 }

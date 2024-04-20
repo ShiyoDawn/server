@@ -1,6 +1,7 @@
 package org.example.server;
 
 import org.example.server.Service.CourseService;
+import org.example.server.mapper.MenuMapper;
 import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.Course;
 import org.junit.jupiter.api.Test;
@@ -23,17 +24,11 @@ class ServerApplicationTests {
 
     @Autowired
     CourseService courseService;
+    @Autowired
+    MenuMapper menuMapper;
     @Test
     void selectMixed() {
-        Integer id = 1;
-        String course_name = "2";
-        Double credit = null;
-        Integer num = null;
-        Integer course_type_id = 1;
-        Integer pre_course_id = null;
-        String book = null;
-        String extracurricular = null;
-        Course course = new Course(id,course_name,credit, num, course_type_id, pre_course_id, book, extracurricular);
-        System.out.println(courseService.selectMixed(course,1));
+        List list = menuMapper.selectByAccess("%" + 1 +"%");
+        System.out.println(list);
     }
 }
