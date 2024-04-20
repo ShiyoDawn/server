@@ -43,7 +43,7 @@
         </where>
         limit #{pageNum} * 2,2;
     </select>
-    <select id="selectByName" resultType="org.example.server.pojo.Course">
+    <select id="selectCourseByName" resultType="org.example.server.pojo.Course">
         SELECT * FROM Course where course_name = #{course_name};
     </select>
     <select id="selectIdByStudent">
@@ -51,6 +51,14 @@
         FROM student
                  JOIN student_course ON student.id = student_course.student_id
                  JOIN course ON student_course.course_id = course.id
+        WHERE student.id = #{student_id};
+    </select>
+    <select id="selectLessonByStudent">
+        SELECT course.course_name,course.teacher_name,lesson.week,lesson.time_sort,lesson.terms,lesson.room,lesson.week_time
+        FROM student
+                 JOIN student_course ON student.id = student_course.student_id
+                 JOIN course ON student_course.course_id = course.id
+                 JOIN lesson ON student_course.course_id = lesson.course_id
         WHERE student.id = #{student_id};
     </select>
 
