@@ -37,14 +37,17 @@ public class ScoreService {
             // 处理学生或课程不存在的情况
             return Result.error(404, "Student or Course does not exist.");
         }
-
-        scoreMapper.updateMark(student_id,course_id,mark);
-        Integer ranking = scoreMapper.calculateRanking(student_id,course_id, mark);
-        scoreMapper.insertMark(student_id, student.getStudent_name(), course_id, course.getCourse_name(), mark, ranking);
+        Score score=scoreMapper.selectByStudentAndCourse(student_id,course_id);
+        if(score!=null){
+            return Result.error(404,"Score has existed.");
+        }
+        //scoreMapper.updateMark(student_id,course_id,mark);
+        //Integer ranking = scoreMapper.calculateRanking(student_id,course_id, mark);
+        scoreMapper.insertMark(student_id, student.getStudent_name(), course_id, course.getCourse_name(), mark);
 
         //根据加入成绩更新排名
-        Integer studentRanking = scoreMapper.calculateRanking(student_id,course_id, mark);
-        scoreMapper.updateRanking(student_id, course_id, studentRanking);
+        //Integer studentRanking = scoreMapper.calculateRanking(student_id,course_id, mark);
+        //scoreMapper.updateRanking(student_id, course_id, studentRanking);
 
         //modifyStudentRanking(course_id);
         return Result.ok( "添加成功！");
@@ -90,8 +93,8 @@ public class ScoreService {
 
         scoreMapper.updateMark(student_id,course_id,mark);
 
-        Integer studentRanking = scoreMapper.calculateRanking(student_id,course_id, mark);
-        scoreMapper.updateRanking(student_id, course_id, studentRanking);
+        //Integer studentRanking = scoreMapper.calculateRanking(student_id,course_id, mark);
+        //scoreMapper.updateRanking(student_id, course_id, studentRanking);
         //modifyStudentRanking(course_id);
         return Result.ok("修改成功！");
     }
@@ -132,9 +135,9 @@ public class ScoreService {
     //未写由coursename得到courseid，故先放这，之后补
 
     public Result selectByCourseName(String course_name){
-        Integer courseId=courseMapper.selectIdByName(course_name).getId();
-        System.out.println(course_name+" "+courseId);
-        return Result.success(scoreMapper.selectByCourseId(courseId),"查询成功！");
+        Integer course_id=courseMapper.selectByName(course_name).getId();
+        System.out.println(course_name+" "+course_id);
+        return Result.success(scoreMapper.selectByCourseId(course_id),"查询成功！");
     }
 
 

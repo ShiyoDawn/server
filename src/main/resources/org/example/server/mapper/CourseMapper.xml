@@ -43,7 +43,7 @@
         </where>
         limit #{pageNum} * 2,2;
     </select>
-    <select id="selectIdByName" resultType="org.example.server.pojo.Course">
+    <select id="selectByName" resultType="org.example.server.pojo.Course">
         SELECT * FROM Course where course_name = #{course_name};
     </select>
     <select id="selectIdByStudent">
