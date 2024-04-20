@@ -26,4 +26,5 @@ public interface CourseMapper extends BaseMapper<Course> {
     Course selectIdByName(String course_name);
 
     List<String> selectIdByStudent(Integer student_id);
+    List<Map<String,String>> selectLessonByStudent(Integer student_id);
 }
