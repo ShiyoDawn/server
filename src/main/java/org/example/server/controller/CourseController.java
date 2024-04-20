@@ -46,7 +46,8 @@ public class CourseController {
     @PostMapping("/selectCourseByName")
     public Result selectCourseByName(@Valid @RequestBody DataRequest dataRequest){
         String course_name=dataRequest.getString("course_name");
-        return courseService.selectIdByName(course_name);
+        System.out.println(course_name);
+        return courseService.selectByName(course_name);
     }
 }
 

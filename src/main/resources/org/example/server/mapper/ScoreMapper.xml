@@ -4,22 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.server.mapper.ScoreMapper">
 
-    <select id="selectByStudentId" resultType="org.example.server.pojo.Score">
+    <select id="selectByStudentId">
         select * from Score sc
             inner join Student st on sc.student_id = st.id
             inner join Course co on sc.course_id = co.id
-        where "student_id" like #{student_id}
+        where "student_id" = #{student_id}
     </select>
 
-    <select id="selectByCourseId" resultType="org.example.server.pojo.Score">
+    <select id="selectByCourseId">
         select * from Score sc
             inner join Student st on sc.student_id = st.id
             inner join Course co on sc.course_id = co.id
-        where "course_id" like #{course_id}
+        where "course_id" = #{course_id}
     </select>
 
     <select id="selectByStudentAndCourse" resultType="org.example.server.pojo.Score">
-        select * from Score where "student_id" like #{student_id} and "course_id" like #{course_id}
+        select * from Score where "student_id" = #{student_id} and "course_id" = #{course_id}
     </select>
 
     <select id="selectAll" resultType="org.example.server.pojo.Score">
@@ -42,8 +42,8 @@
     </delete>
 
     <insert id="insertMark">
-        insert into Score (student_id, student_name, course_id, course_name, mark,ranking)
-        values (#{student_id}, #{student_name}, #{course_id}, #{course_name}, #{mark},#{ranking})   
+        insert into Score (student_id, student_name, course_id, course_name, mark)
+        values (#{student_id}, #{student_name}, #{course_id}, #{course_name}, #{mark})
     </insert>
 
     <!--用于更新每次更改/删除/增加分数时每个人该科目的排名，这里的逻辑可能有点小问题qwq-->

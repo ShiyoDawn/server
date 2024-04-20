@@ -15,7 +15,7 @@ import java.util.List;
 @Mapper
 public interface ScoreMapper extends BaseMapper<Score> {
 
-    void insertMark(Integer student_id, String student_name, Integer course_id, String course_name, Integer mark,Integer ranking);
+    void insertMark(Integer student_id, String student_name, Integer course_id, String course_name, Integer mark);
 
     void updateMark(Integer student_id, Integer course_id, Integer mark);
 
@@ -23,9 +23,9 @@ public interface ScoreMapper extends BaseMapper<Score> {
 
     void deleteForAll(Integer student_id,Integer course_id);
 
-    Integer calculateRanking(Integer student_id,Integer course_id,Integer mark);
+    //Integer calculateRanking(Integer student_id,Integer course_id,Integer mark);
 
-    void updateRanking(Integer student_id,Integer course_id,Integer ranking);
+    //void updateRanking(Integer student_id,Integer course_id,Integer ranking);
 
     List<Score> selectAll();
 

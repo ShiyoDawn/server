@@ -20,5 +20,5 @@ public interface CourseMapper extends BaseMapper<Course> {
     Course selectByNum(Integer num);
     void deleteCourseById(Integer id);
     List<Course> selectMixed(String course_name, Integer course_type_id,Integer pageNum);
-    Course selectIdByName(String course_name);
+    Course selectByName(String course_name);
 }
