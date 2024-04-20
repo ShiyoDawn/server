@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 
 @RestController
@@ -47,6 +48,11 @@ public class CourseController {
     public Result selectCourseByName(@Valid @RequestBody DataRequest dataRequest){
         String course_name=dataRequest.getString("course_name");
         return courseService.selectIdByName(course_name);
+    }
+    @PostMapping("/selectIdByStudent")
+    public Result selectIdByStudent(@RequestBody Map<String,Integer> map){
+
+        return courseService.selectIdByStudent(map.get("student_id"));
     }
 }
 
