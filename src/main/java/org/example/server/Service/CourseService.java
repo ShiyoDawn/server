@@ -68,6 +68,9 @@ public class CourseService {
     public Result selectByName(String course_name) {
         return Result.success(courseMapper.selectByName(course_name));
     }
+    public Result selectIdByStudent(Integer student_id) {
+        return Result.success(courseMapper.selectIdByStudent(student_id));
+    }
 
 }
 

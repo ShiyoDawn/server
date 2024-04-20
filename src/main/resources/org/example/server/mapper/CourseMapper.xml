@@ -46,6 +46,13 @@
     <select id="selectByName" resultType="org.example.server.pojo.Course">
         SELECT * FROM Course where course_name = #{course_name};
     </select>
+    <select id="selectIdByStudent">
+        SELECT course.course_name
+        FROM student
+                 JOIN student_course ON student.id = student_course.student_id
+                 JOIN course ON student_course.course_id = course.id
+        WHERE student.id = #{student_id};
+    </select>
 
 
 </mapper>
