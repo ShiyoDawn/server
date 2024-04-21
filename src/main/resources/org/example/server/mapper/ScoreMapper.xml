@@ -63,6 +63,9 @@
         update Score set ranking = #{ranking} where  "student_id" = #{student_id} and "course_id" = #{course_id}
     </update>
 
+    <update id="updateId" >
+        update Score set id = #{id} where "student_id" = #{student_id} and "course_id" = #{course_id}
+    </update>
 
     <select id="getScoreSorted_Ascending" resultType="org.example.server.pojo.Score">
         select * from Score where "course_id"=#{course_id} ORDER BY mark ASC

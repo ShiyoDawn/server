@@ -146,9 +146,15 @@ public class ScoreService {
         List<Score> scoreList = scoreMapper.selectAll();
         List<Map<String, String>> dataList = new ArrayList();
         Map<String, String> map = new HashMap<>();
+        for(int i=0;i<scoreList.size();i++){
+            scoreMapper.updateId(scoreList.get(i).getStudent_id(),scoreList.get(i).getCourse_id(),i+1);
+        }
+        for(Score score:scoreList){
+            System.out.println(score.getId());
+        }
         for (int i = 0; i < scoreList.size(); i++) {
             map = new HashMap();
-            map.put("id",i+1+"");
+            map.put("id",scoreList.get(i).getId()+"");
             //map.put("id", scoreList.get(i).getId() + "");
             map.put("student_id", scoreList.get(i).getStudent_id() + "");
             map.put("student_name", scoreList.get(i).getStudent_name());

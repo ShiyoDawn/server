@@ -19,6 +19,8 @@ public interface ScoreMapper extends BaseMapper<Score> {
 
     void updateMark(Integer student_id, Integer course_id, Integer mark);
 
+    void updateId(Integer student_id,Integer course_id,Integer id);
+
     void deleteOnlyScore(Integer student_id, Integer course_id);
 
     void deleteForAll(Integer student_id,Integer course_id);
