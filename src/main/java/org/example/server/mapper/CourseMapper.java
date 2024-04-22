@@ -23,7 +23,7 @@ public interface CourseMapper extends BaseMapper<Course> {
     Course selectByNum(Integer num);
     void deleteCourseById(Integer id);
     List<Course> selectMixed(String course_name, Integer course_type_id,Integer pageNum);
-    Course selectByName(String course_name);
+    Course selectCourseByName(String course_name);
 
     List<String> selectIdByStudent(Integer student_id);
     List<Map<String,String>> selectLessonByStudent(Integer student_id,Integer week,String terms);

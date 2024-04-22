@@ -48,6 +48,7 @@ public class ScoreController {
     public Result deleteAllById(@Valid @RequestBody DataRequest dataRequest) {
         Integer student_id = dataRequest.getInteger("student_id");
         Integer course_id = dataRequest.getInteger("course_id");
+        System.out.println(student_id+" "+course_id);
         return scoreService.deleteAllById(student_id, course_id);
     }
 
