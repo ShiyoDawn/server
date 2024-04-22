@@ -23,8 +23,5 @@ class ServerApplicationTests {
 
     @Autowired
     CourseService courseService;
-    @Test
-    void selectLessonByStudent(){
-        courseService.selectLessonByStudent(1);
-    }
+
 }

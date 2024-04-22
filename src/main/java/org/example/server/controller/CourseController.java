@@ -55,9 +55,11 @@ public class CourseController {
         return courseService.selectIdByStudent(map.get("student_id"));
     }
     @PostMapping("/selectLessonByStudent")
-    public Result selectLessonByStudent(@RequestBody Map<String,String> map){
-
-        return courseService.selectLessonByStudent(Integer.parseInt(map.get("student_id")));
+    public Result selectLessonByStudent(@RequestBody DataRequest dataRequest){
+        Integer student_id = dataRequest.getInteger("student_id");
+        Integer week = dataRequest.getInteger("week");
+        String terms = dataRequest.getString("terms");
+        return courseService.selectLessonByStudent(student_id,week,terms);
 
     }
 
