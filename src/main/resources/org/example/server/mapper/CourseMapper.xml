@@ -54,12 +54,12 @@
         WHERE student.id = #{student_id};
     </select>
     <select id="selectLessonByStudent">
-        SELECT course.course_name,course.teacher_name,lesson.week,lesson.time_sort,lesson.terms,lesson.room,lesson.week_time
+        SELECT course.course_name,course.teacher_name,lesson.time_sort,lesson.room,lesson.week_time
         FROM student
                  JOIN student_course ON student.id = student_course.student_id
                  JOIN course ON student_course.course_id = course.id
                  JOIN lesson ON student_course.course_id = lesson.course_id
-        WHERE student.id = #{student_id};
+        WHERE student.id = #{student_id} and lesson.week = #{week} and lesson.terms = #{terms};
     </select>
 
 
