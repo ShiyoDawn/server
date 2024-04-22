@@ -64,6 +64,7 @@ public class ScoreController {
     public Result selectByStudentAndCourse(@Valid @RequestBody DataRequest dataRequest) {
         Integer student_id = dataRequest.getInteger("student_id");
         Integer course_id = dataRequest.getInteger("course_id");
+        System.out.println(student_id+" "+course_id);
         return scoreService.selectByStudentAndCourse(student_id, course_id);
     }
 
