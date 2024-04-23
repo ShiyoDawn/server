@@ -15,9 +15,9 @@ import java.util.List;
 @Mapper
 public interface ScoreMapper extends BaseMapper<Score> {
 
-    void insertMark(Integer student_id, String student_name, Integer course_id, String course_name, Integer mark);
+    void insertMark(Integer student_id, String student_name, Integer course_id, String course_name, Double mark);
 
-    void updateMark(Integer student_id, Integer course_id, Integer mark);
+    void updateMark(Integer student_id, Integer course_id, Double mark);
 
     void updateId(Integer student_id,Integer course_id,Integer id);
 
