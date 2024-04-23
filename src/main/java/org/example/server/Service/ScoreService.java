@@ -30,7 +30,7 @@ public class ScoreService {
     private CourseMapper courseMapper;
 
     //增添分数
-    public Result insertScore(Integer student_id, Integer course_id, Integer mark) {
+    public Result insertScore(Integer student_id, Integer course_id, Double mark) {
         Student student = studentMapper.selectById(student_id);
         Course course = courseMapper.selectInfo(course_id);
         if (student == null || course == null) {
@@ -83,7 +83,7 @@ public class ScoreService {
     }
 
     //修改分数
-    public Result updateScoreAndRanking(Integer student_id, Integer course_id, Integer mark) {
+    public Result updateScoreAndRanking(Integer student_id, Integer course_id, Double mark) {
         Student student = studentMapper.selectById(student_id);
         if (student == null)
             return Result.error(404, "修改失败，该学生不存在");
@@ -240,7 +240,7 @@ public class ScoreService {
     public Result scoreSave(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("student_id");
         Integer courseId = dataRequest.getInteger("course_id");
-        Integer mark = dataRequest.getInteger("mark");
+        Double mark = dataRequest.getDouble("mark");
         Integer scoreId = dataRequest.getInteger("id");
 
         Score score = null;

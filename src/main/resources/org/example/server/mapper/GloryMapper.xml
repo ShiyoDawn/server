@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.server.mapper.GloryMapper">
+
+    <select id="selectByGloryName" resultType="org.example.server.pojo.Glory">
+        select * from Glory where "glory_name" = #{glory_name}
+    </select>
+
+    <select id="selectByStudentName" resultType="org.example.server.pojo.Glory">
+        select * from Glory where "student_name" = #{student_name}
+    </select>
+
+    <select id="selectByStudentAndGlory" resultType="org.example.server.pojo.Glory">
+        select * from Glory where "student_id" = #{student_id} and "glory_name" = #{glory_name}
+    </select>
+
+    <select id="selectAll" resultType="org.example.server.pojo.Glory">
+        select * from Glory
+    </select>
+
+    <update id="updateGlory">
+        update Glory set glory_name = #{new_glory_name},glory_type = #{glory_type} where "student_name" = #{student_name} and "glory_name" = #{glory_name}
+    </update>
+
+    <update id="updateId" >
+        update Glory set id = #{id} where "student_name" = #{student_name} and "glory_name" = #{glory_name}
+    </update>
+
+<!--
+    <delete id="deleteOnlyGlory">
+        update Glory set glory_name = null where "student_id" = #{student_id} and "glory_name" = #{glory_name}
+    </delete>
+-->
+    <delete id="deleteGlory">
+        delete from Glory where  "student_name" = #{student_name} and "glory_name" = #{glory_name}
+    </delete>
+
+    <insert id="insertGlory">
+        insert into Glory (student_name, student_id, glory_name, glory_type)
+        values (#{student_name}, #{student_id}, #{glory_name}, #{glory_type})
+    </insert>
+
+</mapper>

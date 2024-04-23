@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.nio.DoubleBuffer;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 @RestController
@@ -33,7 +35,7 @@ public class ScoreController {
     public Result insertScore(@Valid @RequestBody DataRequest dataRequest) {
         Integer student_id = dataRequest.getInteger("student_id");
         Integer course_id = dataRequest.getInteger("course_id");
-        Integer mark = dataRequest.getInteger("mark");
+        Double mark = dataRequest.getDouble("mark");
         return scoreService.insertScore(student_id, course_id, mark);
     }
 
@@ -48,7 +50,6 @@ public class ScoreController {
     public Result deleteAllById(@Valid @RequestBody DataRequest dataRequest) {
         Integer student_id = dataRequest.getInteger("student_id");
         Integer course_id = dataRequest.getInteger("course_id");
-        System.out.println(student_id+" "+course_id);
         return scoreService.deleteAllById(student_id, course_id);
     }
 
@@ -56,7 +57,7 @@ public class ScoreController {
     public Result updateScore(@Valid @RequestBody DataRequest dataRequest) {
         Integer student_id = dataRequest.getInteger("student_id");
         Integer course_id = dataRequest.getInteger("course_id");
-        Integer mark = dataRequest.getInteger("mark");
+        Double mark = dataRequest.getDouble("mark");
         return scoreService.updateScoreAndRanking(student_id, course_id, mark);
     }
 
