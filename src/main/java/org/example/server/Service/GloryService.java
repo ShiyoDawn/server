@@ -24,12 +24,12 @@ public class GloryService {
     @Autowired
     private StudentMapper studentMapper;
 
-    public Result insertGlory(String student_name,Integer student_id,String glory_name,String glory_type){
+    public Result insertGlory(String student_name,Integer student_id,String glory_name,String glory_type,String glory_level){
         Glory glory=gloryMapper.selectByStudentAndGlory(student_name,glory_name);
         if(glory!=null){
             return Result.error(404,"Glory has existed!");
         }
-        gloryMapper.insertGlory(student_name,student_id,glory_name,glory_type);
+        gloryMapper.insertGlory(student_name,student_id,glory_name,glory_type,glory_level);
         return Result.ok("添加成功！");
     }
 

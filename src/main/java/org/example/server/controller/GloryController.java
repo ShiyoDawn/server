@@ -23,7 +23,8 @@ public class GloryController {
         String student_name=dataRequest.getString("student_name");
         String glory_name=dataRequest.getString("glory_name");
         String glory_type=dataRequest.getString("glory_type");
-        return gloryService.insertGlory(student_name,student_id,glory_name,glory_type);
+        String glory_level=dataRequest.getString("glory_level");
+        return gloryService.insertGlory(student_name,student_id,glory_name,glory_type,glory_level);
     }
 
     @PostMapping("/deleteGlory")

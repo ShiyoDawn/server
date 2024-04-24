@@ -9,7 +9,7 @@ import java.util.List;
 public interface GloryMapper {
 
 
-    void insertGlory(String student_name,Integer student_id,String glory_name,String glory_type);
+    void insertGlory(String student_name,Integer student_id,String glory_name,String glory_type,String glory_level);
 
     void deleteGlory(String student_name,String glory_name);
 

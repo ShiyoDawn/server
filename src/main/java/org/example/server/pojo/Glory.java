@@ -23,4 +23,5 @@ public class Glory {
 
     private String glory_type;
 
+    private String glory_level;
 }
