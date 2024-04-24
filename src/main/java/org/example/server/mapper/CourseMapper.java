@@ -17,6 +17,7 @@ import java.util.Map;
 public interface CourseMapper extends BaseMapper<Course> {
     void updateInfo(Integer id, String course_name,Double credit,Integer num,Integer course_type_id,Integer pre_course_id,String book,String extracurricular);
     List<Map<String,String>> selectAll();
+    List<Map<String,String>> selectAllByPage(Integer pageNum);
     Course selectInfo(Integer id);
 
     void addCourse(String course_name, Double credit, Integer num, Integer course_type_id, Integer pre_course_id, String book, String extracurricular);

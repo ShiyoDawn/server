@@ -43,6 +43,11 @@ public class CourseController {
     public Result selectAll(){
         return courseService.selectAll();
     }
+    @PostMapping("/selectAllByPage")
+    public Result selectAllByPage(@Valid @RequestBody DataRequest dataRequest){
+        Integer pageNum = dataRequest.getInteger("pageNum");
+        return courseService.selectAllByPage(pageNum);
+    }
 
     @PostMapping("/selectCourseByName")
     public Result selectCourseByName(@Valid @RequestBody DataRequest dataRequest){

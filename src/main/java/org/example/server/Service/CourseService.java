@@ -65,6 +65,9 @@ public class CourseService {
     public Result selectAll(){
         return Result.success(courseMapper.selectAll());
     }
+    public Result selectAllByPage(Integer pageNum){
+        return Result.success(courseMapper.selectAllByPage(pageNum));
+    }
     public Result selectCourseByName(String course_name) {
         return Result.success(courseMapper.selectCourseByName(course_name));
     }
