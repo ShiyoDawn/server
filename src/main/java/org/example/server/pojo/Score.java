@@ -25,7 +25,7 @@ public class Score {
 
     private String course_name;
 
-    private Integer mark;
+    private Double mark;
 
     @TableField(exist = false)
     private Course course;

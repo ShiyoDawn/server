@@ -19,7 +19,10 @@
     </select>
 
     <select id="selectByStudentAndCourse" resultType="org.example.server.pojo.Score">
-        select * from Score where "student_id" = #{student_id} and "course_id" = #{course_id}
+        select * from Score sc
+            inner join Student st on sc.student_id = st.id
+            inner join Course co on sc.student_id = co.id
+        where "student_id" = #{student_id} and "course_id" = #{course_id}
     </select>
 
     <select id="selectAll" resultType="org.example.server.pojo.Score">

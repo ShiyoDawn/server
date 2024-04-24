@@ -30,7 +30,7 @@ public class ScoreService {
     private CourseMapper courseMapper;
 
     //增添分数
-    public Result insertScore(Integer student_id, Integer course_id, Integer mark) {
+    public Result insertScore(Integer student_id, Integer course_id, Double mark) {
         Student student = studentMapper.selectById(student_id);
         Course course = courseMapper.selectInfo(course_id);
         if (student == null || course == null) {
@@ -83,7 +83,7 @@ public class ScoreService {
     }
 
     //修改分数
-    public Result updateScoreAndRanking(Integer student_id, Integer course_id, Integer mark) {
+    public Result updateScoreAndRanking(Integer student_id, Integer course_id, Double mark) {
         Student student = studentMapper.selectById(student_id);
         if (student == null)
             return Result.error(404, "修改失败，该学生不存在");
@@ -107,14 +107,40 @@ public class ScoreService {
         Course course = courseMapper.selectInfo(course_id);
         if (course == null)
             return Result.error(404, "查询失败，该课程不存在");
-        return Result.success(scoreMapper.selectByStudentAndCourse(student_id, course_id), "查询成功！");
+        Score score=scoreMapper.selectByStudentAndCourse(student_id, course_id);
+        Double credit=courseMapper.selectInfo(course_id).getCredit();
+        Map map=new HashMap();
+        map.put("id",score.getId()+"");
+        map.put("student_id",score.getStudent_id()+"");
+        map.put("student_name",score.getStudent_name()+"");
+        map.put("course_id",score.getCourse_id()+"");
+        map.put("course_name",score.getCourse_name()+"");
+        map.put("credit",credit+"");
+        map.put("mark",score.getMark()+"");
+        System.out.println(map);
+        return Result.success(map,"查询成功！");
     }
 
     public Result selectByStudentId(Integer student_id) {
         Student student = studentMapper.selectById(student_id);
         if (student == null)
             return Result.error(404, "查询失败，该学生不存在");
-        return Result.success(scoreMapper.selectByStudentId(student_id), "查询成功！");
+        List<Score> scoreList=scoreMapper.selectByStudentId(student_id);
+        List<Map> scoreMap=new ArrayList<>();
+        for(Score score:scoreList){
+            Integer course_id=score.getCourse_id();
+            Double credit=courseMapper.selectInfo(course_id).getCredit();
+            Map map=new HashMap();
+            map.put("id",score.getId()+"");
+            map.put("student_id",score.getStudent_id()+"");
+            map.put("student_name",score.getStudent_name()+"");
+            map.put("course_id",score.getCourse_id()+"");
+            map.put("course_name",score.getCourse_name()+"");
+            map.put("credit",credit+"");
+            map.put("mark",score.getMark()+"");
+            scoreMap.add(map);
+        }
+        return Result.success(scoreMap, "查询成功！");
     }
 
     public Result selectByStudentName(String student_name) {
@@ -122,14 +148,43 @@ public class ScoreService {
         Integer studentId = student.getId();
         if (student == null)
             return Result.error(404, "查询失败，该学生不存在");
-        return Result.success(scoreMapper.selectByStudentId(studentId), "查询成功！");
+        List<Score> scoreList=scoreMapper.selectByStudentId(studentId);
+        List<Map> scoreMap=new ArrayList<>();
+        for(Score score:scoreList){
+            Integer course_id=score.getCourse_id();
+            Double credit=courseMapper.selectInfo(course_id).getCredit();
+            Map map=new HashMap();
+            map.put("id",score.getId()+"");
+            map.put("student_id",score.getStudent_id()+"");
+            map.put("student_name",score.getStudent_name()+"");
+            map.put("course_id",score.getCourse_id()+"");
+            map.put("course_name",score.getCourse_name()+"");
+            map.put("credit",credit+"");
+            map.put("mark",score.getMark()+"");
+            scoreMap.add(map);
+        }
+        return Result.success(scoreMap, "查询成功！");
     }
 
     public Result selectByCourseId(Integer course_id) {
         Course course = courseMapper.selectInfo(course_id);
         if (course == null)
             return Result.error(404, "查询失败，该课程不存在");
-        return Result.success(scoreMapper.selectByCourseId(course_id), "查询成功！");
+        List<Score> scoreList=scoreMapper.selectByCourseId(course_id);
+        List<Map> scoreMap=new ArrayList<>();
+        for(Score score:scoreList){
+            Double credit=courseMapper.selectInfo(course_id).getCredit();
+            Map map=new HashMap();
+            map.put("id",score.getId()+"");
+            map.put("student_id",score.getStudent_id()+"");
+            map.put("student_name",score.getStudent_name()+"");
+            map.put("course_id",score.getCourse_id()+"");
+            map.put("course_name",score.getCourse_name()+"");
+            map.put("credit",credit+"");
+            map.put("mark",score.getMark()+"");
+            scoreMap.add(map);
+        }
+        return Result.success(scoreMap, "查询成功！");
     }
 
     //未写由coursename得到courseid，故先放这，之后补
@@ -137,7 +192,21 @@ public class ScoreService {
     public Result selectByCourseName(String course_name) {
         Integer course_id = courseMapper.selectCourseByName(course_name).getId();
         System.out.println(course_name + " " + course_id);
-        return Result.success(scoreMapper.selectByCourseId(course_id), "查询成功！");
+        List<Score> scoreList=scoreMapper.selectByCourseId(course_id);
+        List<Map> scoreMap=new ArrayList<>();
+        for(Score score:scoreList){
+            Double credit=courseMapper.selectInfo(course_id).getCredit();
+            Map map=new HashMap();
+            map.put("id",score.getId()+"");
+            map.put("student_id",score.getStudent_id()+"");
+            map.put("student_name",score.getStudent_name()+"");
+            map.put("course_id",score.getCourse_id()+"");
+            map.put("course_name",score.getCourse_name()+"");
+            map.put("credit",credit+"");
+            map.put("mark",score.getMark()+"");
+            scoreMap.add(map);
+        }
+        return Result.success(scoreMap, "查询成功！");
     }
 
 
@@ -171,7 +240,7 @@ public class ScoreService {
     public Result scoreSave(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("student_id");
         Integer courseId = dataRequest.getInteger("course_id");
-        Integer mark = dataRequest.getInteger("mark");
+        Double mark = dataRequest.getDouble("mark");
         Integer scoreId = dataRequest.getInteger("id");
 
         Score score = null;
