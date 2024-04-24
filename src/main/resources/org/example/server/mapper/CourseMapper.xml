@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.server.mapper.CourseMapper">
-    <select id="selectAll" resultType="org.example.server.pojo.Course">
+    <select id="selectAll">
         SELECT * FROM Course;
     </select>
     <select id="selectInfo" resultType="org.example.server.pojo.Course">
@@ -60,6 +60,15 @@
                  JOIN course ON student_course.course_id = course.id
                  JOIN lesson ON student_course.course_id = lesson.course_id
         WHERE student.id = #{student_id} and lesson.week = #{week} and lesson.terms = #{terms};
+    </select>
+    <select id="selectType">
+        SELECT course_type.course_type_name
+        FROM course
+                 JOIN course_type ON course.course_type_id = course_type.id
+        WHERE course.id = #{course_id};
+    </select>
+    <select id="selectAllType">
+        SELECT course_type_name from course_type;
     </select>
 
 

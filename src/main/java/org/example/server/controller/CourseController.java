@@ -48,7 +48,7 @@ public class CourseController {
     public Result selectCourseByName(@Valid @RequestBody DataRequest dataRequest){
         String course_name=dataRequest.getString("course_name");
         System.out.println(course_name);
-        return courseService.selectByName(course_name);
+        return courseService.selectCourseByName(course_name);
     }
     @PostMapping("/selectIdByStudent")
     public Result selectIdByStudent(@RequestBody Map<String,Integer> map){
@@ -60,7 +60,15 @@ public class CourseController {
         Integer week = dataRequest.getInteger("week");
         String terms = dataRequest.getString("terms");
         return courseService.selectLessonByStudent(student_id,week,terms);
-
+    }
+    @PostMapping("selectType")
+    public Result selectType (@Valid @RequestBody DataRequest dataRequest){
+        Integer course_id = dataRequest.getInteger("course_id");
+        return courseService.selectType(course_id);
+    }
+    @PostMapping("selectAllType")
+    public Result selectAllType(){
+        return courseService.selectAllType();
     }
 
 }

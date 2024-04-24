@@ -74,6 +74,12 @@ public class CourseService {
     public Result selectLessonByStudent(Integer student_id,Integer week,String terms) {
         return Result.success(courseMapper.selectLessonByStudent(student_id,week,terms));
     }
+    public Result selectType(Integer course_id){
+        return Result.success(courseMapper.selectType(course_id));
+    }
+    public Result selectAllType(){
+        return Result.success(courseMapper.selectAllType());
+    }
 
 }
 
