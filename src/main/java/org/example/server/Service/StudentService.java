@@ -57,8 +57,8 @@ public class StudentService {
         Map m;
         for (Student s : students) {
             m = new HashMap();
-            m.put("id", s.getId());
-            m.put("person_id", s.getPerson_id());
+            m.put("id", s.getId()+"");
+            m.put("person_id", s.getPerson_id()+"");
             m.put("student_name", s.getStudent_name());
             m.put("department", s.getDepartment());
             m.put("classes", s.getClasses());
@@ -103,8 +103,8 @@ public class StudentService {
         }
         //Person person = new Person();
 
-        map.put("id", student.getId());
-        map.put("person_id", student.getPerson_id());
+        map.put("id", student.getId()+"");
+        map.put("person_id", student.getPerson_id()+"");
         map.put("student_name", student.getStudent_name());
         map.put("department", student.getDepartment());
         map.put("classes", student.getClasses());
@@ -138,8 +138,8 @@ public class StudentService {
         }
         //Person person = new Person();
 
-        map.put("id", student.getId());
-        map.put("person_id", student.getPerson_id());
+        map.put("id", student.getId()+"");
+        map.put("person_id", student.getPerson_id()+"");
         map.put("student_name", student.getStudent_name());
         map.put("department", student.getDepartment());
         map.put("classes", student.getClasses());
@@ -154,8 +154,8 @@ public class StudentService {
         Map m;
         for (Student s : students) {
             m = new HashMap();
-            m.put("id", s.getId());
-            m.put("person_id", s.getPerson_id());
+            m.put("id", s.getId()+"");
+            m.put("person_id", s.getPerson_id()+"");
             m.put("student_name", s.getStudent_name());
             m.put("department", s.getDepartment());
             m.put("classes", s.getClasses());
