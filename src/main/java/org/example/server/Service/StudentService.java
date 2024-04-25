@@ -176,12 +176,12 @@ public class StudentService {
         return true;
     }
 
-    public Boolean updateStudentDepartment(String student_name,String department) {
+    public Boolean updateStudent(Integer person_id,String student_name,String department,String classes,String grade,String major) {
         Student student=studentMapper.findByStudentName(student_name);
         if(student==null){
             return false;
         }
-        studentMapper.updateStudentDepartment(student_name,department);
+        studentMapper.updateStudent(person_id,student_name,department,classes,grade,major);
         return true;
     }
 

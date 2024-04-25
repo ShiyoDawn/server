@@ -70,11 +70,19 @@
         SET student_name = #{student_name}
         WHERE person_id = #{person_id}
     </update>
-    <update id="updateStudentDepartment" parameterType="org.example.server.pojo.Student">
+    <update id="updateStudent" parameterType="org.example.server.pojo.Student">
+    <![CDATA[
         UPDATE Student
-        SET department=#{department}
-        WHERE student_name = #{student_name}
-    </update>
+        SET
+            student_name = #{student_name},
+            department = #{department},
+            classes = #{classes},
+            grade = #{grade},
+            major = #{major}
+        WHERE person_id = #{person_id} AND student_name = #{student_name}
+        ]]>
+</update>
+
     <update id="updateStudentGrade" parameterType="org.example.server.pojo.Student">
         UPDATE Student
         SET grade=#{grade}

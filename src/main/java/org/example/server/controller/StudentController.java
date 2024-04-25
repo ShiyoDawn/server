@@ -46,9 +46,15 @@ public class StudentController {
     }
 
     //通过姓名改学生部门
-    @PostMapping("/updateStudentDepartment")
-    public Result updateStudentDepartment(@RequestParam String student_name, @RequestParam String department) {
-        return Result.success(studentService.updateStudentDepartment(student_name, department));
+    @PostMapping("/updateStudent")
+    public Result updateStudent(@RequestBody DataRequest dataRequest) {
+        Integer person_id=dataRequest.getInteger("person_id");
+        String student_name=dataRequest.getString("student_name");
+        String department=dataRequest.getString("department");
+        String classes=dataRequest.getString("classes");
+        String grade=dataRequest.getString("grade");
+        String major=dataRequest.getString("major");
+        return Result.success(studentService.updateStudent(person_id,student_name,department,classes,grade,major));
     }
 
     //通过姓名改学生年级

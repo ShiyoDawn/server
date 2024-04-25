@@ -25,7 +25,7 @@ public interface StudentMapper extends BaseMapper<Student> {
     Student selectByPid(Integer person_id);
     Integer updateStudentName(String student_name,Integer person_id);
 
-    void updateStudentDepartment(String student_name,String department);
+    void updateStudent(Integer person_id,String student_name,String department,String classes,String grade,String major);
 
     void updateStudentGrade(String student_name, String grade);
 
