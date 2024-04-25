@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.example.server.pojo.Student;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Mapper
@@ -38,6 +39,8 @@ public interface StudentMapper extends BaseMapper<Student> {
     //Student和StudentFamily
     //查
     Student selectStudentAndStudentFamilyById(Integer id);
+
+    List<Student> selectByConditions(Map<String, Object> conditions);
     //改
     //Student updateStudentAndStudentFamily()???
 }

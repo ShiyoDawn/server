@@ -5,10 +5,13 @@ import org.example.server.mapper.StudentMapper;
 import org.example.server.payload.Result;
 import org.example.server.payload.request.DataRequest;
 import org.example.server.payload.response.DataResponse;
+import org.example.server.pojo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/student")
@@ -92,5 +95,13 @@ public class StudentController {
         String student_name=dataRequest.getString("student_name");
         studentService.deleteStudent(person_id,student_name);
         return Result.ok();
+    }
+    @GetMapping("/selectStudent")
+    public List<Student> selectStudent(@RequestBody DataRequest request) {
+        Map<String, Object> requestData = request.getData();
+
+        // 调用服务层方法进行动态查询
+        List<Student> students = studentService.selectStudentByConditions(requestData);
+        return students;
     }
 }
