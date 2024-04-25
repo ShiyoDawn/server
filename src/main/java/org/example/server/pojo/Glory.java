@@ -1,6 +1,7 @@
 package org.example.server.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -24,4 +25,7 @@ public class Glory {
     private String glory_type;
 
     private String glory_level;
+
+    @TableField(exist = false)
+    private Glory glory;
 }
