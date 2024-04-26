@@ -5,10 +5,13 @@ import org.example.server.mapper.StudentMapper;
 import org.example.server.payload.Result;
 import org.example.server.payload.request.DataRequest;
 import org.example.server.payload.response.DataResponse;
+import org.example.server.pojo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/student")
@@ -46,9 +49,15 @@ public class StudentController {
     }
 
     //通过姓名改学生部门
-    @PostMapping("/updateStudentDepartment")
-    public Result updateStudentDepartment(@RequestParam String student_name, @RequestParam String department) {
-        return Result.success(studentService.updateStudentDepartment(student_name, department));
+    @PostMapping("/updateStudent")
+    public Result updateStudent(@RequestBody DataRequest dataRequest) {
+        Integer person_id=dataRequest.getInteger("person_id");
+        String student_name=dataRequest.getString("student_name");
+        String department=dataRequest.getString("department");
+        String classes=dataRequest.getString("classes");
+        String grade=dataRequest.getString("grade");
+        String major=dataRequest.getString("major");
+        return Result.success(studentService.updateStudent(person_id,student_name,department,classes,grade,major));
     }
 
     //通过姓名改学生年级
@@ -86,5 +95,13 @@ public class StudentController {
         String student_name=dataRequest.getString("student_name");
         studentService.deleteStudent(person_id,student_name);
         return Result.ok();
+    }
+    @GetMapping("/selectStudent")
+    public List<Student> selectStudent(@RequestBody DataRequest request) {
+        Map<String, Object> requestData = request.getData();
+
+        // 调用服务层方法进行动态查询
+        List<Student> students = studentService.selectStudentByConditions(requestData);
+        return students;
     }
 }

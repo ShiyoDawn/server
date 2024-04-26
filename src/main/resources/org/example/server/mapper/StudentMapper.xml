@@ -70,11 +70,19 @@
         SET student_name = #{student_name}
         WHERE person_id = #{person_id}
     </update>
-    <update id="updateStudentDepartment" parameterType="org.example.server.pojo.Student">
+    <update id="updateStudent" parameterType="org.example.server.pojo.Student">
+    <![CDATA[
         UPDATE Student
-        SET department=#{department}
-        WHERE student_name = #{student_name}
-    </update>
+        SET
+            student_name = #{student_name},
+            department = #{department},
+            classes = #{classes},
+            grade = #{grade},
+            major = #{major}
+        WHERE person_id = #{person_id} AND student_name = #{student_name}
+        ]]>
+</update>
+
     <update id="updateStudentGrade" parameterType="org.example.server.pojo.Student">
         UPDATE Student
         SET grade=#{grade}
@@ -89,5 +97,29 @@
         DELETE FROM Student
         WHERE person_id=#{person_id} AND student_name=#{student_name}
     </delete>
+    <select id="selectByConditions" parameterType="map" resultType="org.example.server.pojo.Student">
+        SELECT * FROM student
+        <where>
+            <if test="person_id != null">
+                AND person_id = #{person_id}
+            </if>
+            <if test="student_name != null">
+                AND student_name = #{student_name}
+            </if>
+            <if test="department != null">
+                AND department = #{department}
+            </if>
+            <if test="classes != null">
+                AND classes = #{classes}
+            </if>
+            <if test="grade != null">
+                AND grade = #{grade}
+            </if>
+            <if test="major != null">
+                AND major = #{major}
+            </if>
+            <!-- 根据需要添加其他条件 -->
+        </where>
+    </select>
 
 </mapper>
