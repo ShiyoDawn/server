@@ -96,7 +96,8 @@ public class StudentController {
         studentService.deleteStudent(person_id,student_name);
         return Result.ok();
     }
-    @GetMapping("/selectStudent")
+    //这个方法废了
+    @PostMapping("/selectStudent")
     public List<Student> selectStudent(@RequestBody DataRequest request) {
         Map<String, Object> requestData = request.getData();
 
