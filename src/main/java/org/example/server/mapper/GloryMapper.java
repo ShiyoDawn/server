@@ -1,6 +1,7 @@
 package org.example.server.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.example.server.payload.Result;
 import org.example.server.pojo.Glory;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface GloryMapper {
 
     void deleteGlory(String student_name,String glory_name);
 
-    void updateGlory(String student_name,String new_glory_name,String glory_name,String glory_type);
+    void updateGlory(String student_name,String new_glory_name,String glory_name,String new_glory_level,String glory_type);
 
     List<Glory> selectByGloryName(String glory_name);
 
@@ -26,4 +27,6 @@ public interface GloryMapper {
     List<Glory> selectAll();
 
     void updateId(Integer id,String student_name,String glory_name);
+
+    Glory selectById(Integer id);
 }

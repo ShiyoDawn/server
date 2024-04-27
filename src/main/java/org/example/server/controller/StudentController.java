@@ -31,6 +31,7 @@ public class StudentController {
     @PostMapping("/selectStudentByName")
     public Result selectStudentByName(@Valid @RequestBody DataRequest dataRequest) {
         String student_name=dataRequest.getString("student_name");
+        System.out.println(student_name);
         return Result.success(studentService.findStudentByName(student_name));
     }
 
