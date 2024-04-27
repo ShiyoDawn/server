@@ -13,7 +13,11 @@
     </select>
 
     <select id="selectByStudentAndGlory" resultType="org.example.server.pojo.Glory">
-        select * from Glory where "student_id" = #{student_id} and "glory_name" = #{glory_name}
+        select * from Glory where "student_name" = #{student_name} and "glory_name" = #{glory_name}
+    </select>
+
+    <select id="selectById" resultType="org.example.server.pojo.Glory">
+        select * from Glory where "id" = #{id}
     </select>
 
     <select id="selectAll" resultType="org.example.server.pojo.Glory">
@@ -21,7 +25,7 @@
     </select>
 
     <update id="updateGlory">
-        update Glory set glory_name = #{new_glory_name},glory_type = #{glory_type} where "student_name" = #{student_name} and "glory_name" = #{glory_name}
+        update Glory set glory_name = #{new_glory_name},glory_level = #{new_glory_level},glory_type = #{glory_type} where "student_name" = #{student_name} and "glory_name" = #{glory_name}
     </update>
 
     <update id="updateId" >
