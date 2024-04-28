@@ -106,4 +106,14 @@ public class StudentController {
         List<Student> students = studentService.selectStudentByConditions(requestData);
         return students;
     }
+//    @PostMapping("/getStudentInfo")
+//    public Result getStudentInfo(@RequestBody DataRequest dataRequest){
+//        Integer id=dataRequest.getInteger("id");
+//        return Result.success(studentService.selectStudentWithPerson(id));
+//    }
+    @PostMapping("/getStudentInfo")
+    public Result getStudentById(@RequestBody DataRequest dataRequest) {
+        Integer id=dataRequest.getInteger("id");
+        return Result.success(studentService.getStudentById(id));
+    }
 }

@@ -33,4 +33,6 @@ public class Student {
     private List<StudentFamily> studentFamilies;
 
     private Person person;
+
+    private Gender gender;
 }

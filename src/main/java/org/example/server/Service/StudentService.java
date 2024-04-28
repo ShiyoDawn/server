@@ -217,18 +217,33 @@ public class StudentService {
         studentMapper.deleteStudentByPidAndName(person_id,student_name);
         return;
     }
-    public Student selectByStudentIdWithStudentFamily(Integer id){
+    public List<Map> selectByStudentIdWithStudentFamily(Integer id){
         Student student=studentMapper.selectById(id);
         if(student==null){
-            return null;
+            return new ArrayList<>();
         }
-        Student s=studentMapper.selectStudentAndStudentFamilyById(id);
-        return s;
+        List studentSFamilyMapList=studentMapper.selectStudentAndStudentFamilyById(id);
+        return studentSFamilyMapList;
+    }
+    public List<Map> selectStudentWithPerson(Integer id){
+        Student student=studentMapper.selectById(id);
+        if(student==null){
+            return new ArrayList<>();
+        }
+        List studentPersonMapList=studentMapper.selectStudentAndPersonById(id);
+        return studentPersonMapList;
     }
     public List<Student> selectStudentByConditions(Map<String, Object> conditions) {
         // 根据条件构建查询语句，使用 MyBatisPlus 或其他持久化框架执行查询操作
         // 示例：假设 StudentMapper 中有一个名为 selectByConditions 的方法用于动态查询
         List<Student> students = studentMapper.selectByConditions(conditions);
         return students;
+    }
+    public Student getStudentById(Integer id) {
+        Student student=studentMapper.selectById(id);
+        if(student==null){
+            return null;
+        }
+        return studentMapper.selectStudentById(id);
     }
 }
