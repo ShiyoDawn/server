@@ -232,6 +232,7 @@ public class ScoreService {
             map.put("credit", courseMapper.selectInfo(scoreList.get(i).getCourse_id()).getCredit() + "");
             map.put("mark", scoreList.get(i).getMark() + "");
             //map.put("ranking", s.getRanking() + "");
+            System.out.println(map);
             dataList.add(map);
         }
         return Result.success(dataList);
