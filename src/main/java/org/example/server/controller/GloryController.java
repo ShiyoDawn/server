@@ -24,6 +24,7 @@ public class GloryController {
         String glory_name=dataRequest.getString("glory_name");
         String glory_type=dataRequest.getString("glory_type");
         String glory_level=dataRequest.getString("glory_level");
+        System.out.println(dataRequest.getData());
         return gloryService.insertGlory(student_name,student_id,glory_name,glory_type,glory_level);
     }
 
@@ -38,15 +39,17 @@ public class GloryController {
     public Result updateGlory(@Valid @RequestBody DataRequest dataRequest) {
         String student_name = dataRequest.getString("student_name");
         String glory_name=dataRequest.getString("glory_name");
-        String new_glory_name=dataRequest.getString("new_glory_name");
+        String raw_glory_name=dataRequest.getString("raw_glory_name");
+        String glory_level=dataRequest.getString("glory_level");
         String glory_type=dataRequest.getString("glory_type");
-        return gloryService.updateGlory(student_name,new_glory_name,glory_name,glory_type);
+        return gloryService.updateGlory(student_name,glory_name,raw_glory_name,glory_level,glory_type);
     }
 
     @PostMapping("/selectByStudentAndGlory")
     public Result selectByStudentAndGlory(@Valid @RequestBody DataRequest dataRequest){
         String student_name = dataRequest.getString("student_name");
         String glory_name=dataRequest.getString("glory_name");
+        System.out.println(dataRequest.getData());
         return gloryService.selectByStudentAndGlory(student_name,glory_name);
     }
 
@@ -60,6 +63,12 @@ public class GloryController {
     public Result selectByGloryName(@Valid @RequestBody DataRequest dataRequest){
         String glory_name=dataRequest.getString("glory_name");
         return gloryService.selectByGloryName(glory_name);
+    }
+
+    @PostMapping("/selectById")
+    public  Result selectById(@Valid @RequestBody DataRequest dataRequest){
+        Integer id=dataRequest.getInteger("id");
+        return gloryService.selectById(id);
     }
 
     @PostMapping("/getGloryList")

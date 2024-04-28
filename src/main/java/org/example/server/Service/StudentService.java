@@ -176,12 +176,12 @@ public class StudentService {
         return true;
     }
 
-    public Boolean updateStudentDepartment(String student_name,String department) {
+    public Boolean updateStudent(Integer person_id,String student_name,String department,String classes,String grade,String major) {
         Student student=studentMapper.findByStudentName(student_name);
         if(student==null){
             return false;
         }
-        studentMapper.updateStudentDepartment(student_name,department);
+        studentMapper.updateStudent(person_id,student_name,department,classes,grade,major);
         return true;
     }
 
@@ -224,5 +224,11 @@ public class StudentService {
         }
         Student s=studentMapper.selectStudentAndStudentFamilyById(id);
         return s;
+    }
+    public List<Student> selectStudentByConditions(Map<String, Object> conditions) {
+        // 根据条件构建查询语句，使用 MyBatisPlus 或其他持久化框架执行查询操作
+        // 示例：假设 StudentMapper 中有一个名为 selectByConditions 的方法用于动态查询
+        List<Student> students = studentMapper.selectByConditions(conditions);
+        return students;
     }
 }

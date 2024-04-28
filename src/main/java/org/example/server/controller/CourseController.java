@@ -20,23 +20,43 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
     @PostMapping("/updateInfo")
-    public DataResponse updateInfo(@RequestParam Integer id, @RequestParam String course_name, @RequestParam Double credit, @RequestParam Integer num, @RequestParam Integer course_type_id, @RequestParam Integer pre_course_id, @RequestParam String book, @RequestParam String extracurricular) {
+    public DataResponse updateInfo(@RequestBody DataRequest dataRequest) {
+        Integer id=dataRequest.getInteger("id");
+        String course_name=dataRequest.getString("course_name");
+        Double credit=dataRequest.getDouble("credit");
+        Integer num=dataRequest.getInteger("num");
+        Integer course_type_id=dataRequest.getInteger("course_type_id");
+        Integer pre_course_id=dataRequest.getInteger("pre_course_id");
+        String book=dataRequest.getString("book");
+        String extracurricular=dataRequest.getString("extracurricular");
         return courseService.updateInfo(id, course_name, credit, num, course_type_id, pre_course_id, book, extracurricular);
     }
     @PostMapping("/selectInfo")
-    public DataResponse selectInfo(@RequestParam Integer id){
+    public DataResponse selectInfo(@RequestBody DataRequest dataRequest){
+        Integer id=dataRequest.getInteger("id");
+        System.out.println(id+"ok");
         return courseService.selectInfo(id);
     }
     @PostMapping("/addCourse")
-    public DataResponse addCourse(@RequestParam String course_name, @RequestParam Double credit, @RequestParam Integer num, @RequestParam Integer course_type_id, @RequestParam Integer pre_course_id, @RequestParam String book, @RequestParam String extracurricular){
+    public DataResponse addCourse(@RequestBody DataRequest dataRequest){
+        String course_name=dataRequest.getString("course_name");
+        Double credit=dataRequest.getDouble("credit");
+        Integer num=dataRequest.getInteger("num");
+        Integer course_type_id=dataRequest.getInteger("course_type_id");
+        Integer pre_course_id=dataRequest.getInteger("pre_course_id");
+        String book=dataRequest.getString("book");
+        String extracurricular=dataRequest.getString("extracurricular");
         return courseService.addCourse(course_name, credit, num, course_type_id, pre_course_id, book, extracurricular);
     }
     @PostMapping("/deleteCourseById")
-    public DataResponse deleteCourseByID(@RequestParam Integer id){
+    public DataResponse deleteCourseByID(@RequestBody DataRequest dataRequest){
+        Integer id=dataRequest.getInteger("id");
         return courseService.deleteCourseById(id);
     }
     @PostMapping("/selectMixed")
-    public DataResponse selectMixed(@RequestParam Course course ,@RequestParam(defaultValue = "1") Integer pageNum){
+    public DataResponse selectMixed(@RequestBody DataRequest dataRequest){
+        Course course=(Course) dataRequest.get("course");
+        Integer pageNum=dataRequest.getInteger("pageNum");
         return DataResponse.success(courseService.selectMixed(course,pageNum));
     }
     @PostMapping("/selectAll")
@@ -56,8 +76,9 @@ public class CourseController {
         return courseService.selectCourseByName(course_name);
     }
     @PostMapping("/selectIdByStudent")
-    public Result selectIdByStudent(@RequestBody Map<String,Integer> map){
-        return courseService.selectIdByStudent(map.get("student_id"));
+    public Result selectIdByStudent(@RequestBody DataRequest dataRequest){
+        Integer student_id=dataRequest.getInteger("student_id");
+        return courseService.selectIdByStudent(student_id);
     }
     @PostMapping("/selectLessonByStudent")
     public Result selectLessonByStudent(@RequestBody DataRequest dataRequest){

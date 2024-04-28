@@ -38,8 +38,8 @@ public class GloryService {
         return Result.ok("删除成功！");
     }
 
-    public Result updateGlory(String student_name,String new_glory_name,String glory_name,String glory_type){
-        gloryMapper.updateGlory(student_name,new_glory_name,glory_name,glory_type);
+    public Result updateGlory(String student_name,String new_glory_name,String glory_name,String new_glory_level,String glory_type){
+        gloryMapper.updateGlory(student_name,new_glory_name,glory_name,new_glory_level,glory_type);
         return Result.ok("修改成功！");
     }
 
@@ -51,6 +51,7 @@ public class GloryService {
         map.put("student_id",glory.getStudent_id()+"");
         map.put("glory_name",glory.getGlory_name());
         map.put("glory_type",glory.getGlory_type());
+        map.put("glory_level",glory.getGlory_level());
         System.out.println(map);
         return Result.success(map,"查询成功！");
     }
@@ -65,6 +66,7 @@ public class GloryService {
             map.put("student_id",glory.getStudent_id()+"");
             map.put("glory_name",glory.getGlory_name());
             map.put("glory_type",glory.getGlory_type());
+            map.put("glory_level",glory.getGlory_level());
             gloryMap.add(map);
         }
         return Result.success(gloryMap,"查询成功！");
@@ -80,6 +82,7 @@ public class GloryService {
             map.put("student_id",glory.getStudent_id()+"");
             map.put("glory_name",glory.getGlory_name());
             map.put("glory_type",glory.getGlory_type());
+            map.put("glory_level",glory.getGlory_level());
             gloryMap.add(map);
         }
         return Result.success(gloryMap,"查询成功！");
@@ -102,10 +105,22 @@ public class GloryService {
             map.put("student_id",glory.getStudent_id()+"");
             map.put("glory_name",glory.getGlory_name());
             map.put("glory_type",glory.getGlory_type());
+            map.put("glory_level",glory.getGlory_level());
             //map.put("ranking", s.getRanking() + "");
             dataList.add(map);
         }
         return Result.success(dataList);
     }
 
+    public Result selectById(Integer id) {
+        Glory glory=gloryMapper.selectById(id);
+        Map map=new HashMap();
+        map.put("id",glory.getId()+"");
+        map.put("student_name",glory.getStudent_name());
+        map.put("student_id",glory.getStudent_id()+"");
+        map.put("glory_name",glory.getGlory_name());
+        map.put("glory_type",glory.getGlory_type());
+        map.put("glory_level",glory.getGlory_level());
+        return Result.success(map);
+    }
 }
