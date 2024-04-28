@@ -18,4 +18,6 @@ public class Gender {
 
     private String gender;
 
+    private Student student;
+
 }

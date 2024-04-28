@@ -35,7 +35,7 @@
         where "person_id" = #{person_id}
     </select>
     <resultMap id="stuFamMap" type="org.example.server.pojo.Student">
-        <id property="id" column="id" />
+        <id property="id" column="id"/>
         <result property="person_id" column="person_id"/>
         <result property="student_name" column="student_name"/>
         <result property="major" column="major"/>
@@ -65,6 +65,66 @@
                  INNER JOIN student_family sf ON s.id = sf.student_id
         WHERE s.id = #{id}
     </select>
+    <resultMap id="studentResultMap" type="org.example.server.pojo.Student">
+        <id column="id" property="id"/>
+        <result column="person_id" property="person_id"/>
+        <result column="student_name" property="student_name"/>
+        <result column="department" property="department"/>
+        <result column="classes" property="classes"/>
+        <result column="grade" property="grade"/>
+        <result column="major" property="major"/>
+        <!-- One-to-One association -->
+        <association property="person" javaType="org.example.server.pojo.Person">
+            <id column="person_id" property="id"/>
+            <result column="person_name" property="person_name"/>
+            <result column="gender_id" property="gender_id"/>
+            <!-- One-to-One association -->
+            <association property="gender" javaType="org.example.server.pojo.Gender">
+                <id column="gender_id" property="id"/>
+                <result column="gender" property="gender"/>
+            </association>
+        </association>
+        <!-- One-to-Many association -->
+        <collection property="studentFamilies" ofType="org.example.server.pojo.StudentFamily">
+            <id column="sf1_id" property="id"/>
+            <result column="student_id" property="student_id"/>
+            <result column="name" property="name"/>
+            <result column="phone" property="phone"/>
+            <result column="age" property="age"/>
+            <result column="job" property="job"/>
+            <result column="address" property="address"/>
+            <result column="relation" property="relation"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectStudentById" resultMap="studentResultMap">
+        SELECT s.id,
+               s.person_id,
+               s.student_name,
+               s.department,
+               s.classes,
+               s.grade,
+               s.major,
+               p.id as person_id,
+               p.person_name,
+               p.gender_id,
+               g.id as gender_id,
+               g.gender,
+               sf1.id as sf1_id,
+               sf1.student_id,
+               sf1.name,
+               sf1.phone,
+               sf1.age,
+               sf1.job,
+               sf1.address,
+               sf1.relation
+        FROM student s
+                 LEFT JOIN person p ON s.person_id = p.id
+                 LEFT JOIN gender g ON p.gender_id = g.id
+                 LEFT JOIN student_family sf1 ON s.id = sf1.student_id
+        WHERE s.id = #{id}
+    </select>
+
     <update id="updateStudentName" parameterType="org.example.server.pojo.Student">
         UPDATE Student
         SET student_name = #{student_name}
@@ -73,13 +133,13 @@
     <update id="updateStudent" parameterType="org.example.server.pojo.Student">
     <![CDATA[
         UPDATE Student
-        SET
-            student_name = #{student_name},
-            department = #{department},
-            classes = #{classes},
-            grade = #{grade},
-            major = #{major}
-        WHERE person_id = #{person_id} AND student_name = #{student_name}
+        SET student_name = #{student_name},
+            department   = #{department},
+            classes      = #{classes},
+            grade        = #{grade},
+            major        = #{major}
+        WHERE person_id = #{person_id}
+          AND student_name = #{student_name}
         ]]>
 </update>
 
@@ -94,8 +154,10 @@
         WHERE student_name = #{student_name}
     </update>
     <delete id="deleteStudentByPidAndName" parameterType="org.example.server.pojo.Student">
-        DELETE FROM Student
-        WHERE person_id=#{person_id} AND student_name=#{student_name}
+        DELETE
+        FROM Student
+        WHERE person_id = #{person_id}
+          AND student_name = #{student_name}
     </delete>
     <select id="selectByConditions" parameterType="map" resultType="org.example.server.pojo.Student">
         SELECT * FROM student

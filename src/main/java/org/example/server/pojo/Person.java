@@ -14,17 +14,17 @@ import lombok.NoArgsConstructor;
 @TableName("person")
 public class Person {
     @TableId(type = IdType.AUTO)
-    private Integer id;//Student类中的person_id
+    private Integer id;
 
-    private String person_name;
+    private String person_name;//要
 
     private Integer gender_id;
 
     private String phone_number;
 
-    private String identity;//身份：如群众团员等等；
+    private String identity;
 
-    private String person_num;//学号???
+    private String person_num;
 
     private String birthday;
 
@@ -36,5 +36,9 @@ public class Person {
 
     private String identity_number;
 
-    private Student student;
+    private Student student;//联
+
+    private Gender gender;//联
+
+
 }
