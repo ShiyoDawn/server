@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.example.server.pojo.Person;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface PersonMapper extends BaseMapper<Person> {
@@ -15,6 +16,11 @@ public interface PersonMapper extends BaseMapper<Person> {
 
     Person selectSPersonById(Integer id);
 
+    Integer getAllPerson();
+
+    void deletePersonById(Integer id);
+
+    void updatePerson(Map map);
 }
 
 

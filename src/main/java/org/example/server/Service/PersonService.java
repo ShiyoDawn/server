@@ -65,5 +65,8 @@ public class PersonService {
         m.put("major",p.getStudent().getMajor());
         return m;
     }
+    public Integer getAllPerson(){
+        return personMapper.getAllPerson();
+    }
 
 }

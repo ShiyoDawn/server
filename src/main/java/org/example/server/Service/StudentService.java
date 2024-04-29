@@ -1,6 +1,7 @@
 package org.example.server.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.example.server.mapper.PersonMapper;
 import org.example.server.mapper.StudentFamilyMapper;
 import org.example.server.mapper.StudentMapper;
 import org.example.server.payload.response.DataResponse;
@@ -20,17 +21,36 @@ public class StudentService {
     @Autowired
     private StudentMapper studentMapper;
     @Autowired
+    private PersonMapper personMapper;
+    @Autowired
     private StudentFamilyMapper studentFamilyMapper;
     @Autowired
     private StudentFamilyService studentFamilyService;
 
-    public DataResponse insert(Integer person_id,String student_name,String department,String classes,String grade,String major){
+    public void insert(Integer person_id,String person_num,String student_name,String department,String classes,String grade,String major){
         Student student=studentMapper.selectByPid(person_id);
         if(student != null){
-            return DataResponse.error(404,"学生已存在");
+            return;
         }
-        studentMapper.insertStudent(person_id,student_name,department,classes,grade,major);
-        return DataResponse.success(null,"增添成功！");
+        Map<String, Object> personMap = new HashMap<>();
+        personMap.put("student_name", student_name);
+        personMap.put("person_num", person_num);
+        personMap.put("gender_id", 1/* 这里应该是一个非null的值 */);
+        person_id=personMapper.getAllPerson()+1;
+        System.out.println(studentMapper.insertPersonInfo(personMap));
+        System.out.println(person_id);
+        Map<String, Object> studentMap = new HashMap<>();
+        studentMap.put("person_id", person_id);
+        studentMap.put("student_name", student_name);
+        studentMap.put("department", department);
+        studentMap.put("classes", classes);
+        studentMap.put("grade", grade);
+        studentMap.put("major", major);
+        System.out.println(studentMap);
+
+        studentMapper.insertStudentInfo(studentMap);
+
+        return;
     }
 
     public Map findStudentByName(String student_name) {
@@ -49,24 +69,28 @@ public class StudentService {
         return studentAdderMap(student);
     }
 
-    public List getStudentMapList() {
+    public List<Map<String, String>> getStudentMapList() {
         List<Student> students = studentMapper.findAllStudent();
-        if (students == null || students.size() == 0)
+        if (students == null || students.isEmpty()) {
             return null;
-        List list = new ArrayList();
-        Map m;
-        for (Student s : students) {
-            m = new HashMap();
-            m.put("id", s.getId()+"");
-            m.put("person_id", s.getPerson_id()+"");
-            m.put("student_name", s.getStudent_name());
-            m.put("department", s.getDepartment());
-            m.put("classes", s.getClasses());
-            m.put("grade", s.getGrade());
-            m.put("major", s.getMajor());
-            list.add(m);
         }
-        //return studentMapList(students);
+        List<Map<String, String>> list = new ArrayList<>();
+        for (Student student : students) {
+            Map<String, String> map = new HashMap<>();
+            map.put("id", String.valueOf(student.getId()));
+            map.put("person_id", String.valueOf(student.getPerson_id()));
+            map.put("student_name", student.getStudent_name());
+            map.put("department", student.getDepartment());
+            map.put("classes", student.getClasses());
+            map.put("grade", student.getGrade());
+            map.put("major", student.getMajor());
+            Person person = personMapper.selectById(student.getPerson_id());
+            student.setPerson(person);
+            if (person != null) {
+                map.put("person_num", person.getPerson_num());
+            }
+            list.add(map);
+        }
         return list;
     }
 
@@ -155,7 +179,7 @@ public class StudentService {
         for (Student s : students) {
             m = new HashMap();
             m.put("id", s.getId()+"");
-            m.put("person_id", s.getPerson_id()+"");
+            m.put("person_num", s.getPerson().getPerson_num()+"");
             m.put("student_name", s.getStudent_name());
             m.put("department", s.getDepartment());
             m.put("classes", s.getClasses());
@@ -176,12 +200,21 @@ public class StudentService {
         return true;
     }
 
-    public Boolean updateStudent(Integer person_id,String student_name,String department,String classes,String grade,String major) {
-        Student student=studentMapper.findByStudentName(student_name);
+    public Boolean updateStudent(Integer id,String student_name,String department,String classes,String grade,String major) {
+        Student student=studentMapper.selectById(id);
         if(student==null){
             return false;
         }
-        studentMapper.updateStudent(person_id,student_name,department,classes,grade,major);
+        Map map=new HashMap();
+        map.put("id",id);
+        map.put("student_name",student_name);
+        map.put("department",department);
+        map.put("classes",classes);
+        map.put("grade",grade);
+        map.put("major",major);
+        System.out.println(map);
+        studentMapper.updateStudent(map);
+//        studentMapper.updateStudentName(new_student_name,id);
         return true;
     }
 
@@ -203,18 +236,19 @@ public class StudentService {
         return true;
     }
 
-    public void deleteStudent(Integer person_id,String student_name){
-        Student student=studentMapper.selectByPid(person_id);
-        if(student.getPerson_id()==null){
+    public void deleteStudent(Integer id,String student_name){
+        Student student=studentMapper.selectById(id);
+        if(student==null){
             return;
         }
         //如果没有名字就填上，因为Mapper里的删除要求有student_name和person_id
         if(student.getStudent_name()==null){
-            studentMapper.updateStudentName(student_name,person_id);
+            studentMapper.updateStudentName(student_name,student.getPerson_id());
         }
-        studentFamilyService.deleteFamilyMember(person_id);
+        studentFamilyService.deleteFamilyMember(student.getPerson_id());
+        personMapper.deletePersonById(student.getPerson_id());
         //先删除studentFamily再删除student，否则会使studentFamily的数据无法被删除；
-        studentMapper.deleteStudentByPidAndName(person_id,student_name);
+        studentMapper.deleteStudentByPidAndName(student.getPerson_id(),student_name);
         return;
     }
     public List<Map> selectByStudentIdWithStudentFamily(Integer id){
