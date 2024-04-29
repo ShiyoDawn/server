@@ -1,6 +1,9 @@
 package org.example.server.controller;
 
+import lombok.Data;
 import org.example.server.Service.PersonService;
+import org.example.server.payload.Result;
+import org.example.server.payload.request.DataRequest;
 import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +24,25 @@ public class PersonController {
     PersonService personSevice;
 
     @GetMapping("/getPersonList")
-    public DataResponse getPersonList() {
-        return DataResponse.success(personSevice.getPersonList());
+    public Result getPersonList() {
+        return personSevice.getPersonList();
     }
 
     @PostMapping("/selectById")
-    public DataResponse selectById(@Valid @RequestParam Integer id) {
-        return DataResponse.success(personSevice.selectById(id));
+    public Result selectById(@Valid @RequestBody DataRequest dataRequest) {
+        Integer id = dataRequest.getInteger("id");
+        return personSevice.selectById(id);
     }
 
     @PostMapping("/selectByPersonNum")
-    public DataResponse selectByPersonNum(@Valid @RequestParam String person_num) {
-        return DataResponse.success(personSevice.selectByPersonNum(person_num));
+    public Result selectByPersonNum(@Valid @RequestBody DataRequest dataRequest) {
+        String person_num = dataRequest.getString("person_num");
+        return personSevice.selectByPersonNum(person_num);
     }
 
     @GetMapping("/selectSPersonById")
-    public DataResponse selectSPersonById(@RequestParam Integer id){
-        return DataResponse.success(personSevice.selectSPersonByIdMap(id));
+    public Result selectSPersonById(@Valid @RequestBody DataRequest dataRequest) {
+        Integer id = dataRequest.getInteger("id");
+        return personSevice.selectSPersonByIdMap(id);
     }
 }

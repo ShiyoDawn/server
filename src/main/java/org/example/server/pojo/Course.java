@@ -19,7 +19,7 @@ public class Course implements Serializable {
     private Integer id;
     private String course_name;
     private Double credit;
-    private Integer num;
+    private String num;
     private Integer course_type_id;
     private Integer pre_course_id;
     private String book;
