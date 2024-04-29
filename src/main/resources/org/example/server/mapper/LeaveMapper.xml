@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.server.mapper.LeaveMapper">
+
+    <select id="selectByStudentNum" resultType="org.example.server.pojo.Leave">
+        select * from Leave where "student_num" like #{student_num}
+    </select>
+
+    <select id="selectByStudentName" resultType="org.example.server.pojo.Leave">
+        select * from Leave where "student_name" like #{student_name}
+    </select>
+
+    <select id="selectAll" resultType="org.example.server.pojo.Leave">
+        select * from Leave
+    </select>
+
+
+    <insert id="insertGlory">
+        insert into Leave (student_num, student_name,leave_type,leave_reason,destination,time,status)
+        values (#{student_num}, #{student_name}, #{leave_type}, #{leave_reason},#{destination},#{time},#{status})
+    </insert>
+
+</mapper>

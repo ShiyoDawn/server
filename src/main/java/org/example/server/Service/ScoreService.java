@@ -198,12 +198,9 @@ public class ScoreService {
         for(int i=0;i<scoreList.size();i++){
             scoreMapper.updateId(scoreList.get(i).getStudent_num(),scoreList.get(i).getCourse_num(),i+1);
         }
-        for(Score score:scoreList){
-            System.out.println(score.getId());
-        }
         for (int i = 0; i < scoreList.size(); i++) {
             map = new HashMap();
-            map.put("id",scoreList.get(i).getId()+"");
+            map.put("id",i+1+"");
             //map.put("id", scoreList.get(i).getId() + "");
             map.put("student_num", scoreList.get(i).getStudent_num());
             map.put("student_name", scoreList.get(i).getStudent_name());
@@ -212,7 +209,6 @@ public class ScoreService {
             map.put("credit", courseMapper.selectByNum(scoreList.get(i).getCourse_num()).getCredit() + "");
             map.put("mark", scoreList.get(i).getMark() + "");
             //map.put("ranking", s.getRanking() + "");
-            System.out.println(map);
             dataList.add(map);
         }
         return Result.success(dataList);
