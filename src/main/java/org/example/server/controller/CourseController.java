@@ -24,7 +24,7 @@ public class CourseController {
         Integer id=dataRequest.getInteger("id");
         String course_name=dataRequest.getString("course_name");
         Double credit=dataRequest.getDouble("credit");
-        Integer num=dataRequest.getInteger("num");
+        String num=dataRequest.getString("num");
         Integer course_type_id=dataRequest.getInteger("course_type_id");
         Integer pre_course_id=dataRequest.getInteger("pre_course_id");
         String book=dataRequest.getString("book");
@@ -41,7 +41,7 @@ public class CourseController {
     public DataResponse addCourse(@RequestBody DataRequest dataRequest){
         String course_name=dataRequest.getString("course_name");
         Double credit=dataRequest.getDouble("credit");
-        Integer num=dataRequest.getInteger("num");
+        String num=dataRequest.getString("num");
         Integer course_type_id=dataRequest.getInteger("course_type_id");
         Integer pre_course_id=dataRequest.getInteger("pre_course_id");
         String book=dataRequest.getString("book");
@@ -87,12 +87,19 @@ public class CourseController {
         String terms = dataRequest.getString("terms");
         return courseService.selectLessonByStudent(student_id,week,terms);
     }
-    @PostMapping("selectType")
+
+    @PostMapping("/selectByNum")
+    public Result selectByNum(@RequestBody DataRequest dataRequest){
+        String num=dataRequest.getString("num");
+        return courseService.selectByNum(num);
+    }
+
+    @PostMapping("/selectType")
     public Result selectType (@Valid @RequestBody DataRequest dataRequest){
         Integer course_id = dataRequest.getInteger("course_id");
         return courseService.selectType(course_id);
     }
-    @PostMapping("selectAllType")
+    @PostMapping("/selectAllType")
     public Result selectAllType(){
         return courseService.selectAllType();
     }

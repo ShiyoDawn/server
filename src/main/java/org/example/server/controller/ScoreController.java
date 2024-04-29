@@ -33,46 +33,46 @@ public class ScoreController {
     //增添/删减/修改学生的某个课程的分数
     @PostMapping("/insertScore")
     public Result insertScore(@Valid @RequestBody DataRequest dataRequest) {
-        Integer student_id = dataRequest.getInteger("student_id");
-        Integer course_id = dataRequest.getInteger("course_id");
+        String student_num = dataRequest.getString("student_num");
+        String course_num = dataRequest.getString("course_num");
         Double mark = dataRequest.getDouble("mark");
-        return scoreService.insertScore(student_id, course_id, mark);
+        return scoreService.insertScore(student_num, course_num, mark);
     }
 
     @PostMapping("/deleteScore")
     public Result deleteScoreById(@Valid @RequestBody DataRequest dataRequest) {
-        Integer student_id = dataRequest.getInteger("student_id");
-        Integer course_id = dataRequest.getInteger("course_id");
-        return scoreService.deleteOnlyScore(student_id, course_id);
+        String student_num = dataRequest.getString("student_num");
+        String course_num = dataRequest.getString("course_num");
+        return scoreService.deleteOnlyScore(student_num, course_num);
     }
 
     @PostMapping("/deleteAllById")
     public Result deleteAllById(@Valid @RequestBody DataRequest dataRequest) {
-        Integer student_id = dataRequest.getInteger("student_id");
-        Integer course_id = dataRequest.getInteger("course_id");
-        return scoreService.deleteAllById(student_id, course_id);
+        String student_num = dataRequest.getString("student_num");
+        String course_num = dataRequest.getString("course_num");
+        return scoreService.deleteAllById(student_num, course_num);
     }
 
     @PostMapping("/updateScore")
     public Result updateScore(@Valid @RequestBody DataRequest dataRequest) {
-        Integer student_id = dataRequest.getInteger("student_id");
-        Integer course_id = dataRequest.getInteger("course_id");
+        String student_num = dataRequest.getString("student_num");
+        String course_num = dataRequest.getString("course_num");
         Double mark = dataRequest.getDouble("mark");
-        return scoreService.updateScoreAndRanking(student_id, course_id, mark);
+        return scoreService.updateScoreAndRanking(student_num, course_num, mark);
     }
 
     @PostMapping("/selectByStudentAndCourse")
     public Result selectByStudentAndCourse(@Valid @RequestBody DataRequest dataRequest) {
-        Integer student_id = dataRequest.getInteger("student_id");
-        Integer course_id = dataRequest.getInteger("course_id");
-        System.out.println(student_id+" "+course_id);
-        return scoreService.selectByStudentAndCourse(student_id, course_id);
+        String student_num = dataRequest.getString("student_num");
+        String course_num = dataRequest.getString("course_num");
+        System.out.println(student_num+" "+course_num);
+        return scoreService.selectByStudentAndCourse(student_num, course_num);
     }
 
     @PostMapping("/selectByStudentId")
     public Result selectByStudentId(@Valid @RequestBody DataRequest dataRequest) {
-        Integer student_id = dataRequest.getInteger("student_id");
-        return scoreService.selectByStudentId(student_id);
+        String student_num = dataRequest.getString("student_num");
+        return scoreService.selectByStudentId(student_num);
     }
 
     @PostMapping("/selectByStudentName")
@@ -83,8 +83,8 @@ public class ScoreController {
 
     @PostMapping("/selectByCourseId")
     public Result selectByCourseId(@Valid @RequestBody DataRequest dataRequest) {
-        Integer course_id = dataRequest.getInteger("course_id");
-        return scoreService.selectByCourseId(course_id);
+        String course_num = dataRequest.getString("course_num");
+        return scoreService.selectByCourseId(course_num);
     }
 
 
@@ -107,15 +107,15 @@ public class ScoreController {
 
     @PostMapping("/getScoreSorted_Ascending")
     public Result getScoreSorted_Ascending(@Valid @RequestBody DataRequest dataRequest) {
-        Integer course_id = dataRequest.getInteger("course_id");
-        List<Score> list = scoreService.getScoreSorted_Ascending(course_id);
+        String course_name = dataRequest.getString("course_name");
+        List<Score> list = scoreService.getScoreSorted_Ascending(course_name);
         return Result.success(list);
     }
 
     @PostMapping("/getScoreSorted_Descending")
     public Result getScoreSorted_Descending(@Valid @RequestBody DataRequest dataRequest) {
-        Integer course_id = dataRequest.getInteger("course_id");
-        List<Score> list = scoreService.getScoreSorted_Descending(course_id);
+        String course_name = dataRequest.getString("course_name");
+        List<Score> list = scoreService.getScoreSorted_Descending(course_name);
         return Result.success(list);
     }
 }

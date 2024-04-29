@@ -15,7 +15,7 @@ import java.util.List;
 public class CourseService {
     @Autowired
     CourseMapper courseMapper;
-    public DataResponse updateInfo(Integer id, String course_name, Double credit, Integer num, Integer course_type_id, Integer pre_course_id, String book, String extracurricular){
+    public DataResponse updateInfo(Integer id, String course_name, Double credit, String num, Integer course_type_id, Integer pre_course_id, String book, String extracurricular){
         if (credit == null) {
             return DataResponse.error(400,"credit cannot be null");
         } else if (num == null) {
@@ -32,7 +32,7 @@ public class CourseService {
     public DataResponse selectInfo(Integer id){
         return DataResponse.success(courseMapper.selectInfo(id));
     }
-    public DataResponse addCourse(String course_name, Double credit, Integer num, Integer course_type_id, Integer pre_course_id, String book, String extracurricular){
+    public DataResponse addCourse(String course_name, Double credit, String num, Integer course_type_id, Integer pre_course_id, String book, String extracurricular){
         if(courseMapper.selectByNum(num) != null){
             return DataResponse.error("课程已存在");
         } else {
@@ -84,5 +84,8 @@ public class CourseService {
         return Result.success(courseMapper.selectAllType());
     }
 
+    public Result selectByNum(String num) {
+        return Result.success(courseMapper.selectByNum(num));
+    }
 }
 
