@@ -29,4 +29,22 @@ public class Leave {
     private String time;
 
     private String status;
+
+    private String age;
+
+    private String institute;
+
+    private String major;
+
+    private String instructor_name;
+
+    private String instructor_tele;
+
+    private String leave_detailed_reason;
+
+    private String start_time;
+
+    private String end_time;
+
+    private String student_tele;
 }

@@ -1,7 +1,6 @@
 package org.example.server.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.example.server.payload.Result;
 import org.example.server.pojo.Leave;
 
 import java.util.List;
@@ -14,5 +13,7 @@ public interface LeaveMapper {
 
     List<Leave> selectByStudentName(String student_name);
     List<Leave> selectAll();
-    void insertLeave(String student_num, String student_name, String leave_type, String leave_reason, String destination, String time, String status);
+
+    void updateStatus(String status,Integer id);
+    void insertLeave(Integer id, String student_num, String student_name, String leave_type, String leave_reason, String destination, String time, String status, String age, String institute, String major, String instructor_name, String instructor_tele, String leave_detailed_reason, String start_time, String end_time,String student_tele);
 }

@@ -5,11 +5,11 @@
 <mapper namespace="org.example.server.mapper.LeaveMapper">
 
     <select id="selectByStudentNum" resultType="org.example.server.pojo.Leave">
-        select * from Leave where "student_num" like #{student_num}
+        select * from Leave where "student_num" = #{student_num}
     </select>
 
     <select id="selectByStudentName" resultType="org.example.server.pojo.Leave">
-        select * from Leave where "student_name" like #{student_name}
+        select * from Leave where "student_name" = #{student_name}
     </select>
 
     <select id="selectAll" resultType="org.example.server.pojo.Leave">
@@ -17,9 +17,15 @@
     </select>
 
 
-    <insert id="insertGlory">
-        insert into Leave (student_num, student_name,leave_type,leave_reason,destination,time,status)
-        values (#{student_num}, #{student_name}, #{leave_type}, #{leave_reason},#{destination},#{time},#{status})
+    <insert id="insertLeave">
+        insert into Leave (id,student_num, student_name,leave_type,leave_reason,destination,time,status,age,institute,major,instructor_name,instructor_tele,leave_detailed_reason,start_time,end_time,student_tele)
+        values (#{id},#{student_num}, #{student_name}, #{leave_type}, #{leave_reason},#{destination},#{time},#{status},#{age},#{institute},#{major},#{instructor_name},#{instructor_tele},#{leave_detailed_reason},#{start_time},#{end_time},#{student_tele})
     </insert>
+
+    <update id="updateStatus">
+        update Leave set "status" = #{status} where "id" = #{id};
+    </update>
+
+
 
 </mapper>

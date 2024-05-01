@@ -19,7 +19,8 @@ public class LeaveController {
     private LeaveService leaveService;
 
     @PostMapping("/insertLeave")
-    public Result insert(@Valid @RequestBody DataRequest dataRequest){
+    public Result insertLeave(@Valid @RequestBody DataRequest dataRequest){
+        Integer id=dataRequest.getInteger("id");
         String student_num=dataRequest.getString("student_num");
         String student_name=dataRequest.getString("student_name");
         String leave_type=dataRequest.getString("leave_type");
@@ -27,7 +28,23 @@ public class LeaveController {
         String destination=dataRequest.getString("destination");
         String time=dataRequest.getString("time");
         String status=dataRequest.getString("status");
-        return leaveService.insertLeave(student_num,student_name,leave_type,leave_reason,destination,time,status);
+        String age=dataRequest.getString("age");
+        String institute=dataRequest.getString("institute");
+        String major=dataRequest.getString("major");
+        String instructor_name=dataRequest.getString("instructor_name");
+        String instructor_tele=dataRequest.getString("instructor_tele");
+        String leave_detailed_reason=dataRequest.getString("leave_detailed_reason");
+        String start_time=dataRequest.getString("start_time");
+        String end_time=dataRequest.getString("end_time");
+        String student_tele=dataRequest.getString("student_tele");
+        return leaveService.insertLeave(id,student_num,student_name,leave_type,leave_reason,destination,time,status,age,institute,major,instructor_name,instructor_tele,leave_detailed_reason,start_time,end_time,student_tele);
+    }
+
+    @PostMapping("/updateStatus")
+    public Result updateStatus(@Valid @RequestBody DataRequest dataRequest){
+        String status=dataRequest.getString("status");
+        Integer id=dataRequest.getInteger("id");
+        return leaveService.updateStatus(status,id);
     }
 
     @PostMapping("/getLeaveList")
@@ -44,6 +61,6 @@ public class LeaveController {
     @PostMapping("/selectByStudentName")
     public Result selectByStudentName(@Valid @RequestBody DataRequest dataRequest){
         String student_name=dataRequest.getString("student_name");
-        return leaveService.selectByStudentNum(student_name);
+        return leaveService.selectByStudentName(student_name);
     }
 }
