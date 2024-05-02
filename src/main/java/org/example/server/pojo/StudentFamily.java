@@ -33,4 +33,5 @@ public class StudentFamily {
     private String relation;
 
     private Student student;
+
 }

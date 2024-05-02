@@ -16,22 +16,35 @@ public class Leave {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    private Integer student_id;
+    private String student_num;
 
-    private Integer teacher_id;
+    private String student_name;
 
-    private String date;
+    private String leave_type;
 
-    private String reason;
-
-    private String leave_time;
-
-    private String return_time;
-
-    private String lesson_id;
+    private String leave_reason;
 
     private String destination;
 
+    private String time;
+
     private String status;
 
+    private String age;
+
+    private String institute;
+
+    private String major;
+
+    private String instructor_name;
+
+    private String instructor_tele;
+
+    private String leave_detailed_reason;
+
+    private String start_time;
+
+    private String end_time;
+
+    private String student_tele;
 }

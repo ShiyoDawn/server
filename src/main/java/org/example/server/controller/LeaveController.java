@@ -1,0 +1,66 @@
+package org.example.server.controller;
+
+
+import org.example.server.Service.LeaveService;
+import org.example.server.payload.Result;
+import org.example.server.payload.request.DataRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
+@RestController
+@RequestMapping("/leave")
+public class LeaveController {
+    @Autowired
+    private LeaveService leaveService;
+
+    @PostMapping("/insertLeave")
+    public Result insertLeave(@Valid @RequestBody DataRequest dataRequest){
+        Integer id=dataRequest.getInteger("id");
+        String student_num=dataRequest.getString("student_num");
+        String student_name=dataRequest.getString("student_name");
+        String leave_type=dataRequest.getString("leave_type");
+        String leave_reason=dataRequest.getString("leave_reason");
+        String destination=dataRequest.getString("destination");
+        String time=dataRequest.getString("time");
+        String status=dataRequest.getString("status");
+        String age=dataRequest.getString("age");
+        String institute=dataRequest.getString("institute");
+        String major=dataRequest.getString("major");
+        String instructor_name=dataRequest.getString("instructor_name");
+        String instructor_tele=dataRequest.getString("instructor_tele");
+        String leave_detailed_reason=dataRequest.getString("leave_detailed_reason");
+        String start_time=dataRequest.getString("start_time");
+        String end_time=dataRequest.getString("end_time");
+        String student_tele=dataRequest.getString("student_tele");
+        return leaveService.insertLeave(id,student_num,student_name,leave_type,leave_reason,destination,time,status,age,institute,major,instructor_name,instructor_tele,leave_detailed_reason,start_time,end_time,student_tele);
+    }
+
+    @PostMapping("/updateStatus")
+    public Result updateStatus(@Valid @RequestBody DataRequest dataRequest){
+        String status=dataRequest.getString("status");
+        Integer id=dataRequest.getInteger("id");
+        return leaveService.updateStatus(status,id);
+    }
+
+    @PostMapping("/getLeaveList")
+    public Result getLeaveList(){
+        return leaveService.getLeaveList();
+    }
+
+    @PostMapping("/selectByStudentNum")
+    public Result selectByStudentNum(@Valid @RequestBody DataRequest dataRequest){
+        String student_num=dataRequest.getString("student_num");
+        return leaveService.selectByStudentNum(student_num);
+    }
+
+    @PostMapping("/selectByStudentName")
+    public Result selectByStudentName(@Valid @RequestBody DataRequest dataRequest){
+        String student_name=dataRequest.getString("student_name");
+        return leaveService.selectByStudentName(student_name);
+    }
+}

@@ -48,4 +48,18 @@
                  INNER JOIN student s ON p.id = s.person_id
         WHERE p.id = #{id}
     </select>
+    <select id="getAllPerson" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM person
+    </select>
+    <delete id="deletePersonById">
+        DELETE
+        FROM person
+        WHERE id = #{id}
+    </delete>
+    <update id="updatePerson" parameterType="Map">
+        UPDATE person
+        SET person_num = #{person_num}
+        WHERE id = #{id}
+    </update>
 </mapper>

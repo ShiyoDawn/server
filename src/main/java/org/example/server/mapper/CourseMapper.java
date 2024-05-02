@@ -15,13 +15,13 @@ import java.util.Map;
 
 @Mapper
 public interface CourseMapper extends BaseMapper<Course> {
-    void updateInfo(Integer id, String course_name,Double credit,Integer num,Integer course_type_id,Integer pre_course_id,String book,String extracurricular);
+    void updateInfo(Integer id, String course_name,Double credit,String num,Integer course_type_id,Integer pre_course_id,String book,String extracurricular);
     List<Map<String,String>> selectAll();
     List<Map<String,String>> selectAllByPage(Integer pageNum);
     Course selectInfo(Integer id);
 
-    void addCourse(String course_name, Double credit, Integer num, Integer course_type_id, Integer pre_course_id, String book, String extracurricular);
-    Course selectByNum(Integer num);
+    void addCourse(String course_name, Double credit, String num, Integer course_type_id, Integer pre_course_id, String book, String extracurricular);
+    Course selectByNum(String num);
     void deleteCourseById(Integer id);
     List<Course> selectMixed(String course_name, Integer course_type_id,Integer pageNum);
     Course selectCourseByName(String course_name);

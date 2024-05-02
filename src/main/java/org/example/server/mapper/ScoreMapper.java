@@ -15,15 +15,15 @@ import java.util.List;
 @Mapper
 public interface ScoreMapper extends BaseMapper<Score> {
 
-    void insertMark(Integer student_id, String student_name, Integer course_id, String course_name, Double mark);
+    void insertMark(String student_num, String student_name, String course_num, String course_name, Double mark);
 
-    void updateMark(Integer student_id, Integer course_id, Double mark);
+    void updateMark(String student_num, String course_num, Double mark);
 
-    void updateId(Integer student_id,Integer course_id,Integer id);
+    void updateId(String student_num,String course_num,Integer id);
 
-    void deleteOnlyScore(Integer student_id, Integer course_id);
+    void deleteOnlyScore(String student_num, String course_num);
 
-    void deleteForAll(Integer student_id,Integer course_id);
+    void deleteForAll(String student_num,String course_num);
 
     //Integer calculateRanking(Integer student_id,Integer course_id,Integer mark);
 
@@ -31,15 +31,15 @@ public interface ScoreMapper extends BaseMapper<Score> {
 
     List<Score> selectAll();
 
-    Score selectByStudentAndCourse(Integer student_id, Integer course_id);
+    Score selectByStudentAndCourse(String student_num, String course_num);
 
-    List<Score> selectByStudentId(Integer student_id);
+    List<Score> selectByStudentId(String student_num);
 
-    List<Score> selectByCourseId(Integer course_id);
+    List<Score> selectByCourseId(String course_num);
 
     void saveScore(Score score);
 
-    List<Score> getScoreSorted_Ascending(Integer course_id);
+    List<Score> getScoreSorted_Ascending(String course_num);
 
-    List<Score> getScoreSorted_Descending(Integer course_id);
+    List<Score> getScoreSorted_Descending(String course_num);
 }

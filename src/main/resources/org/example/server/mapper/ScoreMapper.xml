@@ -6,47 +6,47 @@
 
     <select id="selectByStudentId">
         select * from Score sc
-            inner join Student st on sc.student_id = st.id
-            inner join Course co on sc.course_id = co.id
-        where "student_id" = #{student_id}
+            inner join Person pe on sc.student_num = pe.person_num
+            inner join Course co on sc.course_num = co.num
+        where "student_num" like #{student_num}
     </select>
 
     <select id="selectByCourseId">
         select * from Score sc
-            inner join Student st on sc.student_id = st.id
-            inner join Course co on sc.course_id = co.id
-        where "course_id" = #{course_id}
+            inner join Person pe on sc.student_num = pe.person_num
+            inner join Course co on sc.course_num = co.num
+        where "course_num" like #{course_num}
     </select>
 
     <select id="selectByStudentAndCourse" resultType="org.example.server.pojo.Score">
         select * from Score sc
-            inner join Student st on sc.student_id = st.id
-            inner join Course co on sc.student_id = co.id
-        where "student_id" = #{student_id} and "course_id" = #{course_id}
+            inner join Person pe on sc.student_num = pe.person_num
+            inner join Course co on sc.course_num = co.num
+        where "student_num" = #{student_num} and "course_num" = #{course_num}
     </select>
 
     <select id="selectAll" resultType="org.example.server.pojo.Score">
         select * from Score sc
-            inner join Student st on sc.student_id = st.id
-            inner join Course co on sc.course_id = co.id
+            inner join Person pe on sc.student_num = pe.person_num
+            inner join Course co on sc.course_num = co.num
     </select>
 
     <update id="updateMark">
-        update Score set mark = #{mark} where "student_id" = #{student_id} and "course_id" = #{course_id}
+        update Score set mark = #{mark} where "student_num" = #{student_num} and "course_num" = #{course_num}
     </update>
 
     <!--delete不太方便删除单个成绩，故在deleteOnlyScore里用update代替-->
     <delete id="deleteOnlyScore">
-        update Score set mark = null where "student_id" = #{student_id} and "course_id" = #{course_id}
+        update Score set mark = null where "student_num" = #{student_num} and "course_num" = #{course_num}
     </delete>
 
     <delete id="deleteForAll">
-        delete from Score where  "student_id" = #{student_id} and "course_id" = #{course_id}
+        delete from Score where  "student_num" = #{student_num} and "course_num" = #{course_num}
     </delete>
 
     <insert id="insertMark">
-        insert into Score (student_id, student_name, course_id, course_name, mark)
-        values (#{student_id}, #{student_name}, #{course_id}, #{course_name}, #{mark})
+        insert into Score (student_num, student_name, course_num, course_name, mark)
+        values (#{student_num}, #{student_name}, #{course_num}, #{course_name}, #{mark})
     </insert>
 
     <!--用于更新每次更改/删除/增加分数时每个人该科目的排名，这里的逻辑可能有点小问题qwq-->
@@ -57,25 +57,25 @@
                 (
                     select COUNT(*) + 1
                     from Score
-                    where course_id = #{course_id} and mark > #{mark}
+                    where course_num = #{course_num} and mark > #{mark}
                 )
-        where student_id = #{student_id} and course_id = #{course_id}
+        where student_num = #{student_num} and course_num = #{course_num}
     </update>
     
     <update id="updateRanking" parameterType="org.example.server.pojo.Score">
-        update Score set ranking = #{ranking} where  "student_id" = #{student_id} and "course_id" = #{course_id}
+        update Score set ranking = #{ranking} where  "student_num" = #{student_num} and "course_num" = #{course_num}
     </update>
 
     <update id="updateId" >
-        update Score set id = #{id} where "student_id" = #{student_id} and "course_id" = #{course_id}
+        update Score set id = #{id} where "student_num" = #{student_num} and "course_num" = #{course_num}
     </update>
 
     <select id="getScoreSorted_Ascending" resultType="org.example.server.pojo.Score">
-        select * from Score where "course_id"=#{course_id} ORDER BY mark ASC
+        select * from Score where "course_num"=#{course_num} ORDER BY mark ASC
     </select>
 
     <select id="getScoreSorted_descending" resultType="org.example.server.pojo.Score">
-        select * from Score where "course_id"=#{course_id} ORDER BY mark DESC
+        select * from Score where "course_num"=#{course_num} ORDER BY mark DESC
     </select>
     <!--有个scoreSave未写，之后补-->
 

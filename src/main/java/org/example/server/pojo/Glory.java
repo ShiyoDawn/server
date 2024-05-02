@@ -17,7 +17,7 @@ public class Glory {
 
     private String student_name;
 
-    private Integer student_id;
+    private String student_num;
 
     private String glory_name;
 

@@ -17,11 +17,11 @@ public class Score {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    private Integer student_id;
+    private String student_num;
 
     private String student_name;
 
-    private Integer course_id;
+    private String course_num;
 
     private String course_name;
 
@@ -32,6 +32,9 @@ public class Score {
 
     @TableField(exist = false)
     private Student student;
+
+    @TableField(exist = false)
+    private Person person;
 
     private Integer teacher_id;
 

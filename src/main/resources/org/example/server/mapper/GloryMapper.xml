@@ -42,8 +42,8 @@
     </delete>
 
     <insert id="insertGlory">
-        insert into Glory (student_name, student_id, glory_name, glory_type,glory_level)
-        values (#{student_name}, #{student_id}, #{glory_name}, #{glory_type},#{glory_level})
+        insert into Glory (student_name, student_num, glory_name, glory_type,glory_level)
+        values (#{student_name}, #{student_num}, #{glory_name}, #{glory_type},#{glory_level})
     </insert>
 
 </mapper>

@@ -10,23 +10,23 @@ import java.util.List;
 public interface GloryMapper {
 
 
-    void insertGlory(String student_name,Integer student_id,String glory_name,String glory_type,String glory_level);
+    void insertGlory(String student_name, String student_num, String glory_name, String glory_type, String glory_level);
 
-    void deleteGlory(String student_name,String glory_name);
+    void deleteGlory(String student_name, String glory_name);
 
-    void updateGlory(String student_name,String new_glory_name,String glory_name,String new_glory_level,String glory_type);
+    void updateGlory(String student_name, String new_glory_name, String glory_name, String new_glory_level, String glory_type);
 
     List<Glory> selectByGloryName(String glory_name);
 
     List<Glory> selectByStudentName(String student_name);
 
-    List<Glory> selectByStudentId(Integer student_id);
+    List<Glory> selectByStudentId(String student_id);
 
-    Glory selectByStudentAndGlory(String student_name,String glory_name);
+    Glory selectByStudentAndGlory(String student_name, String glory_name);
 
     List<Glory> selectAll();
 
-    void updateId(Integer id,String student_name,String glory_name);
+    void updateId(Integer id, String student_name, String glory_name);
 
     Glory selectById(Integer id);
 }

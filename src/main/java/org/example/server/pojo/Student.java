@@ -32,5 +32,8 @@ public class Student {
 
     private List<StudentFamily> studentFamilies;
 
+    @TableField(exist = false)
     private Person person;
+
+    private Gender gender;
 }
