@@ -78,6 +78,32 @@
     <select id="selectAllType">
         SELECT course_type_name from course_type;
     </select>
+    <select id="selectSpecial">
+        select * , course_type.course_type_name
+        from Course
+        JOIN course_type ON course.course_type_id=course_type.id
+        <where>
+            <if test="course_name != null">
+                and course_name LIKE '%' || #{course_name} || '%'
+            </if>
+            <if test="course_type_id != null">
+                and course_type_id = #{course_type_id}
+            </if>
+            <if test="terms != null">
+                and terms = #{terms}
+            </if>
+            <if test="num != null">
+                and num like '%' || #{num} || '%'
+            </if>
+            <if test="classes != null">
+                and classes like '%' || #{classes} || '%'
+            </if>
+        </where>
+        <if test="pageNum != null">
+            limit (#{pageNum}) * 6,6;
+        </if>
+    </select>
+
 
 
 
