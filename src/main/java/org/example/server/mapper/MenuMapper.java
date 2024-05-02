@@ -13,4 +13,8 @@ import java.util.Map;
 public interface MenuMapper extends BaseMapper {
     @Select("select name, url from menu where access like '%${userType}%';")
     List<Map> selectByAccess(String userType);
+
+
+    @Select("select name, url from menu where access like '%${userType}%' and name like '%${str}%';")
+    List<Map> selectUn(String userType, String str);
 }
