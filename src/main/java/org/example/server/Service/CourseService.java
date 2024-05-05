@@ -15,29 +15,75 @@ import java.util.List;
 public class CourseService {
     @Autowired
     CourseMapper courseMapper;
-    public DataResponse updateInfo(Integer id, String course_name, Double credit, String num, Integer course_type_id, Integer pre_course_id, String book, String extracurricular){
+    public DataResponse updateInfo(Integer id, String course_name, Double credit, String num, String course_type, String book, String extracurricular,String teacher,String classes){
+        Integer course_type_id;
         if (credit == null) {
             return DataResponse.error(400,"credit cannot be null");
-        } else if (num == null) {
+        } else if (num == null || num.equals("")) {
             return DataResponse.error(400,"num cannot be null");
-        } else if (course_type_id == null) {
+        } else if (course_type == null) {
+            return DataResponse.error(400,"course_type cannot be null");
+        } else if (course_name == null || course_name.equals("")) {
             return DataResponse.error(400,"course_name cannot be null");
-        } else if (pre_course_id == null) {
-            return DataResponse.error(400,"pre_course_id cannot be null");
+        } else if(book == null || book.equals("")) {
+            return DataResponse.error(400,"book cannot be null");
+        } else if(extracurricular == null || extracurricular.equals("")) {
+            return DataResponse.error(400,"extracurricular cannot be null");
+        } else if(classes == null || classes.equals("")) {
+            return DataResponse.error(400,"classes cannot be null");
+        } else if(teacher == null || teacher.equals("")) {
+            return DataResponse.error(400,"teacher cannot be null");
         } else{
-            courseMapper.updateInfo(id, course_name,credit,num,course_type_id,pre_course_id,book,extracurricular);
+            if(course_type.equals("专业基础课")){
+                course_type_id = 1;
+            } else if (course_type.equals("学科基础课")) {
+                course_type_id = 2;
+            } else if (course_type.equals("通识核心课")) {
+                course_type_id = 3;
+            } else if (course_type.equals("通识选修课")) {
+                course_type_id = 4;
+            } else if (course_type.equals("创新实践计划")) {
+                course_type_id = 5;
+            } else if (course_type.equals("专业选修课")) {
+                course_type_id = 6;
+            } else if (course_type.equals("通识必修课")) {
+                course_type_id = 7;
+            } else {
+                course_type_id = null;
+            }
+            courseMapper.updateInfo(id, course_name,credit,num,course_type_id,book,extracurricular,teacher,classes);
             return DataResponse.ok("success");
         }
     }
     public DataResponse selectInfo(Integer id){
         return DataResponse.success(courseMapper.selectInfo(id));
     }
-    public DataResponse addCourse(String course_name, Double credit, String num, Integer course_type_id, Integer pre_course_id, String book, String extracurricular){
+    public DataResponse addCourse(String course_name, Double credit, String num, String course_type, Integer pre_course_id, String book, String extracurricular,String classes,String teacher_name,String terms){
+        Integer course_type_id;
+        if(course_type == null){
+            course_type_id = null;
+        } else if(course_type.equals("专业基础课")){
+            course_type_id = 1;
+        } else if (course_type.equals("学科基础课")) {
+            course_type_id = 2;
+        } else if (course_type.equals("通识核心课")) {
+            course_type_id = 3;
+        } else if (course_type.equals("通识选修课")) {
+            course_type_id = 4;
+        } else if (course_type.equals("创新实践计划")) {
+            course_type_id = 5;
+        } else if (course_type.equals("专业选修课")) {
+            course_type_id = 6;
+        } else if (course_type.equals("通识必修课")) {
+            course_type_id = 7;
+        } else {
+            course_type_id = null;
+        }
         if(courseMapper.selectByNum(num) != null){
             return DataResponse.error("课程已存在");
         } else {
-            courseMapper.addCourse(course_name,credit,num,course_type_id,pre_course_id,book,extracurricular);
-            return DataResponse.ok();
+            courseMapper.addCourse(course_name,credit,num,course_type_id,pre_course_id,book,extracurricular,classes,teacher_name,terms);
+            return DataResponse.ok("添加成功");
         }
 
     }
@@ -109,6 +155,13 @@ public class CourseService {
 
     public Result selectByNum(String num) {
         return Result.success(courseMapper.selectByNum(num));
+    }
+    public Result deleteCourse(Integer id){
+        courseMapper.deleteCourse(id);
+        return Result.ok("删除成功");
+    }
+    public Result selectStudentCourse(Integer id){
+        return Result.success(courseMapper.selectStudentCourse(id));
     }
 }
 

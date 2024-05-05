@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.example.server.pojo.Lesson;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface LessonMapper extends BaseMapper<Lesson> {
@@ -19,4 +20,5 @@ public interface LessonMapper extends BaseMapper<Lesson> {
     void updateHomeworkRating(Integer homework_rating_id,Integer lesson_id,Integer student_id);
     List<String> selectHomeworkRatingStudent(Integer lesson_id,Integer student_id);
     List<String> selectHomeworkRatingTeacher(Integer lesson_id,Integer teacher_id);
+    List<Lesson> selectByCourseId(Integer id);
 }
