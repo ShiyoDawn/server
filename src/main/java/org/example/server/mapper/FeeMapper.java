@@ -1,14 +1,19 @@
-//package org.example.server.mapper;
+package org.example.server.mapper;
+
 
 import org.apache.ibatis.annotations.Mapper;
-
-
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.example.server.pojo.Fee;
 
 import java.util.List;
-import java.util.Optional;
-/*@Mapper
-public interface FeeMapper extends BaseMapper<Fee> {
-    List<Fee> findByPersonId(Integer person_id);
-}*/
+
+@Mapper
+public interface FeeMapper {
+    void insertFee(Integer id,String student_num,String student_name,String date,String money,String activity,String activity_detail);
+
+    List<Fee> selectAll();
+
+    void deleteFee(Integer id);
+
+    void updateId(Integer id, String student_num, String student_name, String date, String money, String activity, String activity_detail);
+
+}
