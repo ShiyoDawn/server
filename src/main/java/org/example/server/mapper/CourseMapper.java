@@ -32,4 +32,7 @@ public interface CourseMapper extends BaseMapper<Course> {
     List<Map<String,String>> selectSpecial(String terms,Integer course_type_id,String course_name,Integer pageNum,String num,String classes);
     void deleteCourse(Integer id);
     List<Map<String,String>> selectStudentCourse(Integer id);
+    void deleteStudent(Integer student_id,Integer course_id);
+    void addStudent(Integer course_id,Integer student_id,String student_name);
+    List<Map<String,String>> selectStudentAndCourse(Integer student_id,Integer course_id);
 }

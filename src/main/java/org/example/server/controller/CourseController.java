@@ -38,7 +38,7 @@ public class CourseController {
         return courseService.selectInfo(id);
     }
     @PostMapping("/addCourse")
-    public DataResponse addCourse(@RequestBody DataRequest dataRequest){
+    public Result addCourse(@RequestBody DataRequest dataRequest){
         String course_name=dataRequest.getString("course_name");
         Double credit=dataRequest.getDouble("credit");
         String num=dataRequest.getString("num");
@@ -125,6 +125,25 @@ public class CourseController {
     public Result selectStudentCourse(@Valid @RequestBody DataRequest dataRequest){
         Integer id = dataRequest.getInteger("id");
         return courseService.selectStudentCourse(id);
+    }
+    @PostMapping("/deleteStudent")
+    public Result deleteStudent(@Valid @RequestBody DataRequest dataRequest){
+        Integer student_id = dataRequest.getInteger("student_id");
+        Integer course_id = dataRequest.getInteger("course_id");
+        return courseService.deleteStudent(student_id,course_id);
+    }
+    @PostMapping("/addStudent")
+    public Result addStudent(@RequestBody DataRequest dataRequest){
+        Integer course_id = dataRequest.getInteger("course_id");
+        Integer student_id = dataRequest.getInteger("student_id");
+        String student_name = dataRequest.getString("student_name");
+        return courseService.addStudent(course_id,student_id,student_name);
+    }
+    @PostMapping("/selectStudentAndCourse")
+    public Result selectStudentAndCourse(@Valid @RequestBody DataRequest dataRequest){
+        Integer student_id = dataRequest.getInteger("student_id");
+        Integer course_id = dataRequest.getInteger("course_id");
+        return courseService.selectStudentAndCourse(student_id,course_id);
     }
 
 }

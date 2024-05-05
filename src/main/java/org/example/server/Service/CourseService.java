@@ -58,7 +58,7 @@ public class CourseService {
     public DataResponse selectInfo(Integer id){
         return DataResponse.success(courseMapper.selectInfo(id));
     }
-    public DataResponse addCourse(String course_name, Double credit, String num, String course_type, Integer pre_course_id, String book, String extracurricular,String classes,String teacher_name,String terms){
+    public Result addCourse(String course_name, Double credit, String num, String course_type, Integer pre_course_id, String book, String extracurricular,String classes,String teacher_name,String terms){
         Integer course_type_id;
         if(course_type == null){
             course_type_id = null;
@@ -80,10 +80,10 @@ public class CourseService {
             course_type_id = null;
         }
         if(courseMapper.selectByNum(num) != null){
-            return DataResponse.error("课程已存在");
+            return Result.error(400,"课程已存在");
         } else {
             courseMapper.addCourse(course_name,credit,num,course_type_id,pre_course_id,book,extracurricular,classes,teacher_name,terms);
-            return DataResponse.ok("添加成功");
+            return Result.ok("添加成功");
         }
 
     }
@@ -162,6 +162,17 @@ public class CourseService {
     }
     public Result selectStudentCourse(Integer id){
         return Result.success(courseMapper.selectStudentCourse(id));
+    }
+    public Result deleteStudent(Integer student_id,Integer course_id){
+        courseMapper.deleteStudent(student_id,course_id);
+        return Result.ok("删除成功");
+    }
+    public Result addStudent(Integer course_id,Integer student_id,String student_name){
+        courseMapper.addStudent(course_id,student_id,student_name);
+        return Result.ok("添加学生成功");
+    }
+    public Result selectStudentAndCourse(Integer student_id,Integer course_id) {
+        return Result.success(courseMapper.selectStudentAndCourse(student_id,course_id));
     }
 }
 

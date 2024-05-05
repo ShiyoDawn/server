@@ -113,6 +113,17 @@
         JOIN course ON student_course.course_id = course.id
         WHERE student_course.course_id = #{id};
     </select>
+    <delete id="deleteStudent">
+        delete from student_course where student_id = #{student_id} and course_id = #{course_id};
+    </delete>
+    <insert id="addStudent">
+        insert into student_course (course_id,student_id,student_name) VALUES (#{course_id},#{student_id},#{student_name});
+    </insert>
+    <select id="selectStudentAndCourse">
+        SELECT *
+        FROM student_course
+        WHERE course_id = #{course_id} and student_id = #{student_id};
+    </select>
 
 
 
