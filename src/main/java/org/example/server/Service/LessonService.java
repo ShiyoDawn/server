@@ -2,11 +2,15 @@ package org.example.server.Service;
 
 import org.example.server.mapper.LessonMapper;
 import org.example.server.payload.Result;
+import org.example.server.pojo.Glory;
 import org.example.server.pojo.Lesson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class LessonService {
@@ -70,6 +74,26 @@ public class LessonService {
     }
     public Result selectLesson(){
         return Result.success(lessonMapper.selectLesson());
+    }
+    public Result selectByCourseId(Integer id){
+        List<Lesson> lessonList = lessonMapper.selectByCourseId(id);
+        List<Map<String, String>> dataList = new ArrayList();
+        Map<String, String> map;
+        for (Lesson lesson : lessonList) {
+            String time;
+            map = new HashMap<>();
+            map.put("id", String.valueOf(lesson.getId()));
+            map.put("date", lesson.getDate());
+            map.put("time",lesson.getTime_sort());
+            map.put("homework", lesson.getHomework());
+            map.put("status", String.valueOf(lesson.getStatus()));
+            map.put("week_time", String.valueOf(lesson.getWeek_time()));
+            map.put("room", lesson.getRoom());
+            map.put("notes",lesson.getNotes());
+            map.put("attend",lesson.getAttend());
+            dataList.add(map);
+        }
+        return Result.success(dataList);
     }
 
 }
