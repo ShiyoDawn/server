@@ -54,11 +54,6 @@ public class LessonController {
     public Result selectLesson(){
         return lessonService.selectLesson();
     }
-    @PostMapping("/selectByCourseId")
-    public Result selectByCourseId(@Valid @RequestBody DataRequest dataRequest){
-        Integer id = dataRequest.getInteger("id");
-        return lessonService.selectByCourseId(id);
-    }
 
 
 }

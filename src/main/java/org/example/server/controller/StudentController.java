@@ -39,7 +39,7 @@ public class StudentController {
     }
 
     //通过id查询学生，仅一人；
-    @GetMapping("/selectStudentByPid")
+    @PostMapping("/selectStudentByPid")
     public Result selectStudentByPid(@RequestBody DataRequest dataRequest) {
         Integer person_id = dataRequest.getInteger("person_id");
         return Result.success(studentService.findStudentByPid(person_id));

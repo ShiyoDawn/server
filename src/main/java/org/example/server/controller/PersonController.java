@@ -23,7 +23,7 @@ public class PersonController {
     @Autowired
     PersonService personSevice;
 
-    @GetMapping("/getPersonList")
+    @PostMapping("/getPersonList")
     public Result getPersonList() {
         return personSevice.getPersonList();
     }
@@ -40,7 +40,7 @@ public class PersonController {
         return personSevice.selectByPersonNum(person_num);
     }
 
-    @GetMapping("/selectSPersonById")
+    @PostMapping("/selectSPersonById")
     public Result selectSPersonById(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
         return personSevice.selectSPersonByIdMap(id);

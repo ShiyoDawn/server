@@ -40,6 +40,4 @@ public class Lesson implements Serializable {
     private String notes;
 
     private Integer week_time;
-
-    private String attend;
 }
