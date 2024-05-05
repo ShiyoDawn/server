@@ -18,6 +18,7 @@ public class EvaluateService {
     private EvaluateMapper evaluateMapper;
     @Autowired
     private PersonMapper personMapper;
+
     public List<Map<String, String>> findAllEvaluate(){
         List<Evaluate> evaluates = evaluateMapper.findAllEvaluate();
         if(evaluates == null || evaluates.isEmpty()){
@@ -39,5 +40,11 @@ public class EvaluateService {
             list.add(map);
         }
         return list;
+    }
+    public void addEvaluate(Map evaluate){
+        if (personMapper.selectByPersonNum(evaluate.get("person_num").toString())==null){
+            throw new RuntimeException("该学生不存在");
+        }
+        evaluateMapper.addEvaluate(evaluate);
     }
 }
