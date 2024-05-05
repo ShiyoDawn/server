@@ -83,6 +83,29 @@ public class CourseService {
     public Result selectAllType(){
         return Result.success(courseMapper.selectAllType());
     }
+    public Result selectSpecial(String terms,String course_type,String course_name,Integer pageNum,String num,String classes){
+        Integer course_type_id;
+        if(course_type == null){
+            course_type_id = null;
+        } else if(course_type.equals("专业基础课")){
+            course_type_id = 1;
+        } else if (course_type.equals("学科基础课")) {
+            course_type_id = 2;
+        } else if (course_type.equals("通识核心课")) {
+            course_type_id = 3;
+        } else if (course_type.equals("通识选修课")) {
+            course_type_id = 4;
+        } else if (course_type.equals("创新实践计划")) {
+            course_type_id = 5;
+        } else if (course_type.equals("专业选修课")) {
+            course_type_id = 6;
+        } else if (course_type.equals("通识必修课")) {
+            course_type_id = 7;
+        } else {
+            course_type_id = null;
+        }
+        return Result.success(courseMapper.selectSpecial(terms,course_type_id,course_name,pageNum,num,classes));
+    }
 
     public Result selectByNum(String num) {
         return Result.success(courseMapper.selectByNum(num));

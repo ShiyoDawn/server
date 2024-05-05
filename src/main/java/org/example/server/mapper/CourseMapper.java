@@ -30,4 +30,5 @@ public interface CourseMapper extends BaseMapper<Course> {
     List<Map<String,String>> selectLessonByStudent(Integer student_id,Integer week,String terms);
     List<Map<String,String>> selectType(Integer course_id);
     List<Map<String,String>> selectAllType();
+    List<Map<String,String>> selectSpecial(String terms,Integer course_type_id,String course_name,Integer pageNum,String num,String classes);
 }

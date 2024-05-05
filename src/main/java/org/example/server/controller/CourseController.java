@@ -103,6 +103,16 @@ public class CourseController {
     public Result selectAllType(){
         return courseService.selectAllType();
     }
+    @PostMapping("selectSpecial")
+    public Result selectSpecial (@Valid @RequestBody DataRequest dataRequest){
+        String course_name = dataRequest.getString("course_name");
+        String terms = dataRequest.getString("terms");
+        String course_type = dataRequest.getString("course_type");
+        String num = dataRequest.getString("classNum");
+        String classes = dataRequest.getString("classes");
+        Integer pageNum = dataRequest.getInteger("pageNum");
+        return courseService.selectSpecial(terms,course_type,course_name,pageNum,num,classes);
+    }
 
 }
 
