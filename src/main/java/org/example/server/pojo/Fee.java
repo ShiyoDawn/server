@@ -16,10 +16,15 @@ public class Fee {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    //oneToOne
-    private Integer person_id;
+    private String student_num;
+
+    private String student_name;
 
     private String date;
 
+    private String activity;
+
     private String money;
+
+    private String activity_detail;
 }
