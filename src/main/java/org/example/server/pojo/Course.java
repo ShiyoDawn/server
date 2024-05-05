@@ -27,4 +27,5 @@ public class Course implements Serializable {
     private String classes;
     private Integer teacher_id;
     private String teacher_name;
+    private String terms;
 }

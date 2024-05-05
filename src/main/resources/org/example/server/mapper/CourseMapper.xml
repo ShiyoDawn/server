@@ -15,7 +15,7 @@
             limit (#{pageNum}) * 6,6;
     </select>
     <select id="selectInfo" resultType="org.example.server.pojo.Course">
-        SELECT * FROM Course where id = #{id};
+        SELECT * FROM course where id = #{id};
     </select>
     <select id="selectByNum" resultType="org.example.server.pojo.Course">
         SELECT * FROM Course where num = #{num};
@@ -27,14 +27,15 @@
             <if test="credit !=null">credit=#{credit},</if>
             <if test="num !=null">num=#{num},</if>
             <if test="course_type_id!=null">course_type_id=#{course_type_id},</if>
-            <if test="pre_course_id!=null">pre_course_id=#{pre_course_id},</if>
-            <if test="book !=null and book != ''">book=#{book},</if>
-            <if test="extracurricular!=null and extracurricular!=''">extracurricular=#{extracurricular}</if>
+            <if test="book !=null">book=#{book},</if>
+            <if test="extracurricular!=null">extracurricular=#{extracurricular},</if>
+            <if test="teacher!=null">teacher_name=#{teacher},</if>
+            <if test="classes!=null">classes=#{classes}</if>
         </set>
         where id = #{id};
     </update>
     <insert id="addCourse" parameterType="org.example.server.pojo.Course">
-        insert into Course (course_name,credit,num,course_type_id,pre_course_id,book,extracurricular) values (#{course_name},#{credit},#{num},#{course_type_id},#{pre_course_id},#{book},#{extracurricular});
+        insert into Course (course_name,credit,num,course_type_id,pre_course_id,book,extracurricular,classes,teacher_name,terms) values (#{course_name},#{credit},#{num},#{course_type_id},#{pre_course_id},#{book},#{extracurricular},#{classes},#{teacher_name},#{terms});
     </insert>
     <delete id="deleteCourseById" parameterType="org.example.server.pojo.Course">
         delete from Course where id = #{id};
@@ -103,7 +104,15 @@
             limit (#{pageNum}) * 6,6;
         </if>
     </select>
-
+    <delete id="deleteCourse">
+        delete from course where id = #{id};
+    </delete>
+    <select id="selectStudentCourse">
+        SELECT *,course.teacher_name
+        FROM student_course
+        JOIN course ON student_course.course_id = course.id
+        WHERE student_course.course_id = #{id};
+    </select>
 
 
 
