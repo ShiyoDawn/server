@@ -25,28 +25,31 @@ public class CourseController {
         String course_name=dataRequest.getString("course_name");
         Double credit=dataRequest.getDouble("credit");
         String num=dataRequest.getString("num");
-        Integer course_type_id=dataRequest.getInteger("course_type_id");
-        Integer pre_course_id=dataRequest.getInteger("pre_course_id");
+        String course_type = dataRequest.getString("course_type");
         String book=dataRequest.getString("book");
         String extracurricular=dataRequest.getString("extracurricular");
-        return courseService.updateInfo(id, course_name, credit, num, course_type_id, pre_course_id, book, extracurricular);
+        String teacher = dataRequest.getString("teacher");
+        String classes = dataRequest.getString("classes");
+        return courseService.updateInfo(id, course_name, credit, num, course_type, book, extracurricular,teacher,classes);
     }
     @PostMapping("/selectInfo")
     public DataResponse selectInfo(@RequestBody DataRequest dataRequest){
         Integer id=dataRequest.getInteger("id");
-        System.out.println(id+"ok");
         return courseService.selectInfo(id);
     }
     @PostMapping("/addCourse")
-    public DataResponse addCourse(@RequestBody DataRequest dataRequest){
+    public Result addCourse(@RequestBody DataRequest dataRequest){
         String course_name=dataRequest.getString("course_name");
         Double credit=dataRequest.getDouble("credit");
         String num=dataRequest.getString("num");
-        Integer course_type_id=dataRequest.getInteger("course_type_id");
+        String course_type=dataRequest.getString("course_type");
         Integer pre_course_id=dataRequest.getInteger("pre_course_id");
         String book=dataRequest.getString("book");
         String extracurricular=dataRequest.getString("extracurricular");
-        return courseService.addCourse(course_name, credit, num, course_type_id, pre_course_id, book, extracurricular);
+        String classes=dataRequest.getString("classes");
+        String teacher_name=dataRequest.getString("teacher_name");
+        String terms=dataRequest.getString("terms");
+        return courseService.addCourse(course_name, credit, num, course_type, pre_course_id, book, extracurricular,classes,teacher_name,terms);
     }
     @PostMapping("/deleteCourseById")
     public DataResponse deleteCourseByID(@RequestBody DataRequest dataRequest){
@@ -112,6 +115,35 @@ public class CourseController {
         String classes = dataRequest.getString("classes");
         Integer pageNum = dataRequest.getInteger("pageNum");
         return courseService.selectSpecial(terms,course_type,course_name,pageNum,num,classes);
+    }
+    @PostMapping("/deleteCourse")
+    public Result deleteCourse(@Valid @RequestBody DataRequest dataRequest){
+        Integer id = dataRequest.getInteger("id");
+        return courseService.deleteCourse(id);
+    }
+    @PostMapping("/selectStudentCourse")
+    public Result selectStudentCourse(@Valid @RequestBody DataRequest dataRequest){
+        Integer id = dataRequest.getInteger("id");
+        return courseService.selectStudentCourse(id);
+    }
+    @PostMapping("/deleteStudent")
+    public Result deleteStudent(@Valid @RequestBody DataRequest dataRequest){
+        Integer student_id = dataRequest.getInteger("student_id");
+        Integer course_id = dataRequest.getInteger("course_id");
+        return courseService.deleteStudent(student_id,course_id);
+    }
+    @PostMapping("/addStudent")
+    public Result addStudent(@RequestBody DataRequest dataRequest){
+        Integer course_id = dataRequest.getInteger("course_id");
+        Integer student_id = dataRequest.getInteger("student_id");
+        String student_name = dataRequest.getString("student_name");
+        return courseService.addStudent(course_id,student_id,student_name);
+    }
+    @PostMapping("/selectStudentAndCourse")
+    public Result selectStudentAndCourse(@Valid @RequestBody DataRequest dataRequest){
+        Integer student_id = dataRequest.getInteger("student_id");
+        Integer course_id = dataRequest.getInteger("course_id");
+        return courseService.selectStudentAndCourse(student_id,course_id);
     }
 
 }
