@@ -1,14 +1,10 @@
 package org.example.server.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.example.server.mapper.PersonMapper;
-import org.example.server.mapper.StudentFamilyMapper;
-import org.example.server.mapper.StudentMapper;
+import org.example.server.mapper.*;
 import org.example.server.payload.response.DataResponse;
 import org.example.server.payload.response.OptionItem;
-import org.example.server.pojo.Person;
-import org.example.server.pojo.Student;
-import org.example.server.pojo.StudentFamily;
+import org.example.server.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +22,12 @@ public class StudentService {
     private StudentFamilyMapper studentFamilyMapper;
     @Autowired
     private StudentFamilyService studentFamilyService;
+    @Autowired
+    private GenderMapper genderMapper;
+    @Autowired
+    private StudentForeschoolMapper studentForeschoolMapper;
+    @Autowired
+    private GloryMapper gloryMapper;
 
     public void insert(Integer person_id,String person_num,String student_name,String department,String classes,String grade,String major){
         Student student=studentMapper.selectByPid(person_id);
@@ -273,11 +275,85 @@ public class StudentService {
         List<Student> students = studentMapper.selectByConditions(conditions);
         return students;
     }
-    public Student getStudentById(Integer id) {
+    public Map getStudentInfoById(Integer id) {
         Student student=studentMapper.selectById(id);
         if(student==null){
             return null;
         }
-        return studentMapper.selectStudentById(id);
+        Person person=personMapper.selectById(student.getPerson_id());
+        Map<String, Object> studentMap = new HashMap<>();
+        if(person!=null){
+            studentMap.put("person_num", person.getPerson_num());
+            studentMap.put("gender_id", person.getGender_id());
+            studentMap.put("phone_number", person.getPhone_number());
+            studentMap.put("identity", person.getIdentity());
+            studentMap.put("identity_number", person.getIdentity_number());
+            studentMap.put("birthday", person.getBirthday());
+            studentMap.put("email", person.getEmail());
+        }
+        Gender gender=genderMapper.selectById(person.getGender_id());
+        System.out.println(gender);
+        if (gender!=null){
+            studentMap.put("gender",gender.getGender());
+        }
+        StudentForeschool studentForeschool=studentForeschoolMapper.selectStudentForeSchoolByStudent_id(student.getId());
+        if (studentForeschool!=null){
+            studentMap.put("primary",studentForeschool.getPrimary());
+            studentMap.put("junior",studentForeschool.getJunior());
+            studentMap.put("senior",studentForeschool.getSenior());
+        }
+        List<StudentFamily> studentFamilies=studentFamilyMapper.findFamilyByStudentId(student.getId());
+//        if (studentFamilyMapper!=null){
+//            for (StudentFamily sf:studentFamilies){
+//                if(sf.getRelation().equals("父亲")){
+//                    studentMap.put("father_name",sf.getName());
+//                    studentMap.put("father_phone",sf.getPhone());
+//                    studentMap.put("father_age",sf.getAge());
+//                    studentMap.put("father_job",sf.getJob());
+//                    studentMap.put("father_address",sf.getAddress());
+//                }
+//                else if (sf.getRelation().equals("母亲")){
+//                    studentMap.put("mother_name",sf.getName());
+//                    studentMap.put("mother_phone",sf.getPhone());
+//                    studentMap.put("mother_age",sf.getAge());
+//                    studentMap.put("mother_job",sf.getJob());
+//                    studentMap.put("mother_address",sf.getAddress());
+//                }
+//            }
+//        }
+        if (studentFamilies!=null){
+            List<Map<String, String>> studentFamilyList = new ArrayList<>();
+            for (StudentFamily studentFamily : studentFamilies) {
+                Map<String, String> studentFamilyMap = new HashMap<>();
+                studentFamilyMap.put("name", studentFamily.getName());
+                studentFamilyMap.put("relation", studentFamily.getRelation());
+                studentFamilyMap.put("phone", studentFamily.getPhone());
+                studentFamilyMap.put("age", studentFamily.getAge());
+                studentFamilyMap.put("job", studentFamily.getJob());
+                studentFamilyMap.put("address", studentFamily.getAddress());
+                studentFamilyList.add(studentFamilyMap);
+            }
+            studentMap.put("studentFamilies", studentFamilyList);
+        }
+        List<Glory> glories=gloryMapper.selectByStudentNum(person.getPerson_num());
+        if(glories!=null){
+            List<Map<String, String>> gloryList = new ArrayList<>();
+            for (Glory glory : glories) {
+                Map<String, String> gloryMap = new HashMap<>();
+                gloryMap.put("glory_name", glory.getGlory_name());
+                gloryMap.put("glory_type", glory.getGlory_type());
+                gloryMap.put("glory_level", glory.getGlory_level());
+                gloryList.add(gloryMap);
+            }
+            studentMap.put("glories", gloryList);
+        }
+        studentMap.put("id", student.getId());
+        studentMap.put("person_id", student.getPerson_id());
+        studentMap.put("student_name", student.getStudent_name());
+        studentMap.put("department", student.getDepartment());
+        studentMap.put("classes", student.getClasses());
+        studentMap.put("grade", student.getGrade());
+        studentMap.put("major", student.getMajor());
+        return studentMap;
     }
 }

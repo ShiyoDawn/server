@@ -22,6 +22,8 @@ public interface GloryMapper {
 
     List<Glory> selectByStudentId(String student_id);
 
+    List<Glory> selectByStudentNum(String student_num);
+
     Glory selectByStudentAndGlory(String student_name, String glory_name);
 
     List<Glory> selectAll();
