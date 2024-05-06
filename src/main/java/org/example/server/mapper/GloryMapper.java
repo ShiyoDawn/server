@@ -29,4 +29,6 @@ public interface GloryMapper {
     void updateId(Integer id, String student_name, String glory_name);
 
     Glory selectById(Integer id);
+
+    List<Glory> selectByStudentNum(String student_num);
 }

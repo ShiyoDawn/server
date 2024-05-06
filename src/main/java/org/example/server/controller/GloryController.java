@@ -65,6 +65,12 @@ public class GloryController {
         return gloryService.selectByGloryName(glory_name);
     }
 
+    @PostMapping("/selectByStudentNum")
+    public Result selectByStudentNum(@Valid @RequestBody DataRequest dataRequest) {
+        String student_num = dataRequest.getString("student_num");
+        return gloryService.selectByStudentNum(student_num);
+    }
+
     @PostMapping("/selectById")
     public Result selectById(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");

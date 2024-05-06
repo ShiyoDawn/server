@@ -123,4 +123,20 @@ public class GloryService {
         map.put("glory_level", glory.getGlory_level());
         return Result.success(map);
     }
+
+    public Result selectByStudentNum(String student_num) {
+        List<Glory> gloryList = gloryMapper.selectByStudentNum(student_num);
+        List<Map> gloryMap = new ArrayList<>();
+        for (Glory glory : gloryList) {
+            Map map = new HashMap();
+            map.put("id", glory.getId() + "");
+            map.put("student_name", glory.getStudent_name());
+            map.put("student_num", glory.getStudent_num());
+            map.put("glory_name", glory.getGlory_name());
+            map.put("glory_type", glory.getGlory_type());
+            map.put("glory_level", glory.getGlory_level());
+            gloryMap.add(map);
+        }
+        return Result.success(gloryMap, "查询成功！");
+    }
 }
