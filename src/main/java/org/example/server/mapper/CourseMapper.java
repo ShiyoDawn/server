@@ -18,7 +18,7 @@ public interface CourseMapper extends BaseMapper<Course> {
     void updateInfo(Integer id, String course_name,Double credit,String num,Integer course_type_id,String book,String extracurricular,String teacher,String classes);
     List<Map<String,String>> selectAll();
     List<Map<String,String>> selectAllByPage(Integer pageNum);
-    List<Map<String,String>> selectInfo(Integer id);
+    Course selectInfo(Integer id);
     void addCourse(String course_name, Double credit, String num, Integer course_type_id, Integer pre_course_id, String book, String extracurricular,String classes,String teacher_name,String terms);
     Course selectByNum(String num);
     void deleteCourseById(Integer id);

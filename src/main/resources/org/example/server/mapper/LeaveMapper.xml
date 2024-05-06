@@ -18,8 +18,8 @@
 
 
     <insert id="insertLeave">
-        insert into Leave (id,student_num, student_name,leave_type,leave_reason,destination,time,status,age,institute,major,instructor_name,instructor_tele,leave_detailed_reason,start_time,end_time,student_tele)
-        values (#{id},#{student_num}, #{student_name}, #{leave_type}, #{leave_reason},#{destination},#{time},#{status},#{age},#{institute},#{major},#{instructor_name},#{instructor_tele},#{leave_detailed_reason},#{start_time},#{end_time},#{student_tele})
+        insert into Leave (student_num, student_name,leave_type,leave_reason,destination,time,status,age,institute,major,instructor_name,instructor_tele,leave_detailed_reason,start_time,end_time,student_tele)
+        values (#{student_num}, #{student_name}, #{leave_type}, #{leave_reason},#{destination},#{time},#{status},#{age},#{institute},#{major},#{instructor_name},#{instructor_tele},#{leave_detailed_reason},#{start_time},#{end_time},#{student_tele})
     </insert>
 
     <update id="updateStatus">

@@ -55,8 +55,8 @@ public class CourseService {
             return DataResponse.ok("success");
         }
     }
-    public DataResponse selectInfo(Integer id){
-        return DataResponse.success(courseMapper.selectInfo(id));
+    public Result selectInfo(Integer id){
+        return Result.success(courseMapper.selectInfo(id));
     }
     public Result addCourse(String course_name, Double credit, String num, String course_type, Integer pre_course_id, String book, String extracurricular,String classes,String teacher_name,String terms){
         Integer course_type_id;

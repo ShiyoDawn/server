@@ -20,7 +20,6 @@ public class LeaveController {
 
     @PostMapping("/insertLeave")
     public Result insertLeave(@Valid @RequestBody DataRequest dataRequest){
-        Integer id=dataRequest.getInteger("id");
         String student_num=dataRequest.getString("student_num");
         String student_name=dataRequest.getString("student_name");
         String leave_type=dataRequest.getString("leave_type");
@@ -37,7 +36,7 @@ public class LeaveController {
         String start_time=dataRequest.getString("start_time");
         String end_time=dataRequest.getString("end_time");
         String student_tele=dataRequest.getString("student_tele");
-        return leaveService.insertLeave(id,student_num,student_name,leave_type,leave_reason,destination,time,status,age,institute,major,instructor_name,instructor_tele,leave_detailed_reason,start_time,end_time,student_tele);
+        return leaveService.insertLeave(student_num,student_name,leave_type,leave_reason,destination,time,status,age,institute,major,instructor_name,instructor_tele,leave_detailed_reason,start_time,end_time,student_tele);
     }
 
     @PostMapping("/updateStatus")

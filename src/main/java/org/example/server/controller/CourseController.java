@@ -33,7 +33,7 @@ public class CourseController {
         return courseService.updateInfo(id, course_name, credit, num, course_type, book, extracurricular,teacher,classes);
     }
     @PostMapping("/selectInfo")
-    public DataResponse selectInfo(@RequestBody DataRequest dataRequest){
+    public Result selectInfo(@RequestBody DataRequest dataRequest){
         Integer id=dataRequest.getInteger("id");
         return courseService.selectInfo(id);
     }

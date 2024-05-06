@@ -15,7 +15,7 @@
             limit (#{pageNum}) * 6,6;
     </select>
     <select id="selectInfo" resultType="org.example.server.pojo.Course">
-        SELECT * FROM course where id = #{id};
+        SELECT * FROM Course where id = #{id};
     </select>
     <select id="selectByNum" resultType="org.example.server.pojo.Course">
         SELECT * FROM Course where num = #{num};
