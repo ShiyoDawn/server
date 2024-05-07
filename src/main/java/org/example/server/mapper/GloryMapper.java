@@ -20,8 +20,6 @@ public interface GloryMapper {
 
     List<Glory> selectByStudentName(String student_name);
 
-    List<Glory> selectByStudentId(String student_id);
-
     List<Glory> selectByStudentNum(String student_num);
 
     Glory selectByStudentAndGlory(String student_name, String glory_name);
@@ -31,4 +29,5 @@ public interface GloryMapper {
     void updateId(Integer id, String student_name, String glory_name);
 
     Glory selectById(Integer id);
+
 }
