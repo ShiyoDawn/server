@@ -26,9 +26,6 @@
     <select id="selectAll" resultType="org.example.server.pojo.Glory">
         select * from Glory
     </select>
-    <select id="selectByStudentNum" resultType="org.example.server.pojo.Glory">
-        select * from Glory where "student_num" = #{student_num}
-    </select>
 
     <update id="updateGlory">
         update Glory set glory_name = #{new_glory_name},glory_level = #{new_glory_level},glory_type = #{glory_type} where "student_name" = #{student_name} and "glory_name" = #{glory_name}
