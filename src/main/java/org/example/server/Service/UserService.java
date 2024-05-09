@@ -38,4 +38,8 @@ public class UserService {
         return new Result(200,null,"修改成功");
     }
 
+    public Result selectByNum(String person_num) {
+        return Result.success(userMapper.selectByNum(person_num));
+    }
+
 }

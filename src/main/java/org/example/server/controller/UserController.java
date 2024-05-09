@@ -23,6 +23,12 @@ public class UserController {
         userService.updatePassword(person_num, password);
     }
 
+    @PostMapping("/selectByNum")
+    public Result selectByNum(@RequestBody DataRequest dataRequest) {
+        String person_num = dataRequest.getString("person_num");
+        return userService.selectByNum(person_num);
+    }
+
     @PostMapping(path = "/uploadPhoto")
     public Result uploadPhoto(@RequestBody byte[] barr,
                               @RequestParam(name = "remoteFile") String remoteFile,
