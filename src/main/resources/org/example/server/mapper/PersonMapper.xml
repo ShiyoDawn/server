@@ -62,4 +62,17 @@
         SET person_num = #{person_num}
         WHERE id = #{id}
     </update>
+
+    <update id="updatePhoto">
+        UPDATE person
+        SET photo = #{photo}
+        WHERE person_num = #{person_num}
+    </update>
+
+    <select id="selectPhoto" >
+        SELECT photo
+        FROM person
+        WHERE person_num = #{person_num}
+    </select>
+
 </mapper>

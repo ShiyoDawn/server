@@ -4,15 +4,12 @@ import org.example.server.mapper.PersonMapper;
 import org.example.server.mapper.StudentMapper;
 import org.example.server.mapper.UserMapper;
 import org.example.server.payload.Result;
-import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.Person;
-import org.example.server.pojo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.sql.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -68,6 +65,16 @@ public class PersonService {
     }
     public Integer getAllPerson(){
         return personMapper.getAllPerson();
+    }
+
+    public Result updatePhoto(String person_num, byte[] photo) {
+        personMapper.updatePhoto(person_num,photo);
+        return Result.ok();
+    }
+
+    public Result selectPhoto(String person_num) {
+        System.out.println(personMapper.selectPhoto(person_num).getClass());
+        return Result.success(personMapper.selectPhoto(person_num));
     }
 
 }

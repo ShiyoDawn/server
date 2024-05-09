@@ -1,6 +1,7 @@
 package org.example.server.payload.request;
 
 
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
@@ -116,6 +117,22 @@ public class DataRequest {
             return null;
         }
     }
+
+    public byte[] getBytes(String key){
+        if(data == null)
+            return null;
+        Object obj = data.get(key);
+        if(obj == null)
+            return null;
+        if(obj instanceof byte[])
+            return (byte[]) obj;
+        try{
+            return obj.toString().getBytes("utf-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 //    public Date getDate( String key) {
 //        Object obj = data.get(key);
 //        if(obj == null)

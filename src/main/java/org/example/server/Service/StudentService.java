@@ -90,6 +90,7 @@ public class StudentService {
             student.setPerson(person);
             if (person != null) {
                 map.put("person_num", person.getPerson_num());
+                map.put("photo", person.getPhoto() == null ? "" : new String(person.getPhoto()));
             }
             list.add(map);
         }
@@ -141,6 +142,7 @@ public class StudentService {
     }
     public Map findStudentByPid(Integer person_id){
         Student student=studentMapper.selectByPid(person_id);
+        student.setStudentFamilies(studentFamilyMapper.findFamilyByStudentId(student.getId()));
         /*Map map = new HashMap();
         if (student == null) {
             return map;

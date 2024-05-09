@@ -33,4 +33,9 @@ public class UserService {
         }
     }
 
+    public Result updatePassword(String person_num, String password) {
+        userMapper.updatePassword(person_num, password);
+        return new Result(200,null,"修改成功");
+    }
+
 }

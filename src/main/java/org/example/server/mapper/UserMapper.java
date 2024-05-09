@@ -23,4 +23,6 @@ public interface UserMapper extends BaseMapper<User> {
 
     @Select("select * from user where person_num = #{userNum}")
     User selectByNum(String userNum);
+
+    void updatePassword(String person_num, String password);
 }
