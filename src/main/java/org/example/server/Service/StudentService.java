@@ -2,6 +2,7 @@ package org.example.server.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.example.server.mapper.*;
+import org.example.server.payload.Result;
 import org.example.server.payload.response.DataResponse;
 import org.example.server.payload.response.OptionItem;
 import org.example.server.pojo.*;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.Max;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.*;
 
 @Service
@@ -284,7 +287,27 @@ public class StudentService {
         }
         Person person=personMapper.selectById(student.getPerson_id());
         Map<String, Object> studentMap = new HashMap<>();
+        System.out.println(person);
         if(person!=null){
+            String person_num = person.getPerson_num();
+            File file=new File("src/main/photo/"+person_num+".jpg");
+            System.out.println(file.exists());
+            if(file.exists()) {
+                int len = (int) file.length();
+                byte data[] = new byte[len];
+                FileInputStream in = null;
+                String imgstr=null;
+                try {
+                    in = new FileInputStream(file);
+                    in.read(data);
+                    in.close();
+                    imgstr=new String(Base64.getEncoder().encode(data));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                studentMap.put("image", imgstr);
+                System.out.println(imgstr);
+            }
             studentMap.put("person_num", person.getPerson_num());
             studentMap.put("gender_id", person.getGender_id());
             studentMap.put("phone_number", person.getPhone_number());
@@ -294,7 +317,6 @@ public class StudentService {
             studentMap.put("email", person.getEmail());
         }
         Gender gender=genderMapper.selectById(person.getGender_id());
-        System.out.println(gender);
         if (gender!=null){
             studentMap.put("gender",gender.getGender());
         }
@@ -305,24 +327,6 @@ public class StudentService {
             studentMap.put("senior",studentForeschool.getSenior());
         }
         List<StudentFamily> studentFamilies=studentFamilyMapper.findFamilyByStudentId(student.getId());
-//        if (studentFamilyMapper!=null){
-//            for (StudentFamily sf:studentFamilies){
-//                if(sf.getRelation().equals("父亲")){
-//                    studentMap.put("father_name",sf.getName());
-//                    studentMap.put("father_phone",sf.getPhone());
-//                    studentMap.put("father_age",sf.getAge());
-//                    studentMap.put("father_job",sf.getJob());
-//                    studentMap.put("father_address",sf.getAddress());
-//                }
-//                else if (sf.getRelation().equals("母亲")){
-//                    studentMap.put("mother_name",sf.getName());
-//                    studentMap.put("mother_phone",sf.getPhone());
-//                    studentMap.put("mother_age",sf.getAge());
-//                    studentMap.put("mother_job",sf.getJob());
-//                    studentMap.put("mother_address",sf.getAddress());
-//                }
-//            }
-//        }
         if (studentFamilies!=null){
             List<Map<String, String>> studentFamilyList = new ArrayList<>();
             for (StudentFamily studentFamily : studentFamilies) {
