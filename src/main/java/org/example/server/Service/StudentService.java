@@ -291,7 +291,6 @@ public class StudentService {
         if(person!=null){
             String person_num = person.getPerson_num();
             File file=new File("src/main/photo/"+person_num+".jpg");
-            System.out.println(file.exists());
             if(file.exists()) {
                 int len = (int) file.length();
                 byte data[] = new byte[len];
@@ -306,7 +305,6 @@ public class StudentService {
                     throw new RuntimeException(e);
                 }
                 studentMap.put("image", imgstr);
-                System.out.println(imgstr);
             }
             studentMap.put("person_num", person.getPerson_num());
             studentMap.put("gender_id", person.getGender_id());

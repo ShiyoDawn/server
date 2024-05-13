@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.server.mapper.ActivityMapper">
+
+    <insert id="insertActivity">
+        insert into Activity ("student_num","student_name","activity_name","activity_type","date","score")
+        values (#{student_num},#{student_name},#{activity_name},#{activity_type},#{date},#{score})
+    </insert>
+
+    <delete id="deleteActivity">
+        delete from Activity where "student_num" = #{student_num} and "activity_name" = #{activity_name} and "activity_type" = #{activity_type} and "date" = #{date} and "score" = #{score}
+    </delete>
+
+
+
+    <select id="selectAll" resultType="org.example.server.pojo.Activity">
+        select * from Activity
+    </select>
+
+    <select id="selectByStudentNum" resultType="org.example.server.pojo.Activity">
+        select * from Activity where "student_num" = #{student_num}
+    </select>
+
+</mapper>

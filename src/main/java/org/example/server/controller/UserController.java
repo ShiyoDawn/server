@@ -35,7 +35,6 @@ public class UserController {
                               @RequestParam(name = "fileName") String fileName) {
         try {
             File file=new File("src/main/" + remoteFile+"/"+fileName);
-            System.out.println(file.getPath());
             OutputStream os = new FileOutputStream(new File("src/main/" + remoteFile+"/"+fileName));
             os.write(barr);
             os.close();
