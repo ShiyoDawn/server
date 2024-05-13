@@ -24,8 +24,8 @@ public class LeaveService {
 
     }
 
-    public Result updateStatus(String status,Integer id){
-        leaveMapper.updateStatus(status,id);;
+    public Result updateStatus(String status,String student_num,String student_name,String institute,String major,String instructor_name,String instructor_tele,String leave_detailed_reason,String start_time,String end_time,String student_tele,String leave_reason,String leave_type,String destination){
+        leaveMapper.updateStatus(status,student_num,student_name,institute,major,instructor_name,instructor_tele,leave_detailed_reason,start_time,end_time,student_tele,leave_reason,leave_type,destination);
         return Result.success("修改成功");
     }
 
@@ -112,4 +112,6 @@ public class LeaveService {
         }
         return Result.success(mapList);
     }
+
+
 }

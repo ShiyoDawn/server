@@ -42,8 +42,20 @@ public class LeaveController {
     @PostMapping("/updateStatus")
     public Result updateStatus(@Valid @RequestBody DataRequest dataRequest){
         String status=dataRequest.getString("status");
-        Integer id=dataRequest.getInteger("id");
-        return leaveService.updateStatus(status,id);
+        String student_num=dataRequest.getString("student_num");
+        String student_name=dataRequest.getString("student_name");
+        String institute=dataRequest.getString("institute");
+        String major=dataRequest.getString("major");
+        String instructor_name=dataRequest.getString("instructor_name");
+        String instructor_tele=dataRequest.getString("instructor_tele");
+        String leave_detailed_reason=dataRequest.getString("leave_detailed_reason");
+        String start_time=dataRequest.getString("start_time");
+        String end_time=dataRequest.getString("end_time");
+        String student_tele=dataRequest.getString("student_tele");
+        String leave_reason=dataRequest.getString("leave_reason");
+        String leave_type=dataRequest.getString("leave_type");
+        String destination=dataRequest.getString("destination");
+        return leaveService.updateStatus(status,student_num,student_name,institute,major,instructor_name,instructor_tele,leave_detailed_reason,start_time,end_time,student_tele,leave_reason,leave_type,destination);
     }
 
     @PostMapping("/getLeaveList")

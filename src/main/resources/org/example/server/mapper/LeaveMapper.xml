@@ -23,7 +23,7 @@
     </insert>
 
     <update id="updateStatus">
-        update Leave set "status" = #{status} where "id" = #{id};
+        update Leave set "status" = #{status} where "student_num" = #{student_num} and "start_time" = #{start_time} and "end_time" = #{end_time} and "leave_type" = #{leave_type} and "leave_reason" = #{leave_reason} and "destination" = #{destination} and "institute" = #{institute} and "major" = #{major} and "instructor_name" = #{instructor_name} and "instructor_tele" = #{instructor_tele} and "leave_detailed_reason" = #{leave_detailed_reason} and "student_tele" = #{student_tele};
     </update>
 
 
