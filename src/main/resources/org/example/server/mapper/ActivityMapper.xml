@@ -4,9 +4,24 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.server.mapper.ActivityMapper">
 
-    <insert id="insertActivity">
+    <resultMap id="activityResultMap" type="org.example.server.pojo.Activity">
+        <id column="id" property="id"/>
+        <result column="student_num" property="student_num"/>
+        <result column="student_name" property="student_name"/>
+        <result column="activity_name" property="activity_name"/>
+        <result column="activity_type" property="activity_type"/>
+        <result column="score" property="score"/>
+        <result column="date" property="date"/>
+        <association property="person" javaType="org.example.server.pojo.Person">
+            <result column="person_num" property="person_num"/>
+            <result column="person_name" property="person_name"/>
+        </association>
+    </resultMap>
+
+
+    <insert id="insertActivity" parameterType="org.example.server.pojo.Activity">
         insert into Activity ("student_num","student_name","activity_name","activity_type","date","score")
-        values (#{student_num},#{student_name},#{activity_name},#{activity_type},#{date},#{score})
+        values (#{person.person_num},#{person.person_name},#{activity_name},#{activity_type},#{date},#{score})
     </insert>
 
     <delete id="deleteActivity">
@@ -15,12 +30,18 @@
 
 
 
-    <select id="selectAll" resultType="org.example.server.pojo.Activity">
-        select * from Activity
+    <select id="selectAll" resultMap="activityResultMap">
+        SELECT a.*, p.person_name, p.person_num
+        FROM Activity a
+                 LEFT JOIN Person p ON a.student_num = p.person_num
     </select>
 
     <select id="selectByStudentNum" resultType="org.example.server.pojo.Activity">
-        select * from Activity where "student_num" = #{student_num}
+        SELECT a.*,p.person_name, p.person_num
+        FROM Activity a
+                 LEFT JOIN Person p ON a.student_num = p.person_num
+        where a.student_num = #{student_num}
+
     </select>
 
 </mapper>

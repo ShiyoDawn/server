@@ -89,11 +89,11 @@ public class ScoreController {
     }
 
 
-    @PostMapping("/selectByCourseName")
+/*    @PostMapping("/selectByCourseName")
     public Result selectByCourseName(@Valid @RequestBody DataRequest dataRequest) {
         String course_name = dataRequest.getString("course_name");
         return scoreService.selectByCourseName(course_name);
-    }
+    }*/
 
 
     @PostMapping("/getScoreList")

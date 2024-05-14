@@ -10,9 +10,9 @@ import java.util.List;
 public interface ActivityMapper {
     List<Activity> selectAll();
 
-    void insertActivity(String student_num, String student_name, String activity_name, String activity_type, String date, String score);
-
     void deleteActivity(String student_num, String student_name, String activity_name, String activity_type, String date, String score);
 
     List<Activity> selectByStudentNum(String student_num);
+
+    void insertActivity(Activity activity);
 }
