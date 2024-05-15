@@ -12,38 +12,40 @@
         <result column="course_name" property="course_name"/>
         <result column="mark" property="mark"/>
         <association property="person" javaType="org.example.server.pojo.Person">
+            <result column="id" property="id"/>
             <result column="person_num" property="person_num"/>
             <result column="person_name" property="person_name"/>
         </association>
         <association property="course" javaType="org.example.server.pojo.Course">
+            <result column="id" property="id"/>
             <result column="num" property="num"/>
             <result column="course_name" property="course_name"/>
             <result column="credit" property="credit"/>
         </association>
     </resultMap>
     <select id="selectByStudentId" resultMap="scoreResultMap">
-        select sc.*, pe.person_num, pe.person_name, co.num,co.course_name,co.credit  from Score sc
+        select sc.*, pe.person_num, pe.person_name, pe.id,co.num,co.course_name,co.credit,co.id from Score sc
                                          inner join Person pe on sc.student_num = pe.person_num
                                          inner join Course co on sc.course_num = co.num
         where "student_num" like #{student_num}
     </select>
 
     <select id="selectByCourseId" resultMap="scoreResultMap">
-        select sc.*, pe.person_num, pe.person_name, co.num,co.course_name,co.credit  from Score sc
+        select sc.*, pe.person_num, pe.person_name, pe.id,co.num,co.course_name,co.credit,co.id  from Score sc
                                          inner join Person pe on sc.student_num = pe.person_num
                                          inner join Course co on sc.course_num = co.num
         where "course_num" like #{course_num}
     </select>
 
     <select id="selectByStudentAndCourse" resultMap="scoreResultMap">
-        select sc.*, pe.person_num, pe.person_name, co.num,co.course_name,co.credit  from Score sc
+        select sc.*, pe.person_num, pe.person_name, pe.id,co.num,co.course_name,co.credit,co.id  from Score sc
                                          inner join Person pe on sc.student_num = pe.person_num
                                          inner join Course co on sc.course_num = co.num
         where "student_num" = #{student_num} and "course_num" = #{course_num}
     </select>
 
     <select id="selectAll" resultMap="scoreResultMap">
-        select sc.*, pe.person_num, pe.person_name, co.num,co.course_name,co.credit from Score sc
+        select sc.*,pe.person_num, pe.person_name, pe.id,co.num,co.course_name,co.credit,co.id from Score sc
                                          inner join Person pe on sc.student_num = pe.person_num
                                          inner join Course co on sc.course_num = co.num
     </select>
