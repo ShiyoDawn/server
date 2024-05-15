@@ -23,6 +23,11 @@ public class PersonController {
     @Autowired
     PersonService personSevice;
 
+    @PostMapping("/getAll")
+    public Result getAll() {
+        return Result.success(personSevice.getAll());
+    }
+
     @PostMapping("/getPersonList")
     public Result getPersonList() {
         return personSevice.getPersonList();
