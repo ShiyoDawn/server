@@ -80,9 +80,21 @@ public class LessonService {
     }
     public Result addLesson(List<List<String>> list1,List<List<String>> list){
         for (List<String> strings : list) {
-            lessonMapper.addLesson(String.valueOf(list1.get(0).get(0)), String.valueOf(strings.get(0)),String.valueOf(strings.get(1)),String.valueOf(strings.get(2)));
+            lessonMapper.addLesson(idC(String.valueOf(list1.get(0).get(0))), idC(String.valueOf(strings.get(0))),idC(String.valueOf(strings.get(1))),idC(String.valueOf(strings.get(2))));
         }
         return Result.ok("添加成功");
     }
-
+    private String idC(String str){
+        int count = str.length();
+        for (int i = 0; i < str.length(); i++) {
+            if(str.charAt(i) == '.'){
+                count = i;
+            }
+        }
+        return str.substring(0,count);
+    }
+    public Result updateInfo(Integer course_id,Integer week,Integer week_time,Integer time_sort,String notes,String room,String homework){
+        lessonMapper.updateInfo(course_id,week,week_time,time_sort,notes,room,homework);
+        return Result.ok("添加成功");
+    }
 }
