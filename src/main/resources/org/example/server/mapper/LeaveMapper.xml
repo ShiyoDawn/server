@@ -51,7 +51,7 @@
 
     <insert id="insertLeave">
         insert into Leave (student_num, student_name,leave_type,leave_reason,destination,time,status,age,institute,major,instructor_name,instructor_tele,leave_detailed_reason,start_time,end_time,student_tele,person_id)
-        values (#{person.person_num}, #{person.person_name}, #{leave_type}, #{leave_reason},#{destination},#{time},#{status},#{age},#{institute},#{major},#{instructor_name},#{instructor_tele},#{leave_detailed_reason},#{start_time},#{end_time},#{student_tele},#{person.id}
+        values (#{person.person_num}, #{person.person_name}, #{leave_type}, #{leave_reason},#{destination},#{time},#{status},#{age},#{institute},#{major},#{instructor_name},#{instructor_tele},#{leave_detailed_reason},#{start_time},#{end_time},#{student_tele},#{person.id})
     </insert>
 
     <update id="updateStatus">
