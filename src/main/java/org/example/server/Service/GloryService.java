@@ -27,6 +27,8 @@ public class GloryService {
 
     public Result insertGlory(String student_name, String student_num, String glory_name, String glory_type, String glory_level) {
         Person person=personMapper.selectByPersonNum(student_num);
+        System.out.println(student_num);
+        System.out.println(person);
         Glory glory=new Glory();
         glory.setPerson(person);
         glory.setStudent_name(student_name);
