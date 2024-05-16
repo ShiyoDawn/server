@@ -27,4 +27,9 @@ public class Fee {
     private String money;
 
     private String activity_detail;
+
+    @TableField(exist = false)
+    private Person person;
+
+    private Integer person_id;
 }

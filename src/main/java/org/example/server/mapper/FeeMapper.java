@@ -8,11 +8,11 @@ import java.util.List;
 
 @Mapper
 public interface FeeMapper {
-    void insertFee(Integer id,String student_num,String student_name,String date,String money,String activity,String activity_detail);
+    void insertFee(Fee fee);
 
     List<Fee> selectAll();
 
-    void deleteFee(Integer id);
+    void deleteFee(String student_num, String student_name,String date, String money, String activity, String activity_detail);
 
     void updateId(Integer id, String student_num, String student_name, String date, String money, String activity, String activity_detail);
 

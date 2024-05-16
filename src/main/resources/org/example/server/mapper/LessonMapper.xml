@@ -45,6 +45,12 @@
     </select>
     <?课表?>
     <select id="selectByCourseId">
-        SELECT * from lesson where course_id = #{id};
+        SELECT *,course.course_name
+        from lesson
+        JOIN course ON lesson.course_id=course.id
+        where lesson.course_id = #{id};
     </select>
+    <insert id="addLesson">
+        insert into lesson (course_id,week,time_sort,week_time) VALUES (#{course_id},#{week},#{time_sort},#{week_time});
+    </insert>
 </mapper>

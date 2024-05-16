@@ -24,10 +24,14 @@ public class ActivityService {
         List<Activity> activityList=activityMapper.selectAll();
         List<Map<String, String>> dataList = new ArrayList();
         Map<String, String> map = new HashMap<>();
+        Integer cnt=0;
         for (Activity activity:activityList) {
             map = new HashMap();
-            Person person=activity.getPerson();
-            map.put("id",activity.getId()+"");
+            Person person=personMapper.selectById(activity.getPerson_id());
+            activity.setPerson(person);
+            activity.setStudent_num(person.getPerson_num());
+            activity.setStudent_name(person.getPerson_name());
+            map.put("id",++cnt+"");
             map.put("student_num",person.getPerson_num());
             map.put("student_name",person.getPerson_name());
             map.put("activity_name",activity.getActivity_name());
@@ -49,6 +53,7 @@ public class ActivityService {
         activity.setActivity_type(activity_type);
         activity.setDate(date);
         activity.setScore(score);
+        activity.setPerson_id(person.getId());
         System.out.println(activity);
         activityMapper.insertActivity(activity);
         return Result.ok();
@@ -63,10 +68,15 @@ public class ActivityService {
         List<Activity> activityList=activityMapper.selectByStudentNum(student_num);
         List<Map<String, String>> dataList = new ArrayList();
         Map<String, String> map = new HashMap<>();
-        Person person=personMapper.selectByPersonNum(student_num);
+        Person person=personMapper.selectById(student_num);
+        Integer cnt=0;
         for (Activity activity:activityList) {
             map = new HashMap();
-            map.put("id",activity.getId()+"");
+            map.put("id",++cnt+"");
+            person=personMapper.selectById(activity.getPerson_id());
+            activity.setPerson(person);
+            activity.setStudent_num(person.getPerson_num());
+            activity.setStudent_name(person.getPerson_name());
             map.put("student_num",person.getPerson_num());
             map.put("student_name",person.getPerson_name());
             map.put("activity_name",activity.getActivity_name());

@@ -33,8 +33,13 @@ public class FeeController {
 
     @PostMapping("/deleteFee")
     public Result deleteFee(@Valid @RequestBody DataRequest dataRequest){
-        Integer id=dataRequest.getInteger("id");
-        return feeService.deleteFee(id);
+        String student_num=dataRequest.getString("student_num");
+        String student_name=dataRequest.getString("student_name");
+        String date=dataRequest.getString("date");
+        String money=dataRequest.getString("money");
+        String activity=dataRequest.getString("activity");
+        String activity_detail=dataRequest.getString("activity_detail");
+        return feeService.deleteFee(student_num,student_name,date,money,activity,activity_detail);
     }
 
     @PostMapping("/getFeeList")

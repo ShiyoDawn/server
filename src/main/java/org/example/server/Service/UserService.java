@@ -22,7 +22,7 @@ public class UserService {
     }
 
     public Result loginReq(String num, String password) {
-        User user = userMapper.selectByNum(num);
+        User user = userMapper.selectByPersonNum(num);
         if (user ==  null){
             return new Result(400,null,"用户不存在");
         }
@@ -39,7 +39,7 @@ public class UserService {
     }
 
     public Result selectByNum(String person_num) {
-        return Result.success(userMapper.selectByNum(person_num));
+        return Result.success(userMapper.selectByPersonNum(person_num));
     }
 
 }

@@ -15,7 +15,7 @@ import java.util.List;
 public class CourseService {
     @Autowired
     CourseMapper courseMapper;
-    public DataResponse updateInfo(Integer id, String course_name, Double credit, String num, String course_type, String book, String extracurricular,String teacher,String classes){
+    public DataResponse updateInfo(Integer id, String course_name, Double credit, String num, String course_type, String book, String extracurricular,String teacher,String classes,String capacity){
         Integer course_type_id;
         if (credit == null) {
             return DataResponse.error(400,"credit cannot be null");
@@ -33,6 +33,8 @@ public class CourseService {
             return DataResponse.error(400,"classes cannot be null");
         } else if(teacher == null || teacher.equals("")) {
             return DataResponse.error(400,"teacher cannot be null");
+        }else if(capacity == null || capacity.equals("")) {
+            return DataResponse.error(400,"capacity cannot be null");
         } else{
             if(course_type.equals("专业基础课")){
                 course_type_id = 1;
@@ -51,14 +53,14 @@ public class CourseService {
             } else {
                 course_type_id = null;
             }
-            courseMapper.updateInfo(id, course_name,credit,num,course_type_id,book,extracurricular,teacher,classes);
+            courseMapper.updateInfo(id, course_name,credit,num,course_type_id,book,extracurricular,teacher,classes,capacity);
             return DataResponse.ok("success");
         }
     }
-    public Result selectInfo(Integer id){
-        return Result.success(courseMapper.selectInfo(id));
+    public DataResponse selectInfo(Integer id){
+        return DataResponse.success(courseMapper.selectInfo(id));
     }
-    public Result addCourse(String course_name, Double credit, String num, String course_type, Integer pre_course_id, String book, String extracurricular,String classes,String teacher_name,String terms){
+    public Result addCourse(String course_name, Double credit, String num, String course_type, Integer pre_course_id, String book, String extracurricular,String classes,String teacher_name,String terms,String capacity,String students){
         Integer course_type_id;
         if(course_type == null){
             course_type_id = null;
@@ -82,7 +84,7 @@ public class CourseService {
         if(courseMapper.selectByNum(num) != null){
             return Result.error(400,"课程已存在");
         } else {
-            courseMapper.addCourse(course_name,credit,num,course_type_id,pre_course_id,book,extracurricular,classes,teacher_name,terms);
+            courseMapper.addCourse(course_name,credit,num,course_type_id,pre_course_id,book,extracurricular,classes,teacher_name,terms,capacity,students);
             return Result.ok("添加成功");
         }
 
@@ -95,7 +97,7 @@ public class CourseService {
             return DataResponse.ok();
         }
     }
-//    public DataResponse selectMixed(Course course){
+    //    public DataResponse selectMixed(Course course){
 //        return DataResponse.success(courseMapper.selectMixed(course));
 //    }
     //分页查询课程
@@ -129,7 +131,7 @@ public class CourseService {
     public Result selectAllType(){
         return Result.success(courseMapper.selectAllType());
     }
-    public Result selectSpecial(String terms,String course_type,String course_name,Integer pageNum,String num,String classes){
+    public Result selectSpecial(String terms,String course_type,String course_name,Integer pageNum,String num,String classes,String classe){
         Integer course_type_id;
         if(course_type == null){
             course_type_id = null;
@@ -150,7 +152,7 @@ public class CourseService {
         } else {
             course_type_id = null;
         }
-        return Result.success(courseMapper.selectSpecial(terms,course_type_id,course_name,pageNum,num,classes));
+        return Result.success(courseMapper.selectSpecial(terms,course_type_id,course_name,pageNum,num,classes,classe));
     }
 
     public Result selectByNum(String num) {
@@ -173,6 +175,25 @@ public class CourseService {
     }
     public Result selectStudentAndCourse(Integer student_id,Integer course_id) {
         return Result.success(courseMapper.selectStudentAndCourse(student_id,course_id));
+    }
+    public Result selectClasses(Integer id) {
+        return Result.success(courseMapper.selectclasses(id));
+    }
+    public Result selectCourseByType(Integer id1,Integer id2,Integer id3,Integer pageNum,String classes,String classe,String terms) {
+        return Result.success(courseMapper.selectCourseByType(id1,id2,id3,pageNum,classes,classe,terms));
+    }
+    public Result selectPre(Integer student_id,Integer pre_course_id) {
+        if(pre_course_id == 0){
+            return Result.success(courseMapper.selectAll());
+        } else {
+            return Result.success(courseMapper.selectPre(student_id,pre_course_id));
+        }
+    }
+    public Result selectLessonStudent(Integer student_id,String terms) {
+        return Result.success(courseMapper.selectLessonStudent(student_id,terms));
+    }
+    public Result selectByNum2(String num) {
+        return Result.success(courseMapper.selectByNum2(num));
     }
 }
 

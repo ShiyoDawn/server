@@ -24,7 +24,6 @@ public class GloryController {
         String glory_name = dataRequest.getString("glory_name");
         String glory_type = dataRequest.getString("glory_type");
         String glory_level = dataRequest.getString("glory_level");
-        System.out.println(dataRequest.getData());
         return gloryService.insertGlory(student_name, student_num, glory_name, glory_type, glory_level);
     }
 
@@ -32,25 +31,31 @@ public class GloryController {
     public Result deleteGlory(@Valid @RequestBody DataRequest dataRequest) {
         String student_name = dataRequest.getString("student_name");
         String glory_name = dataRequest.getString("glory_name");
-        return gloryService.deleteGlory(student_name, glory_name);
+        String glory_type = dataRequest.getString("glory_type");
+        String glory_level = dataRequest.getString("glory_level");
+        String student_num = dataRequest.getString("student_num");
+        return gloryService.deleteGlory(student_name, glory_name, glory_type, glory_level, student_num);
     }
 
     @PostMapping("/updateGlory")
     public Result updateGlory(@Valid @RequestBody DataRequest dataRequest) {
+        String student_num=dataRequest.getString("student_num");
         String student_name = dataRequest.getString("student_name");
         String glory_name = dataRequest.getString("glory_name");
-        String raw_glory_name = dataRequest.getString("raw_glory_name");
         String glory_level = dataRequest.getString("glory_level");
         String glory_type = dataRequest.getString("glory_type");
-        return gloryService.updateGlory(student_name, glory_name, raw_glory_name, glory_level, glory_type);
+        String raw_glory_name = dataRequest.getString("raw_glory_name");
+        String raw_glory_level = dataRequest.getString("raw_glory_level");
+        String raw_glory_type = dataRequest.getString("raw_glory_type");
+        return gloryService.updateGlory(student_num, student_name, glory_name, glory_level, glory_type, raw_glory_name, raw_glory_level, raw_glory_type);
     }
 
     @PostMapping("/selectByStudentAndGlory")
     public Result selectByStudentAndGlory(@Valid @RequestBody DataRequest dataRequest) {
-        String student_name = dataRequest.getString("student_name");
+        String student_num = dataRequest.getString("student_num");
         String glory_name = dataRequest.getString("glory_name");
         System.out.println(dataRequest.getData());
-        return gloryService.selectByStudentAndGlory(student_name, glory_name);
+        return gloryService.selectByStudentAndGlory(student_num, glory_name);
     }
 
     @PostMapping("/selectByStudentName")

@@ -51,12 +51,12 @@ public class PersonController {
         return personSevice.selectSPersonByIdMap(id);
     }
 
-    @PostMapping("/updatePhoto")
-    public Result updatePhoto(@Valid @RequestBody DataRequest dataRequest) {
-        String person_num = dataRequest.getString("person_num");
-        byte[] photo = dataRequest.getBytes("photo");
-        return personSevice.updatePhoto(person_num, photo);
-    }
+//    @PostMapping("/updatePhoto")
+//    public Result updatePhoto(@Valid @RequestBody DataRequest dataRequest) {
+//        String person_num = dataRequest.getString("person_num");
+//        byte[] photo = dataRequest.getBytes("photo");
+//        return personSevice.updatePhoto(person_num, photo);
+//    }
 
     @PostMapping("/selectPhoto")
     public Result selectPhoto(@Valid @RequestBody DataRequest dataRequest) {
