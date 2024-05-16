@@ -76,24 +76,13 @@ public class LessonService {
         return Result.success(lessonMapper.selectLesson());
     }
     public Result selectByCourseId(Integer id){
-        List<Lesson> lessonList = lessonMapper.selectByCourseId(id);
-        List<Map<String, String>> dataList = new ArrayList();
-        Map<String, String> map;
-        for (Lesson lesson : lessonList) {
-            String time;
-            map = new HashMap<>();
-            map.put("id", String.valueOf(lesson.getId()));
-            map.put("date", lesson.getDate());
-            map.put("time",lesson.getTime_sort());
-            map.put("homework", lesson.getHomework());
-            map.put("status", String.valueOf(lesson.getStatus()));
-            map.put("week_time", String.valueOf(lesson.getWeek_time()));
-            map.put("room", lesson.getRoom());
-            map.put("notes",lesson.getNotes());
-            map.put("attend",lesson.getAttend());
-            dataList.add(map);
+        return Result.success(lessonMapper.selectByCourseId(id));
+    }
+    public Result addLesson(List<List<String>> list1,List<List<String>> list){
+        for (List<String> strings : list) {
+            lessonMapper.addLesson(String.valueOf(list1.get(0).get(0)), String.valueOf(strings.get(0)),String.valueOf(strings.get(1)),String.valueOf(strings.get(2)));
         }
-        return Result.success(dataList);
+        return Result.ok("添加成功");
     }
 
 }
