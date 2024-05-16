@@ -16,4 +16,7 @@ public interface FeeMapper {
 
     void updateId(Integer id, String student_num, String student_name, String date, String money, String activity, String activity_detail);
 
+    List<Fee> selectByStudentNum(String student_num);
+
+    void deleteByStudentNum(String student_num);
 }

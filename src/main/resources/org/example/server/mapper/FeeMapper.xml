@@ -19,5 +19,11 @@
     <update id="updateId">
         update Fee set "id" = #{id} where "student_num" = #{student_num} and "student_name" = #{student_name} and "date" = #{date} and "activity" = #{activity} and "money" = #{money} and "activity_detail" = #{activity_detail}
     </update>
+    <select id="selectByStudentNum" resultType="org.example.server.pojo.Evaluate">
+        select * from Fee where "student_num" = #{student_num}
+    </select>
+    <delete id="deleteByStudentNum" parameterType="String">
+        delete from Fee where "student_num" = #{student_num}
+    </delete>
 
 </mapper>

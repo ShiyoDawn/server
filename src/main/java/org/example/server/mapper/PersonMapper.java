@@ -22,7 +22,13 @@ public interface PersonMapper extends BaseMapper<Person> {
 
     void updatePerson(Map map);
 
+    void  update(Map map);
+
     void updatePhoto(String person_num, byte[] photo);
+
+    void insertPerson(Map<String, Object> person);
+
+    void deleteById(Integer id);
 
     byte[] selectPhoto(String person_num);
 }

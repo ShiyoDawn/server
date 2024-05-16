@@ -97,5 +97,7 @@
         select * from Score where "course_num"=#{course_num} ORDER BY mark DESC
     </select>
     <!--有个scoreSave未写，之后补-->
-
+    <delete id="deleteByStudentNum" parameterType="String">
+        delete from Score where "student_num" = #{student_num}
+    </delete>
 </mapper>
