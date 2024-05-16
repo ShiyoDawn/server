@@ -34,7 +34,7 @@ public class CourseController {
         return courseService.updateInfo(id, course_name, credit, num, course_type, book, extracurricular,teacher,classes,capacity);
     }
     @PostMapping("/selectInfo")
-    public Result selectInfo(@RequestBody DataRequest dataRequest){
+    public DataResponse selectInfo(@RequestBody DataRequest dataRequest){
         Integer id=dataRequest.getInteger("id");
         return courseService.selectInfo(id);
     }
@@ -182,7 +182,6 @@ public class CourseController {
         String num = dataRequest.getString("num");
         return courseService.selectByNum2(num);
     }
-
 }
 
 

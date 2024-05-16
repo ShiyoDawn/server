@@ -5,8 +5,8 @@
 <mapper namespace="org.example.server.mapper.CourseMapper">
     <select id="selectAll">
         SELECT * , course_type.course_type_name
-            FROM Course
-            JOIN course_type ON course.course_type_id = course_type.id;
+        FROM Course
+                 JOIN course_type ON course.course_type_id = course_type.id;
     </select>
     <select id="selectAllByPage">
         SELECT * , course_type.course_type_name
@@ -15,7 +15,7 @@
             limit (#{pageNum}) * 6,6;
     </select>
     <select id="selectInfo" resultType="org.example.server.pojo.Course">
-        SELECT * FROM Course where id = #{id};
+        SELECT * FROM course where id = #{id};
     </select>
     <select id="selectByNum" resultType="org.example.server.pojo.Course">
         SELECT * FROM Course where num = #{num};
@@ -111,7 +111,7 @@
     <select id="selectStudentCourse">
         SELECT *,course.teacher_name
         FROM student_course
-        JOIN course ON student_course.course_id = course.id
+                 JOIN course ON student_course.course_id = course.id
         WHERE student_course.course_id = #{id};
     </select>
     <delete id="deleteStudent">

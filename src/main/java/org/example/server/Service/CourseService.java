@@ -57,8 +57,8 @@ public class CourseService {
             return DataResponse.ok("success");
         }
     }
-    public Result selectInfo(Integer id){
-        return Result.success(courseMapper.selectInfo(id));
+    public DataResponse selectInfo(Integer id){
+        return DataResponse.success(courseMapper.selectInfo(id));
     }
     public Result addCourse(String course_name, Double credit, String num, String course_type, Integer pre_course_id, String book, String extracurricular,String classes,String teacher_name,String terms,String capacity,String students){
         Integer course_type_id;
@@ -97,7 +97,7 @@ public class CourseService {
             return DataResponse.ok();
         }
     }
-//    public DataResponse selectMixed(Course course){
+    //    public DataResponse selectMixed(Course course){
 //        return DataResponse.success(courseMapper.selectMixed(course));
 //    }
     //分页查询课程
