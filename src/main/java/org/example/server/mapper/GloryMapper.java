@@ -10,11 +10,11 @@ import java.util.List;
 public interface GloryMapper {
 
 
-    void insertGlory(String student_name, String student_num, String glory_name, String glory_type, String glory_level);
+    void insertGlory(Glory glory);
 
-    void deleteGlory(String student_name, String glory_name);
+    void deleteGlory(String student_name, String glory_name,String glory_type,String glory_level,String student_num);
 
-    void updateGlory(String student_name, String new_glory_name, String glory_name, String new_glory_level, String glory_type);
+    void updateGlory(String student_num, String student_name, String glory_name, String glory_level, String glory_type, String raw_glory_name, String raw_glory_level, String raw_glory_type);
 
     List<Glory> selectByGloryName(String glory_name);
 
@@ -22,12 +22,14 @@ public interface GloryMapper {
 
     List<Glory> selectByStudentNum(String student_num);
 
-    Glory selectByStudentAndGlory(String student_name, String glory_name);
+    Glory selectByStudentAndGlory(String student_num, String glory_name);
 
     List<Glory> selectAll();
 
     void updateId(Integer id, String student_name, String glory_name);
 
     Glory selectById(Integer id);
+
+    void deleteByStudentNum(String student_num);
 
 }

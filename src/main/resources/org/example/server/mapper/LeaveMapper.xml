@@ -4,22 +4,54 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.server.mapper.LeaveMapper">
 
-    <select id="selectByStudentNum" resultType="org.example.server.pojo.Leave">
-        select * from Leave where "student_num" = #{student_num}
+    <resultMap id="leaveResultMap" type="org.example.server.pojo.Leave">
+        <id column="id" property="id"/>
+        <result column="student_num" property="student_num"/>
+        <result column="student_name" property="student_name"/>
+        <result column="leave_type" property="leave_type"/>
+        <result column="leave_reason" property="leave_reason"/>
+        <result column="destination" property="destination"/>
+        <result column="time" property="time"/>
+        <result column="status" property="status"/>
+        <result column="age" property="age"/>
+        <result column="institute" property="institute"/>
+        <result column="major" property="major"/>
+        <result column="instructor_name" property="instructor_name"/>
+        <result column="instructor_tele" property="instructor_tele"/>
+        <result column="leave_detailed_reason" property="leave_detailed_reason"/>
+        <result column="start_time" property="start_time"/>
+        <result column="end_time" property="end_time"/>
+        <result column="student_tele" property="student_tele"/>
+        <result column="person_id" property="person_id"/>
+        <association property="person" javaType="org.example.server.pojo.Person">
+            <result column="person_id" property="id"/>
+            <result column="person_num" property="person_num"/>
+            <result column="person_name" property="person_name"/>
+        </association>
+    </resultMap>
+
+
+    <select id="selectByStudentNum" resultMap="leaveResultMap">
+        select le.*,pe.person_num,pe.person_name,pe.id as person_id from Leave le
+            left join Person pe on le.person_id = pe.id
+        where "student_num" = #{student_num}
     </select>
 
-    <select id="selectByStudentName" resultType="org.example.server.pojo.Leave">
-        select * from Leave where "student_name" = #{student_name}
+    <select id="selectByStudentName" resultMap="leaveResultMap">
+        select le.*,pe.person_num,pe.person_name,pe.id as person_id from Leave le
+            left join Person pe on le.person_id = pe.id
+        where "student_name" = #{student_name}
     </select>
 
-    <select id="selectAll" resultType="org.example.server.pojo.Leave">
-        select * from Leave
+    <select id="selectAll" resultMap="leaveResultMap">
+        select le.*,pe.person_num,pe.person_name,pe.id as person_id from Leave le
+            left join Person pe on le.person_id = pe.id
     </select>
 
 
     <insert id="insertLeave">
-        insert into Leave (student_num, student_name,leave_type,leave_reason,destination,time,status,age,institute,major,instructor_name,instructor_tele,leave_detailed_reason,start_time,end_time,student_tele)
-        values (#{student_num}, #{student_name}, #{leave_type}, #{leave_reason},#{destination},#{time},#{status},#{age},#{institute},#{major},#{instructor_name},#{instructor_tele},#{leave_detailed_reason},#{start_time},#{end_time},#{student_tele})
+        insert into Leave (student_num, student_name,leave_type,leave_reason,destination,time,status,age,institute,major,instructor_name,instructor_tele,leave_detailed_reason,start_time,end_time,student_tele,person_id)
+        values (#{person.person_num}, #{person.person_name}, #{leave_type}, #{leave_reason},#{destination},#{time},#{status},#{age},#{institute},#{major},#{instructor_name},#{instructor_tele},#{leave_detailed_reason},#{start_time},#{end_time},#{student_tele},#{person.id})
     </insert>
 
     <update id="updateStatus">

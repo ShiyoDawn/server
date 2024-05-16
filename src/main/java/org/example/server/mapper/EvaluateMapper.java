@@ -12,4 +12,8 @@ import java.util.Map;
 public interface EvaluateMapper extends BaseMapper<Evaluate> {
     List<Evaluate> findAllEvaluate();
     void addEvaluate(Map<String, Object> evaluate);
+
+    List<Evaluate> selectByPid(Integer person_id);
+
+    void deleteByPid(Integer person_id);
 }

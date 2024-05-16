@@ -47,4 +47,9 @@ public class Leave {
     private String end_time;
 
     private String student_tele;
+
+    @TableField(exist = false)
+    private Person person;
+
+    private Integer person_id;
 }

@@ -1,8 +1,10 @@
 package org.example.server.Service;
 
 import org.example.server.mapper.LeaveMapper;
+import org.example.server.mapper.PersonMapper;
 import org.example.server.payload.Result;
 import org.example.server.pojo.Leave;
+import org.example.server.pojo.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +18,32 @@ public class LeaveService {
 
     @Autowired
     private LeaveMapper leaveMapper;
+    @Autowired
+    private PersonMapper personMapper;
 
 
     public Result insertLeave(String student_num, String student_name, String leave_type, String leave_reason, String destination, String time, String status, String age, String institute, String major, String instructor_name, String instructor_tele, String leave_detailed_reason, String start_time, String end_time, String student_tele) {
-        leaveMapper.insertLeave(student_num,student_name,leave_type,leave_reason,destination,time,status,age,institute,major,instructor_name,instructor_tele,leave_detailed_reason,start_time,end_time,student_tele);
+        Person person=personMapper.selectByPersonNum(student_num);
+        Leave leave=new Leave();
+        leave.setPerson(person);
+        leave.setPerson_id(person.getId());
+        leave.setStudent_num(student_num);
+        leave.setStudent_name(student_name);
+        leave.setLeave_type(leave_type);
+        leave.setLeave_reason(leave_reason);
+        leave.setDestination(destination);
+        leave.setTime(time);
+        leave.setStatus(status);
+        leave.setAge(age);
+        leave.setInstitute(institute);
+        leave.setMajor(major);
+        leave.setInstructor_name(instructor_name);
+        leave.setInstructor_tele(instructor_tele);
+        leave.setLeave_detailed_reason(leave_detailed_reason);
+        leave.setStart_time(start_time);
+        leave.setEnd_time(end_time);
+        leave.setStudent_tele(student_tele);
+        leaveMapper.insertLeave(leave);
         return Result.success("增添成功");
 
     }
@@ -35,6 +59,10 @@ public class LeaveService {
         List<Map> mapList=new ArrayList<>();
         for(Leave leave:leaveList){
             Map map=new HashMap();
+            Person person=personMapper.selectById(leave.getPerson_id());
+            leave.setPerson(person);
+            leave.setStudent_num(person.getPerson_num());
+            leave.setStudent_name(person.getPerson_name());
             map.put("id",leave.getId()+"");
             map.put("student_num",leave.getStudent_num());
             map.put("student_name",leave.getStudent_name());
@@ -63,8 +91,11 @@ public class LeaveService {
         Integer cnt=0;
         for(Leave leave:leaveList){
             Map map=new HashMap();
-            cnt++;
-            map.put("id",cnt+"");
+            Person person=personMapper.selectById(leave.getPerson_id());
+            leave.setPerson(person);
+            leave.setStudent_num(person.getPerson_num());
+            leave.setStudent_name(person.getPerson_name());
+            map.put("id",++cnt+"");
             map.put("student_num",leave.getStudent_num());
             map.put("student_name",leave.getStudent_name());
             map.put("leave_type",leave.getLeave_type());

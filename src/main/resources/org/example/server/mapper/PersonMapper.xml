@@ -62,6 +62,19 @@
         SET person_num = #{person_num}
         WHERE id = #{id}
     </update>
+    <update id="update" parameterType="map">
+        UPDATE person
+        SET person_name = #{person_name},
+            phone_number = #{phone_number},
+            identity = #{identity},
+            person_num = #{person_num},
+            birthday = #{birthday},
+            user_type = #{user_type},
+            department = #{department},
+            email = #{email},
+            identity_number = #{identity_number}
+        WHERE id = #{id}
+    </update>
 
     <update id="updatePhoto">
         UPDATE person
@@ -74,5 +87,14 @@
         FROM person
         WHERE person_num = #{person_num}
     </select>
+    <insert id="insertPerson" parameterType="map" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO person (person_name, phone_number, identity, person_num, birthday, user_type, department, email, identity_number,gender_id)
+        VALUES (#{person_name}, #{phone_number}, #{identity}, #{person_num}, #{birthday}, #{user_type}, #{department}, #{email}, #{identity_number},#{gender_id})
+    </insert>
+    <delete id="deleteById" parameterType="Integer">
+        DELETE
+        FROM person
+        WHERE id = #{id}
+    </delete>
 
 </mapper>

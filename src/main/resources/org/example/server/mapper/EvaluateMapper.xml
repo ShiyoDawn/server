@@ -11,4 +11,13 @@
         insert into evaluate(person_id,activity_name,date,score,activity_type)
         values (#{person_id}, #{activity_name}, #{date}, #{score}, #{activity_type})
     </insert>
+    <select id="selectByPid" resultType="org.example.server.pojo.Evaluate">
+        select *
+        from evaluate
+        where person_id = #{person_id}
+    </select>
+    <delete id="deleteByPid" parameterType="Integer">
+        delete from evaluate
+        where person_id = #{person_id}
+    </delete>
 </mapper>
