@@ -26,4 +26,8 @@ public interface UserMapper extends BaseMapper<User> {
 
     User selectByPersonNum(String person_num);
     void updatePassword(String person_num, String password);
+
+    void deleteByPersonNum(String personNum);
+
+    User selectByPersonNum(String personNum);
 }

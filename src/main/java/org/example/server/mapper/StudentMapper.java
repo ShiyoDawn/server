@@ -34,6 +34,8 @@ public interface StudentMapper extends BaseMapper<Student> {
 
     void updateStudentMajor(String student_name, String major);
 
+    void deleteByPid(Integer person_id);
+
     void deleteStudentByPidAndName(Integer person_id,String student_name);
     List<Map<String,Object>> selectStudentAndStudentFamilyById(Integer id);
 

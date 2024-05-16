@@ -1,12 +1,8 @@
 package org.example.server.Service;
 
-import org.example.server.mapper.GenderMapper;
-import org.example.server.mapper.PersonMapper;
-import org.example.server.mapper.StudentMapper;
-import org.example.server.mapper.UserMapper;
+import org.example.server.mapper.*;
 import org.example.server.payload.Result;
-import org.example.server.pojo.Gender;
-import org.example.server.pojo.Person;
+import org.example.server.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +22,16 @@ public class PersonService {
     UserMapper userMapper;
     @Autowired
     private GenderMapper genderMapper;
+    @Autowired
+    private GloryMapper gloryMapper;
+    @Autowired
+    private StudentFamilyMapper studentFamilyMapper;
+    @Autowired
+    private ScoreMapper scoreMapper;
+    @Autowired
+    private FeeMapper feeMapper;
+    @Autowired
+    private EvaluateMapper evaluateMapper;
 
     public Result getPersonList() {
         return Result.success(personMapper.selectAll());
@@ -110,4 +116,101 @@ public class PersonService {
         }
         return list;
     }
+
+    public void addPerson(String personName, String phoneNumber, String identity, String personNum, String birthday, String userType, String department, String email, String identityNumber,Integer gender_id) {
+        Person p=personMapper.selectByPersonNum(personNum);
+        if (p!=null){
+            return;
+        }
+        Integer user_type=3;
+        if (userType.equals("学生")){
+            user_type=3;
+        }
+        if (userType.equals("教师")){
+            user_type=2;
+        }
+        if (userType.equals("管理员")){
+            user_type=1;
+        }
+        Map<String, Object> personMap = new HashMap<>();
+        personMap.put("person_name", personName);
+        personMap.put("phone_number", phoneNumber);
+        personMap.put("identity", identity);
+        personMap.put("person_num", personNum);
+        personMap.put("birthday", birthday);
+        personMap.put("user_type", user_type);
+        personMap.put("department", department);
+        personMap.put("email", email);
+        personMap.put("identity_number", identityNumber);
+        personMap.put("gender_id",gender_id);
+        personMapper.insertPerson(personMap);
+    }
+
+    public void updatePerson(Integer id, String personName, String phoneNumber, String identity, String personNum, String birthday, String userType, String department, String email, String identityNumber,Integer gender_id) {
+        Person p=personMapper.selectById(id);
+        if (p==null){
+            return;
+        }
+        Integer user_type=3;
+        if (userType.equals("学生")){
+            user_type=3;
+        }
+        if (userType.equals("教师")){
+            user_type=2;
+        }
+        if (userType.equals("管理员")){
+            user_type=1;
+        }
+        Map<String, Object> personMap = new HashMap<>();
+        personMap.put("id", id);
+        personMap.put("person_name", personName);
+        personMap.put("phone_number", phoneNumber);
+        personMap.put("identity", identity);
+        personMap.put("person_num", personNum);
+        personMap.put("birthday", birthday);
+        personMap.put("user_type", user_type);
+        personMap.put("department", department);
+        personMap.put("email", email);
+        personMap.put("identity_number", identityNumber);
+        personMap.put("gender_id",gender_id);
+        personMapper.update(personMap);
+    }
+
+    public void deletePerson(Integer id) {
+        //先删除关联的信息：学生信息，用户信息，活动信息，荣誉信息，家庭信息，分数信息，学费信息
+        Person person=personMapper.selectById(id);
+        if (person==null){
+            return;
+        }
+        Student student=studentMapper.selectByPid(id);
+        if (student!=null){
+            studentMapper.deleteByPid(id);
+            List<Glory> glory=gloryMapper.selectByStudentNum(person.getPerson_num());
+            if (glory!=null){
+                gloryMapper.deleteByStudentNum(person.getPerson_num());
+            }
+            List<StudentFamily> studentFamily=studentFamilyMapper.findFamilyByStudentId(student.getId());
+            if (studentFamily!=null){
+                studentFamilyMapper.deleteByPid(id);
+            }
+            List<Score> score=scoreMapper.selectByStudentId(person.getPerson_num());
+            if (score!=null){
+                scoreMapper.deleteByStudentNum(person.getPerson_num());
+            }
+            List<Fee> fee=feeMapper.selectByStudentNum(person.getPerson_num());
+            if (fee!=null){
+                feeMapper.deleteByStudentNum(person.getPerson_num());
+            }
+        }
+        List<Evaluate> evaluate=evaluateMapper.selectByPid(id);
+        System.out.println(1);
+        if (evaluate!=null){
+            evaluateMapper.deleteByPid(id);
+        }
+        User user=userMapper.selectByPersonNum(person.getPerson_num());
+        if (user!=null){
+            userMapper.deleteByPersonNum(person.getPerson_num());
+        }
+        personMapper.deleteById(id);
+    }//此处对teacher不适配，后改
 }

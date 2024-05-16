@@ -78,5 +78,7 @@
         insert into Glory ("student_num","student_name", "glory_name", "glory_type","glory_level","person_id")
         values (#{person.person_num}, #{person.person_name}, #{glory_name}, #{glory_type},#{glory_level},#{person_id})
     </insert>
-
+    <delete id="deleteByStudentNum" parameterType="String">
+        delete from Glory where "student_num" = #{student_num}
+    </delete>
 </mapper>

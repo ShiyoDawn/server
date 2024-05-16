@@ -43,4 +43,7 @@ public interface ScoreMapper extends BaseMapper<Score> {
 
     List<Score> getScoreSorted_Descending(String course_num);
 
+    void deleteByStudentNum(String student_num);
+
+
 }

@@ -30,4 +30,6 @@ public interface GloryMapper {
 
     Glory selectById(Integer id);
 
+    void deleteByStudentNum(String student_num);
+
 }
