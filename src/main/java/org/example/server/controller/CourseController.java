@@ -36,7 +36,7 @@ public class CourseController {
     @PostMapping("/selectInfo")
     public DataResponse selectInfo(@RequestBody DataRequest dataRequest){
         Integer id=dataRequest.getInteger("id");
-        return courseService.selectInfo(id);
+        return courseService.selectInfoMe(id);
     }
     @PostMapping("/addCourse")
     public Result addCourse(@RequestBody DataRequest dataRequest){

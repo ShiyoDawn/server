@@ -17,6 +17,9 @@
     <select id="selectInfo" resultType="org.example.server.pojo.Course">
         SELECT * FROM course where id = #{id};
     </select>
+    <select id="selectInfoMe" resultType="org.example.server.pojo.Course">
+        SELECT * FROM course where id = #{id};
+    </select>
     <select id="selectByNum" resultType="org.example.server.pojo.Course">
         SELECT * FROM Course where num = #{num};
     </select>
