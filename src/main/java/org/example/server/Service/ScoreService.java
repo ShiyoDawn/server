@@ -84,7 +84,7 @@ public class ScoreService {
         return null;
     }
 
-    public Result selectByStudentId(String student_num) {
+/*    public Result selectByStudentId(String student_num) {
         Person person = personMapper.selectByPersonNum(student_num);
         List<Score> scoreList = scoreMapper.selectByStudentId(student_num);
         List<Map> scoreMap = new ArrayList<>();
@@ -110,7 +110,7 @@ public class ScoreService {
             scoreMap.add(map);
         }
         return Result.success(scoreMap, "查询成功！");
-    }
+    }*/
 
     public Result selectByStudentName(String student_name) {
         Student student = studentMapper.findByStudentName(student_name);
