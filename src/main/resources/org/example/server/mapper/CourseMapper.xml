@@ -30,12 +30,13 @@
             <if test="book !=null">book=#{book},</if>
             <if test="extracurricular!=null">extracurricular=#{extracurricular},</if>
             <if test="teacher!=null">teacher_name=#{teacher},</if>
-            <if test="classes!=null">classes=#{classes}</if>
+            <if test="classes!=null">classes=#{classes},</if>
+            <if test="capacity!=null">`capacity`=#{capacity}</if>
         </set>
         where id = #{id};
     </update>
     <insert id="addCourse" parameterType="org.example.server.pojo.Course">
-        insert into Course (course_name,credit,num,course_type_id,pre_course_id,book,extracurricular,classes,teacher_name,terms) values (#{course_name},#{credit},#{num},#{course_type_id},#{pre_course_id},#{book},#{extracurricular},#{classes},#{teacher_name},#{terms});
+        insert into Course (course_name,credit,num,course_type_id,pre_course_id,book,extracurricular,classes,teacher_name,terms,capacity,students) values (#{course_name},#{credit},#{num},#{course_type_id},#{pre_course_id},#{book},#{extracurricular},#{classes},#{teacher_name},#{terms},#{capacity},#{students});
     </insert>
     <delete id="deleteCourseById" parameterType="org.example.server.pojo.Course">
         delete from Course where id = #{id};
@@ -97,7 +98,7 @@
                 and num like '%' || #{num} || '%'
             </if>
             <if test="classes != null">
-                and classes like '%' || #{classes} || '%'
+                and classes like '%' || #{classes} || '%' or classes like '%' || #{classe} || '%'
             </if>
         </where>
         <if test="pageNum != null">
@@ -124,7 +125,43 @@
         FROM student_course
         WHERE course_id = #{course_id} and student_id = #{student_id};
     </select>
-
-
-
+    <select id="selectclasses">
+        SELECT *
+        FROM student
+        WHERE person_id = #{id};
+    </select>
+    <select id="selectCourseByType">
+        SELECT *
+        FROM course
+        <where>
+            <if test="id1 != null">
+                and course_type_id in (#{id1},#{id2},#{id3})
+            </if>
+            <if test="classes != null">
+                and (classes like '%' || #{classes} || '%' or classes like '%' || #{classe} || '%')
+            </if>
+            <if test="terms != null">
+                and terms = #{terms}
+            </if>
+        </where>
+        <if test="pageNum != null">
+            limit (#{pageNum}) * 6,6;
+        </if>
+    </select>
+    <select id="selectPre">
+        SELECT *
+        FROM student_course
+        WHERE course_id = #{pre_course_id} and student_id = #{student_id};
+    </select>
+    <select id="selectLessonStudent">
+        SELECT course.course_name,course.teacher_name,course.credit,lesson.time_sort,lesson.room,lesson.week_time
+        FROM student
+                 JOIN student_course ON student.id = student_course.student_id
+                 JOIN course ON student_course.course_id = course.id
+                 JOIN lesson ON student_course.course_id = lesson.course_id
+        WHERE student.id = #{student_id} and lesson.terms = #{terms};
+    </select>
+    <select id="selectByNum2" resultType="org.example.server.pojo.Course">
+        SELECT * FROM Course where num = #{num};
+    </select>
 </mapper>

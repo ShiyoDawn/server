@@ -30,7 +30,8 @@ public class CourseController {
         String extracurricular=dataRequest.getString("extracurricular");
         String teacher = dataRequest.getString("teacher");
         String classes = dataRequest.getString("classes");
-        return courseService.updateInfo(id, course_name, credit, num, course_type, book, extracurricular,teacher,classes);
+        String capacity = dataRequest.getString("capacity");
+        return courseService.updateInfo(id, course_name, credit, num, course_type, book, extracurricular,teacher,classes,capacity);
     }
     @PostMapping("/selectInfo")
     public DataResponse selectInfo(@RequestBody DataRequest dataRequest){
@@ -49,7 +50,9 @@ public class CourseController {
         String classes=dataRequest.getString("classes");
         String teacher_name=dataRequest.getString("teacher_name");
         String terms=dataRequest.getString("terms");
-        return courseService.addCourse(course_name, credit, num, course_type, pre_course_id, book, extracurricular,classes,teacher_name,terms);
+        String capacity=dataRequest.getString("capacity");
+        String students=dataRequest.getString("students");
+        return courseService.addCourse(course_name, credit, num, course_type, pre_course_id, book, extracurricular,classes,teacher_name,terms,capacity,students);
     }
     @PostMapping("/deleteCourseById")
     public DataResponse deleteCourseByID(@RequestBody DataRequest dataRequest){
@@ -113,8 +116,9 @@ public class CourseController {
         String course_type = dataRequest.getString("course_type");
         String num = dataRequest.getString("classNum");
         String classes = dataRequest.getString("classes");
+        String classe = dataRequest.getString("classe");
         Integer pageNum = dataRequest.getInteger("pageNum");
-        return courseService.selectSpecial(terms,course_type,course_name,pageNum,num,classes);
+        return courseService.selectSpecial(terms,course_type,course_name,pageNum,num,classes,classe);
     }
     @PostMapping("/deleteCourse")
     public Result deleteCourse(@Valid @RequestBody DataRequest dataRequest){
@@ -144,6 +148,39 @@ public class CourseController {
         Integer student_id = dataRequest.getInteger("student_id");
         Integer course_id = dataRequest.getInteger("course_id");
         return courseService.selectStudentAndCourse(student_id,course_id);
+    }
+    @PostMapping("/selectClasses")
+    public Result selectClasses(@Valid @RequestBody DataRequest dataRequest){
+        Integer id = dataRequest.getInteger("id");
+        return courseService.selectClasses(id);
+    }
+    @PostMapping("/selectCourseByType")
+    public Result selectCourseByType(@Valid @RequestBody DataRequest dataRequest){
+        Integer id1 = dataRequest.getInteger("course_type_id");
+        Integer id2 = dataRequest.getInteger("course_typ_id");
+        Integer id3 = dataRequest.getInteger("course_ty_id");
+        Integer pageNum = dataRequest.getInteger("pageNum");
+        String classes = dataRequest.getString("classes");
+        String classe = dataRequest.getString("classe");
+        String terms = dataRequest.getString("terms");
+        return courseService.selectCourseByType(id1,id2,id3,pageNum,classes,classe,terms);
+    }
+    @PostMapping("/selectPre")
+    public Result selectPre(@Valid @RequestBody DataRequest dataRequest){
+        Integer student_id = dataRequest.getInteger("student_id");
+        Integer pre_course_id = dataRequest.getInteger("pre_course_id");
+        return courseService.selectPre(student_id,pre_course_id);
+    }
+    @PostMapping("/selectLessonStudent")
+    public Result selectLessonStudent(@RequestBody DataRequest dataRequest){
+        Integer student_id = dataRequest.getInteger("student_id");
+        String terms = dataRequest.getString("terms");
+        return courseService.selectLessonStudent(student_id,terms);
+    }
+    @PostMapping("/selectByNum2")
+    public Result selectByNum2(@RequestBody DataRequest dataRequest){
+        String num = dataRequest.getString("num");
+        return courseService.selectByNum2(num);
     }
 
 }

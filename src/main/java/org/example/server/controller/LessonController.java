@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -56,8 +57,14 @@ public class LessonController {
     }
     @PostMapping("/selectByCourseId")
     public Result selectByCourseId(@Valid @RequestBody DataRequest dataRequest){
-        Integer id = dataRequest.getInteger("id");
+        Integer id = dataRequest.getInteger("course_id");
         return lessonService.selectByCourseId(id);
+    }
+    @PostMapping("/addLesson")
+    public Result addLesson(@Valid @RequestBody DataRequest dataRequest){
+        List<List<String>> list = dataRequest.getList("lesson");
+        List<List<String>> list1 = dataRequest.getList("course_id");
+        return lessonService.addLesson(list1,list);
     }
 
 

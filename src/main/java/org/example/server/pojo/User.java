@@ -30,4 +30,6 @@ public class User implements Serializable {
 
     private String create_time;
 
+    private Integer person_id;
+
 }

@@ -1,6 +1,9 @@
 package org.example.server.payload.request;
 
 
+import com.google.gson.Gson;
+import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
+
 import java.util.*;
 
 /**
@@ -8,6 +11,7 @@ import java.util.*;
  * Map data 保存前端请求参数的Map集合
  */
 public class DataRequest {
+
     private Map data;
 
     public DataRequest() {
@@ -49,14 +53,16 @@ public class DataRequest {
             return false;
     }
 
-    public List getList(String key){
+    public List<List<String>> getList(String key){
         Object obj = data.get(key);
         if(obj == null)
-            return new ArrayList();
-        if(obj instanceof List)
-            return (List)obj;
+            return new ArrayList<>();
+        if(obj instanceof List){
+            List<List<String>> dataList = new Gson().fromJson(obj.toString(), List.class);
+            return dataList;
+        }
         else
-            return new ArrayList();
+            return new ArrayList<>();
     }
     public Map getMap(String key){
         if(data == null)
