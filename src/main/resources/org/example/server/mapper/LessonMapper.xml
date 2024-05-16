@@ -48,9 +48,19 @@
         SELECT *,course.course_name
         from lesson
         JOIN course ON lesson.course_id=course.id
-        where lesson.course_id = #{id};
+        where lesson.course_id = #{id}
+        ORDER BY week ASC, week_time ASC, time_sort ASC;
     </select>
     <insert id="addLesson">
         insert into lesson (course_id,week,time_sort,week_time) VALUES (#{course_id},#{week},#{time_sort},#{week_time});
     </insert>
+    <update id="updateInfo">
+        update lesson
+        <set>
+            <if test="notes !=null">notes=#{notes},</if>
+            <if test="room!=null">room=#{room},</if>
+            <if test="homework!=null">homework=#{homework}</if>
+        </set>
+        where course_id = #{course_id} and week = #{week} and week_time = #{week_time} and time_sort = #{time_sort};
+    </update>
 </mapper>
