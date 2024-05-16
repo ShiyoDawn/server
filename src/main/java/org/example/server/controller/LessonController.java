@@ -66,6 +66,15 @@ public class LessonController {
         List<List<String>> list1 = dataRequest.getList("course_id");
         return lessonService.addLesson(list1,list);
     }
+    @PostMapping("/updateInfo")
+    public Result updateInfo(@Valid @RequestBody DataRequest dataRequest){
+        Integer course_id = dataRequest.getInteger("course_id");
+        Integer week = dataRequest.getInteger("week");
+        Integer week_time = dataRequest.getInteger("week_time");
+        Integer time_sort = dataRequest.getInteger("time_sort");
+        String notes = dataRequest.getString("notes");
+        return lessonService.updateInfo(course_id,week,week_time,time_sort,notes,null,null);
+    }
 
 
 }

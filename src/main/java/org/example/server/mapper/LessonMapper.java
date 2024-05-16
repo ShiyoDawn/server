@@ -21,6 +21,7 @@ public interface LessonMapper extends BaseMapper<Lesson> {
     List<String> selectHomeworkRatingStudent(Integer lesson_id,Integer student_id);
     List<String> selectHomeworkRatingTeacher(Integer lesson_id,Integer teacher_id);
     List<Map<String,String>> selectByCourseId(Integer id);
-//    void addLesson(String course_id, String week, String time_sort,String week_time);
+
     void addLesson(String course_id,String week,String week_time,String time_sort);
+    void updateInfo(Integer course_id,Integer week,Integer week_time,Integer time_sort,String notes,String room,String homework);
 }
