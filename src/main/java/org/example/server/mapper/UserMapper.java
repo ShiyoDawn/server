@@ -21,10 +21,6 @@ public interface UserMapper extends BaseMapper<User> {
     @Insert("insert into user(id) values (null);")
     void insert1();
 
-    /*@Select("select * from user where person_num = #{person_num}")
-    User selectByNum(String person_num);*/
-
-    User selectByPersonNum(String person_num);
     void updatePassword(String person_num, String password);
 
     void deleteByPersonNum(String personNum);
