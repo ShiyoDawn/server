@@ -1,15 +1,16 @@
 package org.example.server.Service;
 
+import org.example.server.mapper.GenderMapper;
 import org.example.server.mapper.PersonMapper;
 import org.example.server.mapper.StudentMapper;
 import org.example.server.mapper.UserMapper;
 import org.example.server.payload.Result;
-import org.example.server.payload.response.DataResponse;
+import org.example.server.pojo.Gender;
 import org.example.server.pojo.Person;
-import org.example.server.pojo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,8 @@ public class PersonService {
     StudentMapper studentMapper;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    private GenderMapper genderMapper;
 
     public Result getPersonList() {
         return Result.success(personMapper.selectAll());
@@ -70,4 +73,41 @@ public class PersonService {
         return personMapper.getAllPerson();
     }
 
+    public Result updatePhoto(String person_num, byte[] photo) {
+        personMapper.updatePhoto(person_num,photo);
+        return Result.ok();
+    }
+
+    public Result selectPhoto(String person_num) {
+        System.out.println(personMapper.selectPhoto(person_num).getClass());
+        return Result.success(personMapper.selectPhoto(person_num));
+    }
+
+    public List<Map<String, String>> getAll() {
+        List<Person> personList=personMapper.selectAll();
+        if (personList==null){
+            return null;
+        }
+        List<Map<String, String>> list = new ArrayList<>();
+        for (Person person : personList) {
+            Map<String, String> map = new HashMap<>();
+            map.put("id", person.getId() + "");
+            map.put("person_name", person.getPerson_name());
+            map.put("gender_id", person.getGender_id() + "");
+            map.put("phone_number", person.getPhone_number());
+            map.put("identity", person.getIdentity());
+            map.put("person_num", person.getPerson_num());
+            map.put("birthday", person.getBirthday());
+            map.put("user_type", person.getUser_type() + "");
+            map.put("department", person.getDepartment());
+            map.put("email", person.getEmail());
+            map.put("identity_number", person.getIdentity_number());
+            Gender gender=genderMapper.selectById(person.getGender_id());
+            if (gender!=null){
+                map.put("gender",gender.getGender());
+            }
+            list.add(map);
+        }
+        return list;
+    }
 }

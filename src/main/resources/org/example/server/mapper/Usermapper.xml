@@ -10,4 +10,10 @@
         where "id" = #{id}
     </select>
 
+    <update id="updatePassword" >
+        update User
+        set "password" = #{password}
+        where "person_num" = #{person_num}
+    </update>
+
 </mapper>

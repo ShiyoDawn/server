@@ -21,6 +21,10 @@ public interface PersonMapper extends BaseMapper<Person> {
     void deletePersonById(Integer id);
 
     void updatePerson(Map map);
+
+    void updatePhoto(String person_num, byte[] photo);
+
+    byte[] selectPhoto(String person_num);
 }
 
 

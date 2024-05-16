@@ -16,6 +16,9 @@
         select * from Glory where "student_name" = #{student_name} and "glory_name" = #{glory_name}
     </select>
 
+    <select id="selectByStudentNum" resultType="org.example.server.pojo.Glory">
+        select * from Glory where "student_num" = #{student_num}
+    </select>
     <select id="selectById" resultType="org.example.server.pojo.Glory">
         select * from Glory where "id" = #{id}
     </select>

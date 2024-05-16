@@ -1,9 +1,7 @@
 package org.example.server.payload.request;
 
 
-import com.google.gson.Gson;
-import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
-
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
@@ -11,7 +9,6 @@ import java.util.*;
  * Map data 保存前端请求参数的Map集合
  */
 public class DataRequest {
-
     private Map data;
 
     public DataRequest() {
@@ -53,16 +50,14 @@ public class DataRequest {
             return false;
     }
 
-    public List<List<String>> getList(String key){
+    public List getList(String key){
         Object obj = data.get(key);
         if(obj == null)
-            return new ArrayList<>();
-        if(obj instanceof List){
-            List<List<String>> dataList = new Gson().fromJson(obj.toString(), List.class);
-            return dataList;
-        }
+            return new ArrayList();
+        if(obj instanceof List)
+            return (List)obj;
         else
-            return new ArrayList<>();
+            return new ArrayList();
     }
     public Map getMap(String key){
         if(data == null)
@@ -122,6 +117,22 @@ public class DataRequest {
             return null;
         }
     }
+
+    public byte[] getBytes(String key){
+        if(data == null)
+            return null;
+        Object obj = data.get(key);
+        if(obj == null)
+            return null;
+        if(obj instanceof byte[])
+            return (byte[]) obj;
+        try{
+            return obj.toString().getBytes("utf-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 //    public Date getDate( String key) {
 //        Object obj = data.get(key);
 //        if(obj == null)

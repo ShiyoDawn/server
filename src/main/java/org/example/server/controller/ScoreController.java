@@ -69,9 +69,10 @@ public class ScoreController {
         return scoreService.selectByStudentAndCourse(student_num, course_num);
     }
 
-    @PostMapping("/selectByStudentId")
+    @PostMapping("/selectByStudentNum")
     public Result selectByStudentId(@Valid @RequestBody DataRequest dataRequest) {
         String student_num = dataRequest.getString("student_num");
+        System.out.println(student_num+"ok");
         return scoreService.selectByStudentId(student_num);
     }
 
@@ -81,18 +82,18 @@ public class ScoreController {
         return scoreService.selectByStudentName(student_name);
     }
 
-    @PostMapping("/selectByCourseId")
+    @PostMapping("/selectByCourseNum")
     public Result selectByCourseId(@Valid @RequestBody DataRequest dataRequest) {
         String course_num = dataRequest.getString("course_num");
         return scoreService.selectByCourseId(course_num);
     }
 
 
-    @PostMapping("/selectByCourseName")
+/*    @PostMapping("/selectByCourseName")
     public Result selectByCourseName(@Valid @RequestBody DataRequest dataRequest) {
         String course_name = dataRequest.getString("course_name");
         return scoreService.selectByCourseName(course_name);
-    }
+    }*/
 
 
     @PostMapping("/getScoreList")

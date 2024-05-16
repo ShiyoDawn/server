@@ -36,26 +36,18 @@ public class ScoreService {
 
     //增添分数
     public Result insertScore(String student_num, String course_num, Double mark) {
-        Person person=personMapper.selectByPersonNum(student_num);
-        Student student = studentMapper.selectByPid(person.getId());
+        Person person = personMapper.selectByPersonNum(student_num);
         Course course = courseMapper.selectByNum(course_num);
-        if (student == null || course == null) {
-            // 处理学生或课程不存在的情况
-            return Result.error(404, "Student or Course does not exist.");
-        }
-        Score score = scoreMapper.selectByStudentAndCourse(student_num, course_num);
-        if (score != null) {
-            return Result.error(404, "Score has existed.");
-        }
-        //scoreMapper.updateMark(student_id,course_id,mark);
-        //Integer ranking = scoreMapper.calculateRanking(student_id,course_id, mark);
-        scoreMapper.insertMark(student_num,student.getStudent_name(), course_num, course.getCourse_name(), mark);
+        Score score = new Score();
+        score.setStudent_num(student_num);
+        score.setCourse_num(course_num);
+        score.setStudent_name(person.getPerson_name());
+        score.setCourse_name(course.getCourse_name());
+        score.setMark(mark);
+        score.setPerson(person);
+        score.setCourse(course);
+        scoreMapper.insertMark(score);
 
-        //根据加入成绩更新排名
-        //Integer studentRanking = scoreMapper.calculateRanking(student_id,course_id, mark);
-        //scoreMapper.updateRanking(student_id, course_id, studentRanking);
-
-        //modifyStudentRanking(course_id);
         return Result.ok("添加成功！");
     }
 
@@ -85,38 +77,36 @@ public class ScoreService {
 
     //查询分数
     public Result selectByStudentAndCourse(String student_num, String course_num) {
-        Score score=scoreMapper.selectByStudentAndCourse(student_num, course_num);
-        Double credit=courseMapper.selectByNum(course_num).getCredit();
-        Map map=new HashMap();
-        map.put("id",score.getId()+"");
-        map.put("student_num",score.getStudent_num());
-        map.put("student_name",score.getStudent_name());
-        map.put("course_num",score.getCourse_num());
-        map.put("course_name",score.getCourse_name());
-        map.put("credit",credit+"");
-        map.put("mark",score.getMark()+"");
+        Score score = scoreMapper.selectByStudentAndCourse(student_num, course_num);
+        Person person=personMapper.selectByPersonNum(student_num);
+        Course course=courseMapper.selectByNum(course_num);
+        Map map = new HashMap();
+        map.put("id", score.getId() + "");
+        map.put("student_num", person.getPerson_num());
+        map.put("student_name", person.getPerson_name());
+        map.put("course_num", course.getNum());
+        map.put("course_name", course.getCourse_name());
+        map.put("credit", course.getCredit() + "");
+        map.put("mark", score.getMark() + "");
         System.out.println(map);
-        return Result.success(map,"查询成功！");
+        return Result.success(map, "查询成功！");
     }
 
     public Result selectByStudentId(String student_num) {
-        Person person=personMapper.selectByPersonNum(student_num);
-        Student student = studentMapper.selectByPid(person.getId());
-        if (student == null)
-            return Result.error(404, "查询失败，该学生不存在");
-        List<Score> scoreList=scoreMapper.selectByStudentId(student_num);
-        List<Map> scoreMap=new ArrayList<>();
-        for(Score score:scoreList){
-            String course_num=score.getCourse_num();
-            Double credit=courseMapper.selectByNum(course_num).getCredit();
-            Map map=new HashMap();
-            map.put("id",score.getId()+"");
-            map.put("student_num",score.getStudent_num());
-            map.put("student_name",score.getStudent_name());
-            map.put("course_num",score.getCourse_num());
-            map.put("course_name",score.getCourse_name());
-            map.put("credit",credit+"");
-            map.put("mark",score.getMark()+"");
+        Person person = personMapper.selectByPersonNum(student_num);
+        List<Score> scoreList = scoreMapper.selectByStudentId(student_num);
+        List<Map> scoreMap = new ArrayList<>();
+        for (Score score : scoreList) {
+            String course_num = score.getCourse_num();
+            Course course=courseMapper.selectByNum(course_num);
+            Map map = new HashMap();
+            map.put("id", score.getId() + "");
+            map.put("student_num", person.getPerson_num());
+            map.put("student_name", person.getPerson_name());
+            map.put("course_num", course.getNum());
+            map.put("course_name", course.getCourse_name());
+            map.put("credit", course.getCredit() + "");
+            map.put("mark", score.getMark() + "");
             scoreMap.add(map);
         }
         return Result.success(scoreMap, "查询成功！");
@@ -124,23 +114,21 @@ public class ScoreService {
 
     public Result selectByStudentName(String student_name) {
         Student student = studentMapper.findByStudentName(student_name);
-        Person person=personMapper.selectById(student.getPerson_id());
-        String student_num=person.getPerson_num();
-        if (student == null)
-            return Result.error(404, "查询失败，该学生不存在");
-        List<Score> scoreList=scoreMapper.selectByStudentId(student_num);
-        List<Map> scoreMap=new ArrayList<>();
-        for(Score score:scoreList){
-            String course_num=score.getCourse_num();
-            Double credit=courseMapper.selectByNum(course_num).getCredit();
-            Map map=new HashMap();
-            map.put("id",score.getId()+"");
-            map.put("student_num",score.getStudent_num());
-            map.put("student_name",score.getStudent_name());
-            map.put("course_num",score.getCourse_num());
-            map.put("course_name",score.getCourse_name());
-            map.put("credit",credit+"");
-            map.put("mark",score.getMark()+"");
+        Person person = personMapper.selectById(student.getPerson_id());
+        String student_num = person.getPerson_num();
+        List<Score> scoreList = scoreMapper.selectByStudentId(student_num);
+        List<Map> scoreMap = new ArrayList<>();
+        for (Score score : scoreList) {
+            String course_num = score.getCourse_num();
+            Course course=courseMapper.selectByNum(course_num);
+            Map map = new HashMap();
+            map.put("id", score.getId() + "");
+            map.put("student_num", person.getPerson_num());
+            map.put("student_name", person.getPerson_name());
+            map.put("course_num", course.getNum());
+            map.put("course_name", course.getCourse_name());
+            map.put("credit", course.getCredit() + "");
+            map.put("mark", score.getMark() + "");
             scoreMap.add(map);
         }
         return Result.success(scoreMap, "查询成功！");
@@ -148,46 +136,43 @@ public class ScoreService {
 
     public Result selectByCourseId(String course_num) {
         Course course = courseMapper.selectByNum(course_num);
-        if (course == null)
-            return Result.error(404, "查询失败，该课程不存在");
-        List<Score> scoreList=scoreMapper.selectByCourseId(course_num);
-        List<Map> scoreMap=new ArrayList<>();
-        for(Score score:scoreList){
-            Double credit=courseMapper.selectByNum(course_num).getCredit();
-            Map map=new HashMap();
-            map.put("id",score.getId()+"");
-            map.put("student_num",score.getStudent_num());
-            map.put("student_name",score.getStudent_name());
-            map.put("course_num",score.getCourse_num());
-            map.put("course_name",score.getCourse_name());
-            map.put("credit",credit+"");
-            map.put("mark",score.getMark()+"");
+        List<Score> scoreList = scoreMapper.selectByCourseId(course_num);
+        List<Map> scoreMap = new ArrayList<>();
+        for (Score score : scoreList) {
+            Person person=personMapper.selectByPersonNum(score.getStudent_num());
+            Map map = new HashMap();
+            map.put("id", score.getId() + "");
+            map.put("student_num", person.getPerson_num());
+            map.put("student_name", person.getPerson_name());
+            map.put("course_num", course.getNum());
+            map.put("course_name", course.getCourse_name());
+            map.put("credit", course.getCredit() + "");
+            map.put("mark", score.getMark() + "");
             scoreMap.add(map);
         }
         return Result.success(scoreMap, "查询成功！");
     }
 
-    //未写由coursename得到courseid，故先放这，之后补
 
-    public Result selectByCourseName(String course_name) {
+    /*public Result selectByCourseName(String course_name) {
         String course_num = courseMapper.selectCourseByName(course_name).getNum();
         System.out.println(course_name + " " + course_num);
-        List<Score> scoreList=scoreMapper.selectByCourseId(course_num);
-        List<Map> scoreMap=new ArrayList<>();
-        for(Score score:scoreList){
-            Double credit=courseMapper.selectByNum(course_num).getCredit();
-            Map map=new HashMap();
-            map.put("id",score.getId()+"");
-            map.put("student_num",score.getStudent_num());
-            map.put("student_name",score.getStudent_name());
-            map.put("course_num",score.getCourse_num());
-            map.put("course_name",score.getCourse_name());
-            map.put("credit",credit+"");
-            map.put("mark",score.getMark()+"");
+        List<Score> scoreList = scoreMapper.selectByCourseId(course_num);
+        List<Map> scoreMap = new ArrayList<>();
+        for (Score score : scoreList) {
+            Double credit = courseMapper.selectByNum(course_num).getCredit();
+            Map map = new HashMap();
+            map.put("id", score.getId() + "");
+            map.put("student_num", score.getStudent_num());
+            map.put("student_name", score.getStudent_name());
+            map.put("course_num", score.getCourse_num());
+            map.put("course_name", score.getCourse_name());
+            map.put("credit", credit + "");
+            map.put("mark", score.getMark() + "");
             scoreMap.add(map);
         }
         return Result.success(scoreMap, "查询成功！");
-    }
+    }*/
 
 
     public Result getScoreList() {
@@ -195,18 +180,20 @@ public class ScoreService {
         List<Score> scoreList = scoreMapper.selectAll();
         List<Map<String, String>> dataList = new ArrayList();
         Map<String, String> map = new HashMap<>();
-        for(int i=0;i<scoreList.size();i++){
-            scoreMapper.updateId(scoreList.get(i).getStudent_num(),scoreList.get(i).getCourse_num(),i+1);
-        }
         for (int i = 0; i < scoreList.size(); i++) {
             map = new HashMap();
-            map.put("id",i+1+"");
+            map.put("id", i + 1 + "");
+            Person person=scoreList.get(i).getPerson();
+            Course course=scoreList.get(i).getCourse();
+            /*System.out.println(person);
+            System.out.println(course);
+            System.out.println();*/
             //map.put("id", scoreList.get(i).getId() + "");
-            map.put("student_num", scoreList.get(i).getStudent_num());
-            map.put("student_name", scoreList.get(i).getStudent_name());
-            map.put("course_num", scoreList.get(i).getCourse_num());
-            map.put("course_name", scoreList.get(i).getCourse_name());
-            map.put("credit", courseMapper.selectByNum(scoreList.get(i).getCourse_num()).getCredit() + "");
+            map.put("student_num", person.getPerson_num());
+            map.put("student_name", person.getPerson_name());
+            map.put("course_num", course.getNum());
+            map.put("course_name", course.getCourse_name());
+            map.put("credit", course.getCredit()+ "");
             map.put("mark", scoreList.get(i).getMark() + "");
             //map.put("ranking", s.getRanking() + "");
             dataList.add(map);

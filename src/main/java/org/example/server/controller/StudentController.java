@@ -99,7 +99,7 @@ public class StudentController {
     @PostMapping("/getStudentInfo")
     public Result getStudentById(@RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
-        return Result.success(studentService.getStudentById(id));
+        return Result.success(studentService.getStudentInfoById(id));
     }//用
     //通过姓名改学生年级
 //    @PostMapping("/updateStudentGrade")

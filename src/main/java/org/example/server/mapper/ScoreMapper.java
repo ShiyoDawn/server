@@ -15,7 +15,7 @@ import java.util.List;
 @Mapper
 public interface ScoreMapper extends BaseMapper<Score> {
 
-    void insertMark(String student_num, String student_name, String course_num, String course_name, Double mark);
+    void insertMark(Score score);
 
     void updateMark(String student_num, String course_num, Double mark);
 
@@ -42,4 +42,5 @@ public interface ScoreMapper extends BaseMapper<Score> {
     List<Score> getScoreSorted_Ascending(String course_num);
 
     List<Score> getScoreSorted_Descending(String course_num);
+
 }

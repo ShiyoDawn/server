@@ -23,6 +23,11 @@ public class PersonController {
     @Autowired
     PersonService personSevice;
 
+    @PostMapping("/getAll")
+    public Result getAll() {
+        return Result.success(personSevice.getAll());
+    }
+
     @PostMapping("/getPersonList")
     public Result getPersonList() {
         return personSevice.getPersonList();
@@ -44,5 +49,18 @@ public class PersonController {
     public Result selectSPersonById(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
         return personSevice.selectSPersonByIdMap(id);
+    }
+
+    @PostMapping("/updatePhoto")
+    public Result updatePhoto(@Valid @RequestBody DataRequest dataRequest) {
+        String person_num = dataRequest.getString("person_num");
+        byte[] photo = dataRequest.getBytes("photo");
+        return personSevice.updatePhoto(person_num, photo);
+    }
+
+    @PostMapping("/selectPhoto")
+    public Result selectPhoto(@Valid @RequestBody DataRequest dataRequest) {
+        String person_num = dataRequest.getString("person_num");
+        return personSevice.selectPhoto(person_num);
     }
 }
