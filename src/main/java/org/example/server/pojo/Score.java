@@ -36,6 +36,8 @@ public class Score {
     @TableField(exist = false)
     private Person person;
 
-    private Integer teacher_id;
+    private Integer person_id;
+
+    private Integer course_id;
 
 }

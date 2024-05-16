@@ -30,4 +30,9 @@ public class User implements Serializable {
 
     private String create_time;
 
+    @TableField(exist = false)
+    private Person person;
+
+    private Integer person_id;
+
 }

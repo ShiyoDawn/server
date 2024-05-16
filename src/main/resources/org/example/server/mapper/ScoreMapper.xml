@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="org.example.server.mapper.ScoreMapper">
 
     <resultMap id="scoreResultMap" type="org.example.server.pojo.Score">
@@ -11,43 +12,45 @@
         <result column="course_num" property="course_num"/>
         <result column="course_name" property="course_name"/>
         <result column="mark" property="mark"/>
+        <result column="person_id" property="person_id"/>
+        <result column="course_id" property="course_id"/>
         <association property="person" javaType="org.example.server.pojo.Person">
-            <result column="id" property="id"/>
+            <result column="person_id" property="id"/>
             <result column="person_num" property="person_num"/>
             <result column="person_name" property="person_name"/>
         </association>
         <association property="course" javaType="org.example.server.pojo.Course">
-            <result column="id" property="id"/>
+            <result column="course_id" property="id"/>
             <result column="num" property="num"/>
             <result column="course_name" property="course_name"/>
             <result column="credit" property="credit"/>
         </association>
     </resultMap>
     <select id="selectByStudentId" resultMap="scoreResultMap">
-        select sc.*, pe.person_num, pe.person_name, pe.id,co.num,co.course_name,co.credit,co.id from Score sc
-                                         inner join Person pe on sc.student_num = pe.person_num
-                                         inner join Course co on sc.course_num = co.num
+        select sc.*, pe.person_num, pe.person_name, pe.id as person_id,co.num,co.course_name,co.credit,co.id as course_id from Score sc
+                                         left join Person pe on sc.person_id = pe.id
+                                         left join Course co on sc.course_id = co.id
         where "student_num" like #{student_num}
     </select>
 
     <select id="selectByCourseId" resultMap="scoreResultMap">
-        select sc.*, pe.person_num, pe.person_name, pe.id,co.num,co.course_name,co.credit,co.id  from Score sc
-                                         inner join Person pe on sc.student_num = pe.person_num
-                                         inner join Course co on sc.course_num = co.num
+        select sc.*, pe.person_num, pe.person_name, pe.id as person_id,co.num,co.course_name,co.credit,co.id as course_id  from Score sc
+                                         left join Person pe on sc.person_id = pe.id
+                                         left join Course co on sc.course_id = co.id
         where "course_num" like #{course_num}
     </select>
 
     <select id="selectByStudentAndCourse" resultMap="scoreResultMap">
-        select sc.*, pe.person_num, pe.person_name, pe.id,co.num,co.course_name,co.credit,co.id  from Score sc
-                                         inner join Person pe on sc.student_num = pe.person_num
-                                         inner join Course co on sc.course_num = co.num
+        select sc.*, pe.person_num, pe.person_name, pe.id as person_id,co.num,co.course_name,co.credit,co.id as course_id  from Score sc
+                                         left join Person pe on sc.person_id = pe.id
+                                         left join Course co on sc.course_id = co.id
         where "student_num" = #{student_num} and "course_num" = #{course_num}
     </select>
 
     <select id="selectAll" resultMap="scoreResultMap">
-        select sc.*,pe.person_num, pe.person_name, pe.id,co.num,co.course_name,co.credit,co.id from Score sc
-                                         inner join Person pe on sc.student_num = pe.person_num
-                                         inner join Course co on sc.course_num = co.num
+        select sc.*, pe.person_num, pe.person_name, pe.id as person_id,co.num,co.course_name,co.credit,co.id as course_id from Score sc
+                                         left join Person pe on sc.person_id = pe.id
+                                         left join Course co on sc.course_id = co.id
     </select>
 
     <update id="updateMark">
@@ -64,8 +67,8 @@
     </delete>
 
     <insert id="insertMark">
-        insert into Score (student_num, student_name, course_num, course_name, mark)
-        values (#{person.person_num}, #{person.person_name}, #{course.num}, #{course.course_name}, #{mark})
+        insert into Score (student_num, student_name, course_num, course_name, mark ,person_id, course_id)
+        values (#{person.person_num}, #{person.person_name}, #{course.num}, #{course.course_name}, #{mark}, #{person.id}, #{course.id})
     </insert>
 
     <!--用于更新每次更改/删除/增加分数时每个人该科目的排名，这里的逻辑可能有点小问题qwq-->

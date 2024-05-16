@@ -3,17 +3,36 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.server.mapper.FeeMapper">
+
+    <resultMap id="feeResultMap" type="org.example.server.pojo.Fee">
+        <id column="id" property="id"/>
+        <result column="student_num" property="student_num"/>
+        <result column="student_name" property="student_name"/>
+        <result column="date" property="date"/>
+        <result column="activity" property="activity"/>
+        <result column="money" property="money"/>
+        <result column="activity_detail" property="activity_detail"/>
+        <result column="person_id" property="person_id"/>
+        <association property="person" javaType="org.example.server.pojo.Person">
+            <result column="person_id" property="id"/>
+            <result column="person_num" property="person_num"/>
+            <result column="person_name" property="person_name"/>
+        </association>
+    </resultMap>
+
+
     <insert id="insertFee">
-        insert into Fee (id,student_num, student_name,date,activity,money,activity_detail)
-        values (#{id},#{student_num},#{student_name},#{date},#{activity},#{money},#{activity_detail})
+        insert into Fee (id,student_num, student_name,date,activity,money,activity_detail,person_id)
+        values (#{id},#{person.person_num},#{person.person_name},#{date},#{activity},#{money},#{activity_detail},#{person.id})
     </insert>
 
-    <select id="selectAll" resultType="org.example.server.pojo.Fee">
-        select * from Fee
+    <select id="selectAll" resultMap="feeResultMap">
+        select fe.*,pe.id as person_id,pe.person_num,pe.person_name from Fee fe
+                left join Person pe on fe.person_id = pe.id
     </select>
 
     <delete id="deleteFee">
-        delete from Fee where id = #{id}
+        delete from Fee where "student_num" = #{student_num} and "student_name" = #{student_name} and "date" = #{date} and "activity" = #{activity} and "money" = #{money} and "activity_detail" = #{activity_detail}
     </delete>
 
     <update id="updateId">

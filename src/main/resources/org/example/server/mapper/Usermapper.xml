@@ -4,10 +4,36 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.server.mapper.UserMapper">
 
-    <select id="selectById" resultType="org.example.server.pojo.User">
-        select *
-        from User
+    <resultMap id="userResultMap" type="org.example.server.pojo.User">
+        <id column="id" property="id"/>
+        <result column="password" property="password"/>
+        <result column="person_num" property="person_num"/>
+        <result column="user_type_id" property="user_type_id"/>
+        <result column="last_login_time" property="last_login_time"/>
+        <result column="login_count" property="login_count"/>
+        <result column="create_time" property="create_time"/>
+        <result column="person_id" property="person_id"/>
+        <association property="person" javaType="org.example.server.pojo.Person">
+            <result column="person_id" property="id"/>
+            <result column="person_num" property="person_num"/>
+            <result column="person_name" property="person_name"/>
+        </association>
+    </resultMap>
+
+
+    <select id="selectById" resultMap="userResultMap">
+        select us.*,pe.person_num,pe.person_name,pe.id as person_id
+        from User us
+            left join Person pe on us.person_id = pe.id
         where "id" = #{id}
+    </select>
+
+
+    <select id="selectByPersonNum" resultMap="userResultMap">
+        select us.*,pe.person_num,pe.person_name,pe.id as person_id
+        from User us
+            left join Person pe on us.person_id = pe.id
+        where us.person_num = #{person_num}
     </select>
 
     <update id="updatePassword" >

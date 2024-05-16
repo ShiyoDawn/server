@@ -30,4 +30,6 @@ public class Activity {
     private String score;
 
     private String date;
+
+    private Integer person_id;
 }

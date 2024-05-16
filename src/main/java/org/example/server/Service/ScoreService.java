@@ -78,29 +78,29 @@ public class ScoreService {
     //查询分数
     public Result selectByStudentAndCourse(String student_num, String course_num) {
         Score score = scoreMapper.selectByStudentAndCourse(student_num, course_num);
-        Person person=personMapper.selectByPersonNum(student_num);
-        Course course=courseMapper.selectByNum(course_num);
-        Map map = new HashMap();
-        map.put("id", score.getId() + "");
-        map.put("student_num", person.getPerson_num());
-        map.put("student_name", person.getPerson_name());
-        map.put("course_num", course.getNum());
-        map.put("course_name", course.getCourse_name());
-        map.put("credit", course.getCredit() + "");
-        map.put("mark", score.getMark() + "");
-        System.out.println(map);
-        return Result.success(map, "查询成功！");
+        if(score!=null){
+            return Result.error(404,"已存在");
+        }
+        return null;
     }
 
     public Result selectByStudentId(String student_num) {
         Person person = personMapper.selectByPersonNum(student_num);
         List<Score> scoreList = scoreMapper.selectByStudentId(student_num);
         List<Map> scoreMap = new ArrayList<>();
+        Integer cnt=0;
         for (Score score : scoreList) {
             String course_num = score.getCourse_num();
-            Course course=courseMapper.selectByNum(course_num);
+            Course course=courseMapper.selectInfo(score.getCourse_id());
+            person=personMapper.selectById(score.getPerson_id());
+            score.setCourse(course);
+            score.setPerson(person);
+            score.setStudent_num(person.getPerson_num());
+            score.setStudent_name(person.getPerson_name());
+            score.setCourse_num(course.getNum());
+            score.setCourse_name(course.getCourse_name());
             Map map = new HashMap();
-            map.put("id", score.getId() + "");
+            map.put("id", ++cnt + "");
             map.put("student_num", person.getPerson_num());
             map.put("student_name", person.getPerson_name());
             map.put("course_num", course.getNum());
@@ -139,8 +139,11 @@ public class ScoreService {
         List<Score> scoreList = scoreMapper.selectByCourseId(course_num);
         List<Map> scoreMap = new ArrayList<>();
         for (Score score : scoreList) {
-            Person person=personMapper.selectByPersonNum(score.getStudent_num());
+            Person person=personMapper.selectById(score.getPerson_id());
             Map map = new HashMap();
+            score.setPerson(person);
+            score.setStudent_num(person.getPerson_num());
+            score.setStudent_name(person.getPerson_name());
             map.put("id", score.getId() + "");
             map.put("student_num", person.getPerson_num());
             map.put("student_name", person.getPerson_name());
@@ -179,22 +182,29 @@ public class ScoreService {
         //int offset = (pageNum - 1) * pageSize;
         List<Score> scoreList = scoreMapper.selectAll();
         List<Map<String, String>> dataList = new ArrayList();
+        System.out.println(scoreList);
         Map<String, String> map = new HashMap<>();
         for (int i = 0; i < scoreList.size(); i++) {
             map = new HashMap();
             map.put("id", i + 1 + "");
-            Person person=scoreList.get(i).getPerson();
-            Course course=scoreList.get(i).getCourse();
-            /*System.out.println(person);
-            System.out.println(course);
-            System.out.println();*/
-            //map.put("id", scoreList.get(i).getId() + "");
+            Person person=personMapper.selectById(scoreList.get(i).getPerson().getId());
+            Course course=courseMapper.selectInfo(scoreList.get(i).getCourse().getId());
+            scoreList.get(i).setStudent_num(person.getPerson_num());
+            scoreList.get(i).setStudent_name(person.getPerson_name());
+            scoreList.get(i).setCourse_num(course.getNum());
+            scoreList.get(i).setCourse_name(course.getCourse_name());
+            scoreList.get(i).setCourse(course);
+            scoreList.get(i).setPerson(person);
             map.put("student_num", person.getPerson_num());
             map.put("student_name", person.getPerson_name());
             map.put("course_num", course.getNum());
             map.put("course_name", course.getCourse_name());
-            map.put("credit", course.getCredit()+ "");
+            map.put("credit", course.getCredit()+"");
             map.put("mark", scoreList.get(i).getMark() + "");
+            /*System.out.println(person);
+            System.out.println(course);
+            System.out.println();*/
+            //map.put("id", scoreList.get(i).getId() + "");
             //map.put("ranking", s.getRanking() + "");
             dataList.add(map);
         }

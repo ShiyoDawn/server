@@ -12,17 +12,18 @@
         <result column="activity_type" property="activity_type"/>
         <result column="score" property="score"/>
         <result column="date" property="date"/>
+        <result column="person_id" property="person_id"/>
         <association property="person" javaType="org.example.server.pojo.Person">
-            <result column="id" property="id"/>
+            <result column="person_id" property="id"/>
             <result column="person_num" property="person_num"/>
             <result column="person_name" property="person_name"/>
         </association>
     </resultMap>
 
 
-    <insert id="insertActivity" parameterType="org.example.server.pojo.Activity">
-        insert into Activity ("student_num","student_name","activity_name","activity_type","date","score")
-        values (#{person.person_num},#{person.person_name},#{activity_name},#{activity_type},#{date},#{score})
+    <insert id="insertActivity">
+        insert into Activity ("student_num","student_name","activity_name","activity_type","date","score","person_id")
+        values (#{person.person_num},#{person.person_name},#{activity_name},#{activity_type},#{date},#{score},#{person.id})
     </insert>
 
     <delete id="deleteActivity">
@@ -32,15 +33,15 @@
 
 
     <select id="selectAll" resultMap="activityResultMap">
-        SELECT a.*, p.person_name, p.person_num,p.id
+        SELECT a.*, p.person_name, p.person_num,p.id as person_id
         FROM Activity a
-                 LEFT JOIN Person p ON a.student_num = p.person_num
+                 LEFT JOIN Person p ON a.person_id = p.id
     </select>
 
-    <select id="selectByStudentNum" resultType="org.example.server.pojo.Activity">
-        SELECT a.*,p.person_name, p.person_num,p.id
+    <select id="selectByStudentNum" resultMap="activityResultMap">
+        SELECT a.*,p.person_name, p.person_num,p.id as person_id
         FROM Activity a
-                 LEFT JOIN Person p ON a.student_num = p.person_num
+                 LEFT JOIN Person p ON a.person_id = p.id
         where a.student_num = #{student_num}
 
     </select>
