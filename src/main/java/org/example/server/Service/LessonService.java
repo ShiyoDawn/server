@@ -2,6 +2,7 @@ package org.example.server.Service;
 
 import org.example.server.mapper.LessonMapper;
 import org.example.server.payload.Result;
+import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.Glory;
 import org.example.server.pojo.Lesson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +95,11 @@ public class LessonService {
         return str.substring(0,count);
     }
     public Result updateInfo(Integer course_id,Integer week,Integer week_time,Integer time_sort,String notes,String room,String homework){
-        lessonMapper.updateInfo(course_id,week,week_time,time_sort,notes,room,homework);
-        return Result.ok("添加成功");
+        if (notes == null || notes.equals("")) {
+            return Result.error(400,"notes cannot be null");
+        } else {
+            lessonMapper.updateInfo(course_id,week,week_time,time_sort,notes,room,homework);
+            return Result.ok("添加成功");
+        }
     }
 }

@@ -73,6 +73,7 @@ public class LessonController {
         Integer week_time = dataRequest.getInteger("week_time");
         Integer time_sort = dataRequest.getInteger("time_sort");
         String notes = dataRequest.getString("notes");
+
         return lessonService.updateInfo(course_id,week,week_time,time_sort,notes,null,null);
     }
 
