@@ -29,5 +29,4 @@ public interface UserMapper extends BaseMapper<User> {
 
     void deleteByPersonNum(String personNum);
 
-    User selectByPersonNum(String personNum);
 }

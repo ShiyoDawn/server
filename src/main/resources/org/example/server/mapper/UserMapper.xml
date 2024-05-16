@@ -41,13 +41,9 @@
         set "password" = #{password}
         where "person_num" = #{person_num}
     </update>
+
     <delete id="deleteByPersonNum" parameterType="String">
         delete from User where "person_num" = #{person_num}
     </delete>
-    <select id="selectByPersonNum" resultType="org.example.server.pojo.User">
-        select *
-        from User
-        where "person_num" = #{person_num}
-    </select>
 
 </mapper>
