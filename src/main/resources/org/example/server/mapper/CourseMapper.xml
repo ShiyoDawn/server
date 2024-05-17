@@ -187,4 +187,15 @@
     <select id="selectByNum2" resultType="org.example.server.pojo.Course">
         SELECT * FROM Course where num = #{num};
     </select>
+    <select id="selectCourseByStudent">
+        SELECT * ,course.course_name,course.id,course.credit,course.num,course.course_type_id,course_type.course_type_name,course.pre_course_id,course.book,course.extracurricular,course.classes,course.teacher_id,course.teacher_name,course.terms,course.capacity,course.students
+        FROM student_course
+        JOIN course ON student_course.course_id = course.id
+        JOIN course_type ON course.course_type_id = course_type.id
+        where student_course.student_id = #{student_id}
+        <if test="pageNum != null">
+            limit (#{pageNum}) * 6,6;
+        </if>
+    </select>
+
 </mapper>

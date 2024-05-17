@@ -18,9 +18,9 @@ public class Teacher {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    private String teacher_num;
-
     private String teacher_name;
 
     private String person_id;
+
+    private String degree;
 }
