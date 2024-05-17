@@ -23,6 +23,7 @@ public interface LessonMapper extends BaseMapper<Lesson> {
     List<Map<String,String>> selectByCourseId(Integer id);
 
     void addLesson(String course_id,String week,String week_time,String time_sort);
+    void addStudentLesson(String student_id,String lesson_id);
     void updateInfo(Integer course_id,Integer week,Integer week_time,Integer time_sort,String notes,String room,String homework,String ppt,String ddl);
     void deleteLesson(Integer course_id,Integer week,Integer week_time,Integer time_sort);
     List<Map<String,String>> selectSpecific(Integer course_id,Integer week,Integer week_time,Integer time_sort);

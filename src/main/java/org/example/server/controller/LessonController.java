@@ -66,6 +66,11 @@ public class LessonController {
         List<List<String>> list1 = dataRequest.getList("course_id");
         return lessonService.addLesson(list1,list);
     }
+    @PostMapping("/addStudentLesson")
+    public Result addStudentLesson(@Valid @RequestBody DataRequest dataRequest){
+        List<List<String>> list = dataRequest.getList("lesson");
+        return lessonService.addStudentLesson(list);
+    }
     @PostMapping("/updateInfo")
     public Result updateInfo(@Valid @RequestBody DataRequest dataRequest){
         Integer course_id = dataRequest.getInteger("course_id");

@@ -72,4 +72,7 @@
         select * from lesson
         where course_id = #{course_id} and week = #{week} and week_time = #{week_time} and time_sort = #{time_sort};
     </select>
+    <insert id="addStudentLesson">
+        insert into student_lesson (student_id,lesson_id) VALUES (#{student_id},#{lesson_id});
+    </insert>
 </mapper>
