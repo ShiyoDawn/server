@@ -106,4 +106,8 @@ public class LessonService {
         lessonMapper.deleteLesson(course_id,week,week_time,time_sort);
         return Result.ok("删除成功");
     }
+    public Result selectSpecific(Integer course_id,Integer week,Integer week_time,Integer time_sort){
+        return Result.success(lessonMapper.selectSpecific(course_id,week,week_time,time_sort));
+
+    }
 }

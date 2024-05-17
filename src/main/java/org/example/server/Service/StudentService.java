@@ -32,30 +32,24 @@ public class StudentService {
     @Autowired
     private GloryMapper gloryMapper;
 
-    public void insert(Integer person_id,String person_num,String student_name,String department,String classes,String grade,String major){
+    public String insert(Integer person_id,String person_num,String student_name,String department,String classes,String grade,String major){
         Student student=studentMapper.selectByPid(person_id);
         if(student != null){
-            return;
+            return "学生已存在";
         }
-        Map<String, Object> personMap = new HashMap<>();
-        personMap.put("student_name", student_name);
-        personMap.put("person_num", person_num);
-        personMap.put("gender_id", 1/* 这里应该是一个非null的值 */);
-        person_id=personMapper.getAllPerson()+1;
-        System.out.println(studentMapper.insertPersonInfo(personMap));
-        System.out.println(person_id);
+        Person p=personMapper.selectByPersonNum(person_num);
+        if (p==null){
+            return "人员不存在";
+        }
         Map<String, Object> studentMap = new HashMap<>();
-        studentMap.put("person_id", person_id);
+        studentMap.put("person_id", p.getId());
         studentMap.put("student_name", student_name);
         studentMap.put("department", department);
         studentMap.put("classes", classes);
         studentMap.put("grade", grade);
         studentMap.put("major", major);
-        System.out.println(studentMap);
-
         studentMapper.insertStudentInfo(studentMap);
-
-        return;
+        return "添加成功";
     }
 
     public Map findStudentByName(String student_name) {
@@ -253,7 +247,6 @@ public class StudentService {
             studentMapper.updateStudentName(student_name,student.getPerson_id());
         }
         studentFamilyService.deleteFamilyMember(student.getPerson_id());
-        personMapper.deletePersonById(student.getPerson_id());
         //先删除studentFamily再删除student，否则会使studentFamily的数据无法被删除；
         studentMapper.deleteStudentByPidAndName(student.getPerson_id(),student_name);
         return;

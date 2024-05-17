@@ -87,6 +87,14 @@ public class LessonController {
         Integer time_sort = dataRequest.getInteger("time_sort");
         return lessonService.deleteLesson(course_id,week,week_time,time_sort);
     }
+    @PostMapping("/selectSpecific")
+    public Result selectSpecific(@Valid @RequestBody DataRequest dataRequest){
+        Integer course_id = dataRequest.getInteger("course_id");
+        Integer week = dataRequest.getInteger("week");
+        Integer week_time = dataRequest.getInteger("week_time");
+        Integer time_sort = dataRequest.getInteger("time_sort");
+        return lessonService.selectSpecific(course_id,week,week_time,time_sort);
+    }
 
 
 }
