@@ -63,8 +63,8 @@ public class CourseService {
     public DataResponse selectInfo(Integer id){
         return DataResponse.success(courseMapper.selectInfo(id));
     }
-    public DataResponse selectInfoMe(Integer id){
-        return DataResponse.success(courseMapper.selectInfoMe(id));
+    public Result selectInfoMe(Integer id){
+        return Result.success(courseMapper.selectInfoMe(id));
     }
     public Result addCourse(String course_name, Double credit, String num, String course_type, Integer pre_course_id, String book, String extracurricular,String classes,String teacher_name,String terms,String capacity,String students){
         Integer course_type_id;
@@ -225,6 +225,10 @@ public class CourseService {
     public Result minusCourseStudent(Integer id){
         courseMapper.minusCourseStudent(id);
         return Result.ok("减少成功");
+    }
+    public Result selectCourseByStudent(Integer student_id,Integer pageNum){
+        return Result.success(courseMapper.selectCourseByStudent(student_id,pageNum));
+
     }
 }
 

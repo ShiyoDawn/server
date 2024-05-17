@@ -39,8 +39,8 @@ public class CourseController {
         return courseService.selectInfo(id);
     }
     @PostMapping("/selectInfoMe")
-    public DataResponse selectInfoMe(@RequestBody DataRequest dataRequest){
-        Integer id=dataRequest.getInteger("id");
+    public Result selectInfoMe(@RequestBody DataRequest dataRequest){
+        Integer id = dataRequest.getInteger("id");
         return courseService.selectInfoMe(id);
     }
     @PostMapping("/addCourse")
@@ -201,6 +201,12 @@ public class CourseController {
     public Result minusCourseStudent(@Valid @RequestBody DataRequest dataRequest){
         Integer id = dataRequest.getInteger("course_id");
         return courseService.minusCourseStudent(id);
+    }
+    @PostMapping("/selectCourseByStudent")
+    public Result selectCourseByStudent(@Valid @RequestBody DataRequest dataRequest){
+        Integer id = dataRequest.getInteger("student_id");
+        Integer pageNum = dataRequest.getInteger("pageNum");
+        return courseService.selectCourseByStudent(id,pageNum);
     }
 }
 
