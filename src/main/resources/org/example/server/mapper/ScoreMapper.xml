@@ -40,11 +40,8 @@
         where "course_num" like #{course_num}
     </select>
 
-    <select id="selectByStudentAndCourse" resultMap="scoreResultMap">
-        select sc.*, pe.person_num, pe.person_name, pe.id as person_id,co.num,co.course_name,co.credit,co.id as course_id  from Score sc
-                                         left join Person pe on sc.person_id = pe.id
-                                         left join Course co on sc.course_id = co.id
-        where "student_num" = #{student_num} and "course_num" = #{course_num}
+    <select id="selectByStudentAndCourse" resultType="org.example.server.pojo.Score">
+        select * from Score where "student_num" = #{student_num} and "course_num" = #{course_num}
     </select>
 
     <select id="selectAll" resultMap="scoreResultMap">
