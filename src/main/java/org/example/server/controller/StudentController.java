@@ -83,8 +83,15 @@ public class StudentController {
         String classes = dataRequest.getString("classes");
         String grade = dataRequest.getString("grade");
         String major = dataRequest.getString("major");
-        studentService.insert(person_id, person_num, student_name, department, classes, grade, major);
-        return Result.ok("增添成功！");
+        String s=studentService.insert(person_id, person_num, student_name, department, classes, grade, major);
+        if (s.equals("学生已存在")){
+            return Result.error(500,s);
+        } else if (s.equals("人员不存在")){
+            return Result.error(500,s);
+        } else {
+            return Result.ok(s);
+        }
+
     }//用
 
     //删除一个学生，包括其家庭信息，其余信息等待联接表关系后进行编写；
