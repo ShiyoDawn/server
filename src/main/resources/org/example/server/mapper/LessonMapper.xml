@@ -59,8 +59,13 @@
         <set>
             <if test="notes !=null">notes=#{notes},</if>
             <if test="room!=null">room=#{room},</if>
-            <if test="homework!=null">homework=#{homework}</if>
+            <if test="homework!=null">homework=#{homework},</if>
+            <if test="ppt!=null">ppt=#{ppt},</if>
+            <if test="ddl!=null">ddl=#{ddl}</if>
         </set>
         where course_id = #{course_id} and week = #{week} and week_time = #{week_time} and time_sort = #{time_sort};
     </update>
+    <delete id="deleteLesson">
+        delete from lesson where course_id = #{course_id} and week = #{week} and week_time = #{week_time} and time_sort = #{time_sort};
+    </delete>
 </mapper>

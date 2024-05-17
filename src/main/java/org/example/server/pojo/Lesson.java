@@ -42,4 +42,8 @@ public class Lesson implements Serializable {
     private Integer week_time;
 
     private String attend;
+
+    private String ppt;
+
+    private String ddl;
 }

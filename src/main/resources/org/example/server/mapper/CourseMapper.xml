@@ -72,7 +72,7 @@
                  JOIN student_course ON student.id = student_course.student_id
                  JOIN course ON student_course.course_id = course.id
                  JOIN lesson ON student_course.course_id = lesson.course_id
-        WHERE student.id = #{student_id} and lesson.week = #{week} and lesson.terms = #{terms};
+        WHERE student.id = #{student_id} and lesson.week = #{week} and course.terms = #{terms};
     </select>
     <select id="selectType">
         SELECT course_type.course_type_name
@@ -112,9 +112,19 @@
         delete from course where id = #{id};
     </delete>
     <select id="selectStudentCourse">
-        SELECT *,course.teacher_name
+        SELECT student_course.course_id,student_course.student_id,student_course.student_name,student_course.status,course.teacher_name,student.classes,person.person_num
         FROM student_course
                  JOIN course ON student_course.course_id = course.id
+                 JOIN student ON student_course.student_id = student.id
+                 JOIN person ON student.person_id = person.id
+        WHERE student_course.course_id = #{id};
+    </select>
+    <select id="selectStudentCourse2">
+        SELECT student_course.course_id,student_course.student_id,student_course.student_name,student_course.status,course.teacher_name,student.classes,person.person_num
+        FROM student_course
+                 JOIN course ON student_course.course_id = course.id
+                 JOIN student ON student_course.student_id = student.id
+                 JOIN person ON student.person_id = person.id
         WHERE student_course.course_id = #{id};
     </select>
     <delete id="deleteStudent">
@@ -123,6 +133,16 @@
     <insert id="addStudent">
         insert into student_course (course_id,student_id,student_name) VALUES (#{course_id},#{student_id},#{student_name});
     </insert>
+    <update id="addCourseStudent">
+        UPDATE course
+        SET students = students + 1
+        WHERE id = #{id};
+    </update>
+    <update id="minusCourseStudent">
+        UPDATE course
+        SET students = students - 1
+        WHERE id = #{id};
+    </update>
     <select id="selectStudentAndCourse">
         SELECT *
         FROM student_course
@@ -157,12 +177,12 @@
         WHERE course_id = #{pre_course_id} and student_id = #{student_id};
     </select>
     <select id="selectLessonStudent">
-        SELECT course.course_name,course.teacher_name,course.credit,lesson.time_sort,lesson.room,lesson.week_time
+        SELECT course.course_name,course.teacher_name,course.credit,lesson.week,lesson.time_sort,lesson.room,lesson.week_time
         FROM student
                  JOIN student_course ON student.id = student_course.student_id
                  JOIN course ON student_course.course_id = course.id
                  JOIN lesson ON student_course.course_id = lesson.course_id
-        WHERE student.id = #{student_id} and lesson.terms = #{terms};
+        WHERE student.id = #{student_id} and course.terms = #{terms};
     </select>
     <select id="selectByNum2" resultType="org.example.server.pojo.Course">
         SELECT * FROM Course where num = #{num};

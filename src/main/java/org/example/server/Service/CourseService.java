@@ -5,11 +5,14 @@ import org.example.server.mapper.CourseMapper;
 import org.example.server.payload.Result;
 import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.Course;
+import org.example.server.pojo.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CourseService {
@@ -56,6 +59,9 @@ public class CourseService {
             courseMapper.updateInfo(id, course_name,credit,num,course_type_id,book,extracurricular,teacher,classes,capacity);
             return DataResponse.ok("success");
         }
+    }
+    public DataResponse selectInfo(Integer id){
+        return DataResponse.success(courseMapper.selectInfo(id));
     }
     public DataResponse selectInfoMe(Integer id){
         return DataResponse.success(courseMapper.selectInfoMe(id));
@@ -165,6 +171,23 @@ public class CourseService {
     public Result selectStudentCourse(Integer id){
         return Result.success(courseMapper.selectStudentCourse(id));
     }
+    public Result selectStudentCourse2(Integer id){
+        List<Map<String,String>> stringList = courseMapper.selectStudentCourse2(id);
+        List<Map<String,String>> list = new ArrayList<>();
+        Map<String,String> map;
+        for (int i = 0; i < stringList.size(); i++) {
+            map = new HashMap<>();
+            map.put("course_id",String.valueOf(stringList.get(i).get("course_id")));
+            map.put("student_id",String.valueOf(stringList.get(i).get("student_id")));
+            map.put("student_name",stringList.get(i).get("student_name"));
+            map.put("status",String.valueOf(stringList.get(i).get("status")));
+            map.put("teacher_name",stringList.get(i).get("teacher_name"));
+            map.put("classes",stringList.get(i).get("classes"));
+            map.put("person_num",stringList.get(i).get("person_num"));
+            list.add(map);
+        }
+        return Result.success(list);
+    }
     public Result deleteStudent(Integer student_id,Integer course_id){
         courseMapper.deleteStudent(student_id,course_id);
         return Result.ok("删除成功");
@@ -194,6 +217,14 @@ public class CourseService {
     }
     public Result selectByNum2(String num) {
         return Result.success(courseMapper.selectByNum2(num));
+    }
+    public Result addCourseStudent(Integer id){
+        courseMapper.addCourseStudent(id);
+        return Result.ok("添加成功");
+    }
+    public Result minusCourseStudent(Integer id){
+        courseMapper.minusCourseStudent(id);
+        return Result.ok("减少成功");
     }
 }
 
