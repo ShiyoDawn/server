@@ -73,8 +73,19 @@ public class LessonController {
         Integer week_time = dataRequest.getInteger("week_time");
         Integer time_sort = dataRequest.getInteger("time_sort");
         String notes = dataRequest.getString("notes");
-
-        return lessonService.updateInfo(course_id,week,week_time,time_sort,notes,null,null);
+        String room = dataRequest.getString("room");
+        String homework = dataRequest.getString("homework");
+        String ppt = dataRequest.getString("ppt");
+        String ddl = dataRequest.getString("ddl");
+        return lessonService.updateInfo(course_id,week,week_time,time_sort,notes,room,homework,ppt,ddl);
+    }
+    @PostMapping("/deleteLesson")
+    public Result deleteLesson(@Valid @RequestBody DataRequest dataRequest){
+        Integer course_id = dataRequest.getInteger("course_id");
+        Integer week = dataRequest.getInteger("week");
+        Integer week_time = dataRequest.getInteger("week_time");
+        Integer time_sort = dataRequest.getInteger("time_sort");
+        return lessonService.deleteLesson(course_id,week,week_time,time_sort);
     }
 
 
