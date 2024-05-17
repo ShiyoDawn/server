@@ -78,8 +78,9 @@ public class ScoreService {
     //查询分数
     public Result selectByStudentAndCourse(String student_num, String course_num) {
         Score score = scoreMapper.selectByStudentAndCourse(student_num, course_num);
+        System.out.println(score);
         if(score!=null){
-            return Result.error(404,"已存在");
+            return Result.success(score, "查询成功！");
         }
         return null;
     }
