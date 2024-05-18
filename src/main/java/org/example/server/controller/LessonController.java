@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -106,6 +109,28 @@ public class LessonController {
         Integer student_id = dataRequest.getInteger("student_id");
         Integer lesson_id = dataRequest.getInteger("lesson_id");
         return lessonService.selectStudentLesson(student_id,lesson_id);
+    }
+    @PostMapping("/getPhoto")
+    public Result getPhoto(@RequestBody DataRequest dataRequest) {
+        String student_id = dataRequest.getString("student_id");
+        String lesson_id = dataRequest.getString("lesson_id");
+        File file=new File("src/main/homework/"+ student_id + "a" + lesson_id + "a" + "1" +".jpg");
+        if(!file.exists()) {
+            return Result.error(-1,"文件不存在");
+        }
+        int len = (int) file.length();
+        byte data[] = new byte[len];
+        FileInputStream in = null;
+        String[] imgstr = new String[3];
+        try {
+            in = new FileInputStream(file);
+            in.read(data);
+            in.close();
+            imgstr=new String(Base64.getEncoder().encode(data));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return Result.success(imgstr);
     }
 
 
