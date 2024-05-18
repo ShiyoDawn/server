@@ -2,17 +2,13 @@ package org.example.server.controller;
 
 import org.example.server.Service.StudentService;
 import org.example.server.mapper.PersonMapper;
-import org.example.server.mapper.StudentMapper;
 import org.example.server.payload.Result;
 import org.example.server.payload.request.DataRequest;
-import org.example.server.payload.response.DataResponse;
-import org.example.server.pojo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -108,28 +104,6 @@ public class StudentController {
         Integer id = dataRequest.getInteger("id");
         return Result.success(studentService.getStudentInfoById(id));
     }//用
-    //通过姓名改学生年级
-//    @PostMapping("/updateStudentGrade")
-//    public Result updateStudentGrade(@RequestParam String student_name, @RequestParam String grade) {
-//        return Result.success(studentService.updateStudentGrade(student_name, grade));
-//    }
 
-    //通过姓名改学生专业
-//    @PostMapping("/updateStudentMajor")
-//    public Result updateStudentMajor(@RequestParam String student_name, @RequestParam String major) {
-//        return Result.success(studentService.updateStudentMajor(student_name, major));
-//    }
-    //这个方法废了
-//    @PostMapping("/selectStudent")
-//    public List<Student> selectStudent(@RequestBody DataRequest request) {
-//        Map<String, Object> requestData = request.getData();
-//
-//        // 调用服务层方法进行动态查询
-//        List<Student> students = studentService.selectStudentByConditions(requestData);
-//        return students;
-//    }
-//    @GetMapping("/selectByStudentIdWithStudentFamily")
-//    public Result selectByStudentIdWithStudentFamily(@RequestParam Integer id){
-//        return Result.success(studentService.selectByStudentIdWithStudentFamily(id));
-//    }
+
 }

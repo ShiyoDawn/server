@@ -22,7 +22,6 @@ public class MenuController {
 
     @PostMapping("/get")
     public Result getMenu(@RequestBody String type) {
-        System.out.println(type);
         return new Result(200,menuMapper.selectByAccess(type),"ok");
     }
 
@@ -48,8 +47,6 @@ public class MenuController {
     @PostMapping("/changeNotice")
     public Result changeNotice(@RequestBody DataRequest dataRequest) {
         Map newNotice = dataRequest.getData();
-        System.out.println(newNotice);
-        System.out.println(newNotice.get("text"));
         noticeMapper.updateNotice(newNotice.get("text").toString(), newNotice.get("color").toString());
         return new Result(200,null,"fine");
     }

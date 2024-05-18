@@ -6,7 +6,6 @@ import org.example.server.mapper.PersonMapper;
 import org.example.server.mapper.StudentMapper;
 import org.example.server.payload.Result;
 import org.example.server.pojo.Fee;
-import org.example.server.pojo.Glory;
 import org.example.server.pojo.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
