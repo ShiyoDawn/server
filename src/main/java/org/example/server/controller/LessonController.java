@@ -121,7 +121,7 @@ public class LessonController {
         int len = (int) file.length();
         byte data[] = new byte[len];
         FileInputStream in = null;
-        String[] imgstr = new String[3];
+        String imgstr = null;
         try {
             in = new FileInputStream(file);
             in.read(data);
