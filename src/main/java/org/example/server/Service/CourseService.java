@@ -131,6 +131,9 @@ public class CourseService {
     public Result selectLessonByStudent(Integer student_id,Integer week,String terms) {
         return Result.success(courseMapper.selectLessonByStudent(student_id,week,terms));
     }
+    public Result selectLessonByTeacher(Integer teacher_id,Integer week,String terms) {
+        return Result.success(courseMapper.selectLessonByTeacher(teacher_id,week,terms));
+    }
     public Result selectType(Integer course_id){
         return Result.success(courseMapper.selectType(course_id));
     }
@@ -202,6 +205,9 @@ public class CourseService {
     public Result selectClasses(Integer id) {
         return Result.success(courseMapper.selectclasses(id));
     }
+    public Result selectClassesT(Integer id) {
+        return Result.success(courseMapper.selectclassesT(id));
+    }
     public Result selectCourseByType(Integer id1,Integer id2,Integer id3,Integer pageNum,String classes,String classe,String terms) {
         return Result.success(courseMapper.selectCourseByType(id1,id2,id3,pageNum,classes,classe,terms));
     }
@@ -228,6 +234,16 @@ public class CourseService {
     }
     public Result selectCourseByStudent(Integer student_id,Integer pageNum){
         return Result.success(courseMapper.selectCourseByStudent(student_id,pageNum));
+    }
+    public Result selectCourseByTeacher(Integer teacher_id,Integer pageNum){
+        return Result.success(courseMapper.selectCourseByTeacher(teacher_id,pageNum));
+    }
+    public Result selectAllTeacher(){
+        return Result.success(courseMapper.selectAllTeacher());
+    }
+    public Result addTeacherCourse(Integer teacher_id,Integer course_id){
+        courseMapper.addTeacherCourse(teacher_id,course_id);
+        return Result.ok("成功");
     }
 }
 

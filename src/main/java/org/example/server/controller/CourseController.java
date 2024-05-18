@@ -98,6 +98,13 @@ public class CourseController {
         String terms = dataRequest.getString("terms");
         return courseService.selectLessonByStudent(student_id,week,terms);
     }
+    @PostMapping("/selectLessonByTeacher")
+    public Result selectLessonByTeacher(@RequestBody DataRequest dataRequest){
+        Integer teacher_id = dataRequest.getInteger("teacher_id");
+        Integer week = dataRequest.getInteger("week");
+        String terms = dataRequest.getString("terms");
+        return courseService.selectLessonByTeacher(teacher_id,week,terms);
+    }
 
     @PostMapping("/selectByNum")
     public Result selectByNum(@RequestBody DataRequest dataRequest){
@@ -164,6 +171,11 @@ public class CourseController {
         Integer id = dataRequest.getInteger("id");
         return courseService.selectClasses(id);
     }
+    @PostMapping("/selectClassesT")
+    public Result selectClassesT(@Valid @RequestBody DataRequest dataRequest){
+        Integer id = dataRequest.getInteger("id");
+        return courseService.selectClassesT(id);
+    }
     @PostMapping("/selectCourseByType")
     public Result selectCourseByType(@Valid @RequestBody DataRequest dataRequest){
         Integer id1 = dataRequest.getInteger("course_type_id");
@@ -207,6 +219,22 @@ public class CourseController {
         Integer id = dataRequest.getInteger("student_id");
         Integer pageNum = dataRequest.getInteger("pageNum");
         return courseService.selectCourseByStudent(id,pageNum);
+    }
+    @PostMapping("/selectCourseByTeacher")
+    public Result selectCourseByTeacher(@Valid @RequestBody DataRequest dataRequest){
+        Integer id = dataRequest.getInteger("teacher_id");
+        Integer pageNum = dataRequest.getInteger("pageNum");
+        return courseService.selectCourseByTeacher(id,pageNum);
+    }
+    @PostMapping("/selectAllTeacher")
+    public Result selectAllTeacher(){
+        return courseService.selectAllTeacher();
+    }
+    @PostMapping("/addTeacherCourse")
+    public Result addTeacherCourse(@Valid @RequestBody DataRequest dataRequest){
+        Integer teacher_id = dataRequest.getInteger("teacher_id");
+        Integer course_id = dataRequest.getInteger("course_id");
+        return courseService.addTeacherCourse(teacher_id,course_id);
     }
 }
 

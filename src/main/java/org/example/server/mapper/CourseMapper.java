@@ -28,6 +28,7 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     List<String> selectIdByStudent(Integer student_id);
     List<Map<String,String>> selectLessonByStudent(Integer student_id,Integer week,String terms);
+    List<Map<String,String>> selectLessonByTeacher(Integer teacher_id,Integer week,String terms);
     List<Map<String,String>> selectType(Integer course_id);
     List<Map<String,String>> selectAllType();
     List<Map<String,String>> selectSpecial(String terms,Integer course_type_id,String course_name,Integer pageNum,String num,String classes,String classe);
@@ -39,10 +40,14 @@ public interface CourseMapper extends BaseMapper<Course> {
     List<Map<String,String>> selectStudentAndCourse(Integer student_id,Integer course_id);
     List<Map<String,String>> selectPre(Integer student_id,Integer pre_course_id);
     List<Map<String,String>> selectclasses(Integer id);
+    List<Map<String,String>> selectclassesT(Integer id);
     List<Map<String,String>> selectCourseByType(Integer id1,Integer id2,Integer id3,Integer pageNum,String classes,String classe,String terms);
     List<Map<String,String>> selectLessonStudent(Integer student_id,String terms);
     List<Map<String,String>> selectByNum2(String num);
     void addCourseStudent(Integer id);
     void minusCourseStudent(Integer id);
     List<Map<String,String>> selectCourseByStudent(Integer student_id,Integer pageNum);
+    List<Map<String,String>> selectCourseByTeacher(Integer teacher_id,Integer pageNum);
+    List<Map<String,String>> selectAllTeacher();
+    void addTeacherCourse(Integer teacher_id,Integer course_id);
 }

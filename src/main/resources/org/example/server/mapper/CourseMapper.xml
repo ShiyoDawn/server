@@ -74,6 +74,14 @@
                  JOIN lesson ON student_course.course_id = lesson.course_id
         WHERE student.id = #{student_id} and lesson.week = #{week} and course.terms = #{terms};
     </select>
+    <select id="selectLessonByTeacher">
+        SELECT course.course_name,course.teacher_name,lesson.time_sort,lesson.room,lesson.week_time
+        FROM teacher
+                 JOIN teacher_course ON teacher.id = teacher_course.teacher_id
+                 JOIN course ON teacher_course.course_id = course.id
+                 JOIN lesson ON teacher_course.course_id = lesson.course_id
+        WHERE teacher.id = #{teacher_id} and lesson.week = #{week} and course.terms = #{terms};
+    </select>
     <select id="selectType">
         SELECT course_type.course_type_name
         FROM course
@@ -153,6 +161,11 @@
         FROM student
         WHERE person_id = #{id};
     </select>
+    <select id="selectclassesT">
+        SELECT *
+        FROM teacher
+        WHERE person_id = #{id};
+    </select>
     <select id="selectCourseByType">
         SELECT *
         FROM course
@@ -198,6 +211,22 @@
             limit (#{pageNum}) * 6,6;
         </if>
     </select>
+    <select id="selectCourseByTeacher">
+        SELECT * ,course.course_name,course.id,course.credit,course.num,course.course_type_id,course_type.course_type_name,course.pre_course_id,course.book,course.extracurricular,course.classes,course.teacher_id,course.teacher_name,course.terms,course.capacity,course.students
+        FROM teacher_course
+        JOIN course ON teacher_course.course_id = course.id
+        JOIN course_type ON course.course_type_id = course_type.id
+        where teacher_course.teacher_id = #{teacher_id}
+        <if test="pageNum != null">
+            limit (#{pageNum}) * 6,6;
+        </if>
+    </select>
+    <select id="selectAllTeacher">
+        select * from teacher
+    </select>
+    <insert id="addTeacherCourse">
+        insert into teacher_course (teacher_id,course_id) VALUES (#{teacher_id},#{course_id});
+    </insert>
 
 
 </mapper>
