@@ -24,7 +24,7 @@
     <select id="selectById" resultMap="userResultMap">
         select us.*,pe.person_num,pe.person_name,pe.id as person_id
         from User us
-        left join Person pe on us.person_id = pe.id
+            left join Person pe on us.person_id = pe.id
         where "id" = #{id}
     </select>
 
@@ -32,7 +32,7 @@
     <select id="selectByPersonNum" resultMap="userResultMap">
         select us.*,pe.person_num,pe.person_name,pe.id as person_id
         from User us
-        left join Person pe on us.person_id = pe.id
+            left join Person pe on us.person_id = pe.id
         where us.person_num = #{person_num}
     </select>
 

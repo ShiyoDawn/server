@@ -234,6 +234,7 @@ public class CourseService {
     }
     public Result selectCourseByStudent(Integer student_id,Integer pageNum){
         return Result.success(courseMapper.selectCourseByStudent(student_id,pageNum));
+
     }
     public Result selectCourseByTeacher(Integer teacher_id,Integer pageNum){
         return Result.success(courseMapper.selectCourseByTeacher(teacher_id,pageNum));

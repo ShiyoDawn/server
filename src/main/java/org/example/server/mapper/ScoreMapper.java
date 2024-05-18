@@ -23,7 +23,7 @@ public interface ScoreMapper extends BaseMapper<Score> {
 
     void deleteOnlyScore(String student_num, String course_num);
 
-    void deleteForAll(String student_num,String course_num,String student_name,String course_name);
+    void deleteForAll(String student_num,String course_num);
 
     //Integer calculateRanking(Integer student_id,Integer course_id,Integer mark);
 
@@ -46,4 +46,5 @@ public interface ScoreMapper extends BaseMapper<Score> {
     void deleteByStudentNum(String student_num);
 
 
+    List<Score> selectByPersonId(Integer id);
 }

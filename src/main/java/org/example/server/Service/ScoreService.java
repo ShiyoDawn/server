@@ -59,8 +59,8 @@ public class ScoreService {
         return Result.ok("删除成功！");
     }
 
-    public Result deleteAllById(String student_num, String course_num,String student_name,String course_name) {
-        scoreMapper.deleteForAll(student_num, course_num,student_name,course_name);
+    public Result deleteAllById(String student_num, String course_num) {
+        scoreMapper.deleteForAll(student_num, course_num);
 
         //modifyStudentRanking(course_id);
         return Result.ok("删除成功！");
@@ -78,6 +78,7 @@ public class ScoreService {
     //查询分数
     public Result selectByStudentAndCourse(String student_num, String course_num) {
         Score score = scoreMapper.selectByStudentAndCourse(student_num, course_num);
+        System.out.println(score);
         if(score!=null){
             return Result.success(score, "查询成功！");
         }
@@ -182,6 +183,7 @@ public class ScoreService {
         //int offset = (pageNum - 1) * pageSize;
         List<Score> scoreList = scoreMapper.selectAll();
         List<Map<String, String>> dataList = new ArrayList();
+        System.out.println(scoreList);
         Map<String, String> map = new HashMap<>();
         for (int i = 0; i < scoreList.size(); i++) {
             map = new HashMap();

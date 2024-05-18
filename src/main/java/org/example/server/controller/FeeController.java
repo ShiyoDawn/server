@@ -27,6 +27,7 @@ public class FeeController {
         String money=dataRequest.getString("money");
         String activity=dataRequest.getString("activity");
         String activity_detail=dataRequest.getString("activity_detail");
+        System.out.println(dataRequest.getData());
         return feeService.insertFee(id,student_num,student_name,date,money,activity,activity_detail);
     }
 

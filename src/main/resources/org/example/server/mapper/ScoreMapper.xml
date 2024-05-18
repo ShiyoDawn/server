@@ -60,7 +60,7 @@
     </delete>
 
     <delete id="deleteForAll">
-        delete from Score where "student_num" = #{student_num} and "course_num" = #{course_num} and "student_name" = #{student_name} and "course_name" = #{course_name}
+        delete from Score where  "student_num" = #{student_num} and "course_num" = #{course_num}
     </delete>
 
     <insert id="insertMark">
