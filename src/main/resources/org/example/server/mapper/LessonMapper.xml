@@ -68,4 +68,14 @@
     <delete id="deleteLesson">
         delete from lesson where course_id = #{course_id} and week = #{week} and week_time = #{week_time} and time_sort = #{time_sort};
     </delete>
+    <select id="selectSpecific">
+        select * from lesson
+        where course_id = #{course_id} and week = #{week} and week_time = #{week_time} and time_sort = #{time_sort};
+    </select>
+    <insert id="addStudentLesson">
+        insert into student_lesson (student_id,lesson_id,statusAttend) VALUES (#{student_id},#{lesson_id},#{statusAttend});
+    </insert>
+    <select id="selectStudentLesson">
+        select * from student_lesson where student_id = #{student_id} and lesson_id = #{lesson_id};
+    </select>
 </mapper>
