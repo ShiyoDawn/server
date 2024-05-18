@@ -38,7 +38,7 @@ public class UserController {
             OutputStream os = new FileOutputStream(new File("src/main/" + remoteFile+"/"+fileName));
             os.write(barr);
             os.close();
-            return Result.ok();
+            return Result.ok("上传成功");
         } catch (Exception e) {
             return Result.ok();
         }

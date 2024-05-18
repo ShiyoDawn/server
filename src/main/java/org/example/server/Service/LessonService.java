@@ -97,10 +97,8 @@ public class LessonService {
         return Result.ok("添加成功");
     }
 
-    public Result addStudentLesson(List<List<String>> list) {
-        for (List<String> strings : list) {
-            lessonMapper.addStudentLesson(idC(String.valueOf(strings.get(0))), idC(String.valueOf(strings.get(1))));
-        }
+    public Result addStudentLesson(Integer student_id,Integer lesson_id) {
+        lessonMapper.addStudentLesson(student_id,lesson_id,"已签到");
         return Result.ok("添加成功");
     }
 
@@ -130,6 +128,8 @@ public class LessonService {
 
     public Result selectSpecific(Integer course_id, Integer week, Integer week_time, Integer time_sort) {
         return Result.success(lessonMapper.selectSpecific(course_id, week, week_time, time_sort));
-
+    }
+    public Result selectStudentLesson(Integer student_id,Integer lesson_id){
+        return Result.success(lessonMapper.selectStudentLesson(student_id,lesson_id));
     }
 }

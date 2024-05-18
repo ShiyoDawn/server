@@ -68,8 +68,9 @@ public class LessonController {
     }
     @PostMapping("/addStudentLesson")
     public Result addStudentLesson(@Valid @RequestBody DataRequest dataRequest){
-        List<List<String>> list = dataRequest.getList("lesson");
-        return lessonService.addStudentLesson(list);
+        Integer student_id = dataRequest.getInteger("student_id");
+        Integer lesson_id = dataRequest.getInteger("lesson_id");
+        return lessonService.addStudentLesson(student_id,lesson_id);
     }
     @PostMapping("/updateInfo")
     public Result updateInfo(@Valid @RequestBody DataRequest dataRequest){
@@ -99,6 +100,12 @@ public class LessonController {
         Integer week_time = dataRequest.getInteger("week_time");
         Integer time_sort = dataRequest.getInteger("time_sort");
         return lessonService.selectSpecific(course_id,week,week_time,time_sort);
+    }
+    @PostMapping("/selectStudentLesson")
+    public Result selectStudentLesson(@Valid @RequestBody DataRequest dataRequest){
+        Integer student_id = dataRequest.getInteger("student_id");
+        Integer lesson_id = dataRequest.getInteger("lesson_id");
+        return lessonService.selectStudentLesson(student_id,lesson_id);
     }
 
 

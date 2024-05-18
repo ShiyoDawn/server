@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Base64;
 
 @RestController
 @RequestMapping("/leave")
@@ -73,5 +76,26 @@ public class LeaveController {
     public Result selectByStudentName(@Valid @RequestBody DataRequest dataRequest){
         String student_name=dataRequest.getString("student_name");
         return leaveService.selectByStudentName(student_name);
+    }
+    @PostMapping("/getHomework")
+    public Result getPhoto(@RequestBody DataRequest dataRequest) {
+        String person_num = dataRequest.getString("person_num");
+        File file=new File("src/main/homework/"+person_num+".jpg");
+        if(!file.exists()) {
+            return Result.error(-1,"文件不存在");
+        }
+        int len = (int) file.length();
+        byte data[] = new byte[len];
+        FileInputStream in = null;
+        String imgstr=null;
+        try {
+            in = new FileInputStream(file);
+            in.read(data);
+            in.close();
+            imgstr=new String(Base64.getEncoder().encode(data));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return Result.success(imgstr);
     }
 }
