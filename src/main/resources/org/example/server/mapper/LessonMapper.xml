@@ -7,7 +7,7 @@
         SELECT * FROM Lesson;
     </select>
     <?老师添加作业并判断课程是否结束?>
-    <update id="updateHomework">
+    <update id="updateHomework1">
         update Lesson set homework=#{homework} where id = #{id};
     </update>
     <?学生提交作业目前不允许图片?>
@@ -78,4 +78,12 @@
     <select id="selectStudentLesson">
         select * from student_lesson where student_id = #{student_id} and lesson_id = #{lesson_id};
     </select>
+    <update id="updateHomework">
+        update student_lesson set statusHome = #{statusHome},time = #{time}
+        where student_id = #{student_id} and lesson_id = #{lesson_id};
+    </update>
+    <update id="updateHomeworkRank">
+        update student_lesson set homework_rank = #{homework_rank}
+        where student_id = #{student_id} and lesson_id = #{lesson_id};
+    </update>
 </mapper>

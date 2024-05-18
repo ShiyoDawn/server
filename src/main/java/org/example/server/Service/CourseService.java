@@ -174,7 +174,7 @@ public class CourseService {
     public Result selectStudentCourse(Integer id){
         return Result.success(courseMapper.selectStudentCourse(id));
     }
-    public Result selectStudentCourse2(Integer id){
+    public Result selectStudentCourse2(Integer id,Integer lesson_id){
         List<Map<String,String>> stringList = courseMapper.selectStudentCourse2(id);
         List<Map<String,String>> list = new ArrayList<>();
         Map<String,String> map;
@@ -187,6 +187,18 @@ public class CourseService {
             map.put("teacher_name",stringList.get(i).get("teacher_name"));
             map.put("classes",stringList.get(i).get("classes"));
             map.put("person_num",stringList.get(i).get("person_num"));
+            if(courseMapper.selectStudentLesson(Integer.parseInt(String.valueOf(stringList.get(i).get("student_id"))),lesson_id).isEmpty()){
+                map.put("diliver","未提交");
+                map.put("attend","未签到");
+            } else if(String.valueOf(courseMapper.selectStudentLesson(Integer.parseInt(String.valueOf(stringList.get(i).get("student_id"))),lesson_id).get(0).get("statusHome")).equals("null")){
+                map.put("diliver","未提交");
+                map.put("attend","已签到");
+            } else {
+                map.put("attend","已签到");
+                map.put("diliver","已提交");
+                map.put("time",String.valueOf(courseMapper.selectStudentLesson(Integer.parseInt(String.valueOf(stringList.get(i).get("student_id"))),lesson_id).get(0).get("time")));
+                map.put("rank",String.valueOf(courseMapper.selectStudentLesson(Integer.parseInt(String.valueOf(stringList.get(i).get("student_id"))),lesson_id).get(0).get("homework_rank")));
+            }
             list.add(map);
         }
         return Result.success(list);

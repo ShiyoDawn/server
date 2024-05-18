@@ -21,9 +21,9 @@ public class LessonController {
     @Autowired
     LessonService lessonService;
     //删除学生or老师，先删中间表
-    @PostMapping("/updateHomework")
-    public Result updateHomework(@RequestParam String homework,@RequestParam Integer id){
-        return lessonService.updateHomework(homework,id);
+    @PostMapping("/updateHomework1")
+    public Result updateHomework1(@RequestParam String homework,@RequestParam Integer id){
+        return lessonService.updateHomework1(homework,id);
     }
     @PostMapping("/selectAllHomeWorkFromStudent")
     public Result selectAllHomeWorkFromStudent(@RequestParam Integer id){
@@ -131,6 +131,21 @@ public class LessonController {
             throw new RuntimeException(e);
         }
         return Result.success(imgstr);
+    }
+    @PostMapping("/updateHomework")
+    public Result updateHomework(@Valid @RequestBody DataRequest dataRequest){
+        String statusHome = dataRequest.getString("statusHome");
+        String time = dataRequest.getString("time");
+        Integer student_id = dataRequest.getInteger("student_id");
+        Integer lesson_id = dataRequest.getInteger("lesson_id");
+        return lessonService.updateHomework(statusHome,time,student_id,lesson_id);
+    }
+    @PostMapping("/updateHomeworkRank")
+    public Result updateHomeworkRank(@Valid @RequestBody DataRequest dataRequest){
+        String homework_rank = dataRequest.getString("homework_rank");
+        Integer student_id = dataRequest.getInteger("student_id");
+        Integer lesson_id = dataRequest.getInteger("lesson_id");
+        return lessonService.updateHomeworkRang(homework_rank,student_id,lesson_id);
     }
 
 

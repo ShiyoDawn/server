@@ -10,7 +10,7 @@ import java.util.Map;
 @Mapper
 public interface LessonMapper extends BaseMapper<Lesson> {
     List<Lesson> selectLesson();
-    void updateHomework(String homework,Integer id);
+    void updateHomework1(String homework,Integer id);
     void updateHomeworkFromStudent(String student_homework,Integer student_id,Integer lesson_id);
 
     List<String> selectAllHomeworkFromStudent(Integer student_id);
@@ -28,4 +28,6 @@ public interface LessonMapper extends BaseMapper<Lesson> {
     void deleteLesson(Integer course_id,Integer week,Integer week_time,Integer time_sort);
     List<Map<String,String>> selectSpecific(Integer course_id,Integer week,Integer week_time,Integer time_sort);
     List<Map<String,String>> selectStudentLesson(Integer student_id,Integer lesson_id);
+    void updateHomework(String statusHome,String time,Integer student_id,Integer lesson_id);
+    void updateHomeworkRank(String homework_rank,Integer student_id,Integer lesson_id);
 }

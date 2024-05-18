@@ -18,8 +18,8 @@ public class LessonService {
     @Autowired
     LessonMapper lessonMapper;
 
-    public Result updateHomework(String homework, Integer id) {
-        lessonMapper.updateHomework(homework, id);
+    public Result updateHomework1(String homework, Integer id) {
+        lessonMapper.updateHomework1(homework, id);
         return Result.ok("添加作业成功");
     }
 
@@ -131,5 +131,13 @@ public class LessonService {
     }
     public Result selectStudentLesson(Integer student_id,Integer lesson_id){
         return Result.success(lessonMapper.selectStudentLesson(student_id,lesson_id));
+    }
+    public Result updateHomework(String statusHome,String time,Integer student_id,Integer lesson_id){
+        lessonMapper.updateHomework(statusHome,time,student_id,lesson_id);
+        return Result.ok("成功");
+    }
+    public Result updateHomeworkRang(String homework_rank,Integer student_id,Integer lesson_id){
+        lessonMapper.updateHomeworkRank(homework_rank,student_id,lesson_id);
+        return Result.ok("成功");
     }
 }

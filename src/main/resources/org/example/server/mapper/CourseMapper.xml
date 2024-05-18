@@ -135,6 +135,9 @@
                  JOIN person ON student.person_id = person.id
         WHERE student_course.course_id = #{id};
     </select>
+    <select id="selectStudentLesson">
+        select * from student_lesson where student_id = #{student_id} and lesson_id = #{lesson_id};
+    </select>
     <delete id="deleteStudent">
         delete from student_course where student_id = #{student_id} and course_id = #{course_id};
     </delete>

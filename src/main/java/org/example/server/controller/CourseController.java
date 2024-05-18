@@ -145,7 +145,8 @@ public class CourseController {
     @PostMapping("/selectStudentCourse2")
     public Result selectStudentCourse2(@Valid @RequestBody DataRequest dataRequest){
         Integer id = dataRequest.getInteger("id");
-        return courseService.selectStudentCourse2(id);
+        Integer lesson_id = dataRequest.getInteger("lesson_id");
+        return courseService.selectStudentCourse2(id,lesson_id);
     }
     @PostMapping("/deleteStudent")
     public Result deleteStudent(@Valid @RequestBody DataRequest dataRequest){
