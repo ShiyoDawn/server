@@ -1,7 +1,7 @@
 package org.example.server.controller;
 
 
-import lombok.Data;
+
 import org.example.server.Service.ActivityService;
 import org.example.server.payload.Result;
 import org.example.server.payload.request.DataRequest;

@@ -4,14 +4,11 @@ import org.example.server.Service.StudentFamilyService;
 import org.example.server.mapper.StudentFamilyMapper;
 import org.example.server.payload.request.DataRequest;
 import org.example.server.payload.response.DataResponse;
-import org.example.server.pojo.StudentFamily;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/studentFamily")

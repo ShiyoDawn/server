@@ -6,7 +6,7 @@ import org.example.server.mapper.ScoreMapper;
 import org.example.server.mapper.StudentMapper;
 import org.example.server.payload.Result;
 import org.example.server.payload.request.DataRequest;
-import org.example.server.payload.response.DataResponse;
+
 import org.example.server.pojo.Course;
 import org.example.server.pojo.Person;
 import org.example.server.pojo.Score;
@@ -78,7 +78,6 @@ public class ScoreService {
     //查询分数
     public Result selectByStudentAndCourse(String student_num, String course_num) {
         Score score = scoreMapper.selectByStudentAndCourse(student_num, course_num);
-        System.out.println(score);
         if(score!=null){
             return Result.success(score, "查询成功！");
         }
@@ -183,7 +182,6 @@ public class ScoreService {
         //int offset = (pageNum - 1) * pageSize;
         List<Score> scoreList = scoreMapper.selectAll();
         List<Map<String, String>> dataList = new ArrayList();
-        System.out.println(scoreList);
         Map<String, String> map = new HashMap<>();
         for (int i = 0; i < scoreList.size(); i++) {
             map = new HashMap();

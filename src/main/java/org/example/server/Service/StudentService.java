@@ -1,16 +1,11 @@
 package org.example.server.Service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.example.server.mapper.*;
-import org.example.server.payload.Result;
-import org.example.server.payload.response.DataResponse;
-import org.example.server.payload.response.OptionItem;
 import org.example.server.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.constraints.Max;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.*;
@@ -213,7 +208,6 @@ public class StudentService {
         map.put("classes",classes);
         map.put("grade",grade);
         map.put("major",major);
-        System.out.println(map);
         studentMapper.updateStudent(map);
 //        studentMapper.updateStudentName(new_student_name,id);
         return true;
@@ -280,7 +274,6 @@ public class StudentService {
         }
         Person person=personMapper.selectById(student.getPerson_id());
         Map<String, Object> studentMap = new HashMap<>();
-        System.out.println(person);
         if(person!=null){
             String person_num = person.getPerson_num();
             File file=new File("src/main/photo/"+person_num+".jpg");
