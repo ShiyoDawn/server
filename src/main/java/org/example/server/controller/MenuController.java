@@ -1,7 +1,9 @@
 package org.example.server.controller;
 
 import org.example.server.mapper.MenuMapper;
+import org.example.server.mapper.NoticeMapper;
 import org.example.server.payload.Result;
+import org.example.server.payload.request.DataRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,9 @@ import java.util.Map;
 public class MenuController {
     @Autowired
     MenuMapper menuMapper;
+
+    @Autowired
+    NoticeMapper noticeMapper;
 
     @PostMapping("/get")
     public Result getMenu(@RequestBody String type) {
@@ -34,4 +39,18 @@ public class MenuController {
         else return new Result(200,menuList,"ok");
     }
 
+    @PostMapping("/getNotice")
+    public Result getNotice() {
+        List<Map> notice = noticeMapper.selectNotice();
+        return new Result(200,notice,"ok");
+    }
+
+    @PostMapping("/changeNotice")
+    public Result changeNotice(@RequestBody DataRequest dataRequest) {
+        Map newNotice = dataRequest.getData();
+        System.out.println(newNotice);
+        System.out.println(newNotice.get("text"));
+        noticeMapper.updateNotice(newNotice.get("text").toString(), newNotice.get("color").toString());
+        return new Result(200,null,"fine");
+    }
 }

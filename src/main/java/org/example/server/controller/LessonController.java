@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -66,6 +69,12 @@ public class LessonController {
         List<List<String>> list1 = dataRequest.getList("course_id");
         return lessonService.addLesson(list1,list);
     }
+    @PostMapping("/addStudentLesson")
+    public Result addStudentLesson(@Valid @RequestBody DataRequest dataRequest){
+        Integer student_id = dataRequest.getInteger("student_id");
+        Integer lesson_id = dataRequest.getInteger("lesson_id");
+        return lessonService.addStudentLesson(student_id,lesson_id);
+    }
     @PostMapping("/updateInfo")
     public Result updateInfo(@Valid @RequestBody DataRequest dataRequest){
         Integer course_id = dataRequest.getInteger("course_id");
@@ -86,6 +95,42 @@ public class LessonController {
         Integer week_time = dataRequest.getInteger("week_time");
         Integer time_sort = dataRequest.getInteger("time_sort");
         return lessonService.deleteLesson(course_id,week,week_time,time_sort);
+    }
+    @PostMapping("/selectSpecific")
+    public Result selectSpecific(@Valid @RequestBody DataRequest dataRequest){
+        Integer course_id = dataRequest.getInteger("course_id");
+        Integer week = dataRequest.getInteger("week");
+        Integer week_time = dataRequest.getInteger("week_time");
+        Integer time_sort = dataRequest.getInteger("time_sort");
+        return lessonService.selectSpecific(course_id,week,week_time,time_sort);
+    }
+    @PostMapping("/selectStudentLesson")
+    public Result selectStudentLesson(@Valid @RequestBody DataRequest dataRequest){
+        Integer student_id = dataRequest.getInteger("student_id");
+        Integer lesson_id = dataRequest.getInteger("lesson_id");
+        return lessonService.selectStudentLesson(student_id,lesson_id);
+    }
+    @PostMapping("/getPhoto")
+    public Result getPhoto(@RequestBody DataRequest dataRequest) {
+        String student_id = dataRequest.getString("student_id");
+        String lesson_id = dataRequest.getString("lesson_id");
+        File file=new File("src/main/homework/"+ student_id + "a" + lesson_id + "a" + "1" +".jpg");
+        if(!file.exists()) {
+            return Result.error(-1,"文件不存在");
+        }
+        int len = (int) file.length();
+        byte data[] = new byte[len];
+        FileInputStream in = null;
+        String imgstr = null;
+        try {
+            in = new FileInputStream(file);
+            in.read(data);
+            in.close();
+            imgstr=new String(Base64.getEncoder().encode(data));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return Result.success(imgstr);
     }
 
 
