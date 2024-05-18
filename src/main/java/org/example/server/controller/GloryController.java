@@ -54,7 +54,6 @@ public class GloryController {
     public Result selectByStudentAndGlory(@Valid @RequestBody DataRequest dataRequest) {
         String student_num = dataRequest.getString("student_num");
         String glory_name = dataRequest.getString("glory_name");
-        System.out.println(dataRequest.getData());
         return gloryService.selectByStudentAndGlory(student_num, glory_name);
     }
 
