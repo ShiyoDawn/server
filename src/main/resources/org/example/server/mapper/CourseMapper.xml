@@ -227,6 +227,9 @@
     <insert id="addTeacherCourse">
         insert into teacher_course (teacher_id,course_id) VALUES (#{teacher_id},#{course_id});
     </insert>
+    <select id="selectById" resultType="org.example.server.pojo.Course">
+        SELECT * FROM course where id = #{id};
+    </select>
 
 
 </mapper>
