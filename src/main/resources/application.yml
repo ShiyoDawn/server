@@ -2,6 +2,8 @@ spring:
   datasource:
     driver-class-name: org.sqlite.JDBC
     url: jdbc:sqlite:src/main/resources/db/demo.db
+    hikari:
+        maximum-pool-size: 1
 server:
   port: 8080
 
@@ -9,7 +11,3 @@ server:
 mybatis-plus:
   configuration:
   map-underscore-to-camel-case: true
-  mapper-locations=classpath: src/main/java/org/example/server/mapper/**.xml
-
-mybatis:
-    mapper-locations=classpath: src/main/java/classes/org/example/server/mapper/**.xml

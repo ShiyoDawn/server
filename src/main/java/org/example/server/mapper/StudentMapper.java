@@ -45,4 +45,6 @@ public interface StudentMapper extends BaseMapper<Student> {
 
     List<Student> selectByConditions(Map<String, Object> conditions);
 
+    List<Student> selectByGradeAndClasses(String grade, String classes);
+
 }

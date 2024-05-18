@@ -169,4 +169,10 @@
         FROM Student
         WHERE person_id = #{person_id}
     </delete>
+    <select id="selectByGradeAndClasses" resultType="org.example.server.pojo.Student">
+        SELECT *
+        FROM Student
+        WHERE "grade" = #{grade}
+        AND "classes" = #{classes}
+    </select>
 </mapper>

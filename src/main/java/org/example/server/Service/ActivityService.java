@@ -54,6 +54,7 @@ public class ActivityService {
         activity.setDate(date);
         activity.setScore(score);
         activity.setPerson_id(person.getId());
+        System.out.println(activity);
         activityMapper.insertActivity(activity);
         return Result.ok();
     }

@@ -45,4 +45,5 @@ public interface CourseMapper extends BaseMapper<Course> {
     void addCourseStudent(Integer id);
     void minusCourseStudent(Integer id);
     List<Map<String,String>> selectCourseByStudent(Integer student_id,Integer pageNum);
+    Course selectById(Integer id);
 }

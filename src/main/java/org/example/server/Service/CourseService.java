@@ -228,6 +228,7 @@ public class CourseService {
     }
     public Result selectCourseByStudent(Integer student_id,Integer pageNum){
         return Result.success(courseMapper.selectCourseByStudent(student_id,pageNum));
+
     }
 }
 

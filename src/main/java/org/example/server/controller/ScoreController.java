@@ -50,9 +50,7 @@ public class ScoreController {
     public Result deleteAllById(@Valid @RequestBody DataRequest dataRequest) {
         String student_num = dataRequest.getString("student_num");
         String course_num = dataRequest.getString("course_num");
-        String student_name=dataRequest.getString("student_name");
-        String course_name=dataRequest.getString("course_name");
-        return scoreService.deleteAllById(student_num, course_num,student_name,course_name);
+        return scoreService.deleteAllById(student_num, course_num);
     }
 
     @PostMapping("/updateScore")
