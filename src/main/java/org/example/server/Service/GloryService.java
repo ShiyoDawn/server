@@ -19,16 +19,12 @@ public class GloryService {
     @Autowired
     private GloryMapper gloryMapper;
 
-    @Autowired
-    private StudentMapper studentMapper;
 
     @Autowired
     private PersonMapper personMapper;
 
     public Result insertGlory(String student_name, String student_num, String glory_name, String glory_type, String glory_level) {
         Person person=personMapper.selectByPersonNum(student_num);
-        System.out.println(student_num);
-        System.out.println(person);
         Glory glory=new Glory();
         glory.setPerson(person);
         glory.setStudent_name(student_name);
@@ -37,7 +33,6 @@ public class GloryService {
         glory.setGlory_type(glory_type);
         glory.setGlory_level(glory_level);
         glory.setPerson_id(person.getId());
-        System.out.println(glory);
         gloryMapper.insertGlory(glory);
         return Result.ok("添加成功！");
     }
@@ -49,7 +44,6 @@ public class GloryService {
 
     public Result updateGlory(String student_num, String student_name, String glory_name, String glory_level, String glory_type, String raw_glory_name, String raw_glory_level, String raw_glory_type) {
         gloryMapper.updateGlory(student_num, student_name, glory_name, glory_level, glory_type, raw_glory_name, raw_glory_level, raw_glory_type);
-        System.out.println(student_num+" "+student_name+" "+glory_name+" "+glory_level+" "+glory_type+" "+raw_glory_name+" "+raw_glory_level+" "+raw_glory_type);
         return Result.ok("修改成功！");
     }
 
@@ -62,7 +56,6 @@ public class GloryService {
         map.put("glory_name", glory.getGlory_name());
         map.put("glory_type", glory.getGlory_type());
         map.put("glory_level", glory.getGlory_level());
-        System.out.println(map);
         return Result.success(map, "查询成功！");
     }
 

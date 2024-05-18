@@ -2,11 +2,9 @@ package org.example.server.controller;
 
 import org.example.server.Service.UserService;
 import org.example.server.mapper.UserMapper;
-import org.example.server.payload.request.DataRequest;
 import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.SpringServletContainerInitializer;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

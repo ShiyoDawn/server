@@ -3,22 +3,14 @@ package org.example.server.controller;
 import org.example.server.Service.CourseService;
 import org.example.server.Service.ScoreService;
 import org.example.server.Service.StudentService;
-import org.example.server.mapper.CourseMapper;
-import org.example.server.mapper.ScoreMapper;
-import org.example.server.mapper.StudentMapper;
 import org.example.server.payload.Result;
 import org.example.server.payload.request.DataRequest;
-import org.example.server.payload.response.DataResponse;
 import org.example.server.pojo.Score;
-import org.example.server.pojo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.nio.DoubleBuffer;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
 
 @RestController
 @RequestMapping("/score")
@@ -65,16 +57,8 @@ public class ScoreController {
     public Result selectByStudentAndCourse(@Valid @RequestBody DataRequest dataRequest) {
         String student_num = dataRequest.getString("student_num");
         String course_num = dataRequest.getString("course_num");
-        System.out.println(student_num+" "+course_num);
         return scoreService.selectByStudentAndCourse(student_num, course_num);
     }
-
-/*    @PostMapping("/selectByStudentNum")
-    public Result selectByStudentId(@Valid @RequestBody DataRequest dataRequest) {
-        String student_num = dataRequest.getString("student_num");
-        System.out.println(student_num+"ok");
-        return scoreService.selectByStudentId(student_num);
-    }*/
 
     @PostMapping("/selectByStudentName")
     public Result selectByStudentName(@Valid @RequestBody DataRequest dataRequest) {
@@ -87,13 +71,6 @@ public class ScoreController {
         String course_num = dataRequest.getString("course_num");
         return scoreService.selectByCourseId(course_num);
     }
-
-
-/*    @PostMapping("/selectByCourseName")
-    public Result selectByCourseName(@Valid @RequestBody DataRequest dataRequest) {
-        String course_name = dataRequest.getString("course_name");
-        return scoreService.selectByCourseName(course_name);
-    }*/
 
 
     @PostMapping("/getScoreList")

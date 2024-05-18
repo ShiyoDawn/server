@@ -1,17 +1,13 @@
 package org.example.server.controller;
 
-import lombok.Data;
+
 import org.example.server.Service.PersonService;
 import org.example.server.payload.Result;
 import org.example.server.payload.request.DataRequest;
-import org.example.server.payload.response.DataResponse;
-import org.example.server.pojo.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/person")
@@ -51,12 +47,6 @@ public class PersonController {
         return personSevice.selectSPersonByIdMap(id);
     }
 
-//    @PostMapping("/updatePhoto")
-//    public Result updatePhoto(@Valid @RequestBody DataRequest dataRequest) {
-//        String person_num = dataRequest.getString("person_num");
-//        byte[] photo = dataRequest.getBytes("photo");
-//        return personSevice.updatePhoto(person_num, photo);
-//    }
 
     @PostMapping("/selectPhoto")
     public Result selectPhoto(@Valid @RequestBody DataRequest dataRequest) {

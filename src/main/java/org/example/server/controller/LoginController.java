@@ -14,10 +14,4 @@ public class LoginController {
     public Result login(@RequestBody LoginRequest loginRequest){
         return userService.loginReq(loginRequest.getUserName(), loginRequest.getPassword());
     }
-
-    @PostMapping("/loginAgain")
-    public Integer loginAgain(@RequestBody Integer id){
-        System.out.println(id);
-        return id;
-    }
 }
