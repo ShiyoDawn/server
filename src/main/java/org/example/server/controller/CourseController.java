@@ -30,7 +30,7 @@ public class CourseController {
         String extracurricular=dataRequest.getString("extracurricular");
         String teacher = dataRequest.getString("teacher");
         String classes = dataRequest.getString("classes");
-        String capacity = dataRequest.getString("capacity");
+        Integer capacity = dataRequest.getInteger("capacity");
         return courseService.updateInfo(id, course_name, credit, num, course_type, book, extracurricular,teacher,classes,capacity);
     }
     @PostMapping("/selectInfo")
@@ -198,7 +198,7 @@ public class CourseController {
     public Result selectLessonStudent(@RequestBody DataRequest dataRequest){
         Integer student_id = dataRequest.getInteger("student_id");
         String terms = dataRequest.getString("terms");
-        return courseService.selectLessonStudent(student_id,terms);
+        return courseService.selectLessonStudent2(student_id,terms);
     }
     @PostMapping("/selectByNum2")
     public Result selectByNum2(@RequestBody DataRequest dataRequest){
@@ -236,6 +236,16 @@ public class CourseController {
         Integer teacher_id = dataRequest.getInteger("teacher_id");
         Integer course_id = dataRequest.getInteger("course_id");
         return courseService.addTeacherCourse(teacher_id,course_id);
+    }
+    @PostMapping("/addEvent")
+    public Result addEvent(@Valid @RequestBody DataRequest dataRequest){
+        Integer student_id = dataRequest.getInteger("student_id");
+        return courseService.addEvent(student_id);
+    }
+    @PostMapping("/selectLessonByStudentA")
+    public Result selectLessonByStudentA(@Valid @RequestBody DataRequest dataRequest){
+        Integer course_id = dataRequest.getInteger("course_id");
+        return courseService.selectLessonByStudentA(course_id);
     }
 }
 

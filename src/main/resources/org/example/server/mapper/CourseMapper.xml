@@ -135,6 +135,9 @@
                  JOIN person ON student.person_id = person.id
         WHERE student_course.course_id = #{id};
     </select>
+    <select id="selectLessonStudent">
+        select * from student_lesson where student_id = #{student_id};
+    </select>
     <select id="selectStudentLesson">
         select * from student_lesson where student_id = #{student_id} and lesson_id = #{lesson_id};
     </select>
@@ -192,7 +195,7 @@
         FROM student_course
         WHERE course_id = #{pre_course_id} and student_id = #{student_id};
     </select>
-    <select id="selectLessonStudent">
+    <select id="selectLessonStudent2">
         SELECT course.course_name,course.teacher_name,course.classes,course_type.course_type_name,course.credit,lesson.week,lesson.time_sort,lesson.room,lesson.week_time
         FROM student
                  JOIN student_course ON student.id = student_course.student_id
@@ -233,6 +236,28 @@
     <select id="selectById" resultType="org.example.server.pojo.Course">
         SELECT * FROM course where id = #{id};
     </select>
+<!--    <select id="addEvent">-->
+<!--        select *,course.course_name,lesson.homework-->
+<!--        from student_lesson-->
+<!--            JOIN lesson ON student_lesson.lesson_id = lesson.id-->
+<!--            JOIN course ON lesson.course_id = course.id-->
+<!--        where student_id = #{student_id}-->
+<!--    </select>-->
+    <select id="selectLessonInner">
+        select * from lesson where id=#{lesson_id};
+    </select>
+    <select id="selectCourseName">
+        select course.course_name
+        from lesson
+        JOIN course ON lesson.course_id=course.id
+        where lesson.id=#{lesson_id};
+    </select>
+    <select id="selectLessonByCourse">
+        select lesson.homework,lesson.id
+        from course
+        JOIN lesson ON course.id = lesson.course_id
+        where course.id = #{course_id}
 
+    </select>
 
 </mapper>

@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Mapper
 public interface CourseMapper extends BaseMapper<Course> {
-    void updateInfo(Integer id, String course_name,Double credit,String num,Integer course_type_id,String book,String extracurricular,String teacher,String classes,String capacity);
+    void updateInfo(Integer id, String course_name,Double credit,String num,Integer course_type_id,String book,String extracurricular,String teacher,String classes,Integer capacity);
     List<Map<String,String>> selectAll();
     List<Map<String,String>> selectAllByPage(Integer pageNum);
     Course selectInfo(Integer id);
@@ -28,6 +28,7 @@ public interface CourseMapper extends BaseMapper<Course> {
     List<Map<String,String>> selectSpecial(String terms,Integer course_type_id,String course_name,Integer pageNum,String num,String classes,String classe);
     void deleteCourse(Integer id);
     List<Map<String,String>> selectStudentCourse(Integer id);
+    List<Map<String,String>> selectLessonStudent(Integer student_id);
     List<Map<String,String>> selectStudentCourse2(Integer id);
     List<Map<String,String>> selectStudentLesson(Integer student_id, Integer lesson_id);
     void deleteStudent(Integer student_id,Integer course_id);
@@ -37,7 +38,7 @@ public interface CourseMapper extends BaseMapper<Course> {
     List<Map<String,String>> selectclasses(Integer id);
     List<Map<String,String>> selectclassesT(Integer id);
     List<Map<String,String>> selectCourseByType(Integer id1,Integer id2,Integer id3,Integer pageNum,String classes,String classe,String terms);
-    List<Map<String,String>> selectLessonStudent(Integer student_id,String terms);
+    List<Map<String,String>> selectLessonStudent2(Integer student_id,String terms);
     List<Map<String,String>> selectByNum2(String num);
     void addCourseStudent(Integer id);
     void minusCourseStudent(Integer id);
@@ -47,4 +48,8 @@ public interface CourseMapper extends BaseMapper<Course> {
     void addTeacherCourse(Integer teacher_id,Integer course_id);
 
     Course selectById(int id);
+//    List<Map<String,String>> addEvent(Integer student_id);
+    List<Map<String,String>> selectLessonInner(Integer lesson_id);
+    List<Map<String,String>> selectCourseName(Integer lesson_id);
+    List<Map<String,String>> selectLessonByCourse(Integer course_id);
 }

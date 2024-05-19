@@ -86,4 +86,5 @@
         update student_lesson set homework_rank = #{homework_rank}
         where student_id = #{student_id} and lesson_id = #{lesson_id};
     </update>
+
 </mapper>
